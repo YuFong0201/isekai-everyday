@@ -1,0 +1,955 @@
+/* css/card.css - 完美對齊且自適應動態縮放的像素 RPG 介面 */
+
+/* 1. 牌桌中央抽牌按鈕 (回歸首頁黃金像素按鈕風格) */
+.draw-trigger-box {
+  position: absolute !important;
+  top: 52% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 20 !important;
+  pointer-events: auto !important;
+}
+
+.draw-trigger-box.hidden { display: none !important; }
+
+.btn-draw-main {
+  padding: clamp(12px, 2.2vh, 20px) clamp(28px, 4vw, 50px);
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 900;
+  color: #451a03;
+  background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
+  border: 4px solid #fef3c7;
+  outline: 3px solid #78350f;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 8px 0px #78350f, 0 15px 30px rgba(0, 0, 0, 0.8);
+  transition: all 0.15s ease;
+  text-shadow: 1px 1px 0px #fef08a;
+  letter-spacing: 2px;
+  animation: drawBtnPulse 2.5s ease-in-out infinite;
+  image-rendering: pixelated;
+}
+
+.btn-draw-main:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #fbbf24 100%);
+  transform: scale(1.06);
+  box-shadow: 0 10px 0px #78350f, 0 20px 35px rgba(245, 158, 11, 0.6);
+}
+
+.btn-draw-main:active {
+  transform: scale(0.98) translateY(4px);
+  box-shadow: 0 4px 0px #78350f, 0 5px 15px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes drawBtnPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+/* 2. 滿版選牌 / 說故事 Modal Overlay */
+.card-modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 99999;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  overflow-y: auto;
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  image-rendering: pixelated;
+}
+
+.card-modal-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  backdrop-filter: blur(0px);
+}
+
+.card-stage-content {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  width: 95%; position: relative;
+  max-width: 1400px;
+  text-align: center;
+}
+
+/* 3. 🎯 完美置中對齊的計時器 */
+.timer-box {
+  position: relative;
+  width: clamp(56px, 8vh, 84px);
+  height: clamp(56px, 8vh, 84px);
+  margin-bottom: 1.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1e1b4b;
+  border: 4px solid #d97706;
+  outline: 2px solid #000000;
+  border-radius: 50%;
+  box-shadow: 0 6px 0px #000000;
+  box-sizing: border-box;
+}
+
+.timer-box.hidden { display: none !important; }
+
+.timer-box.warning {
+  border-color: #ef4444;
+  animation: timerPulse 0.5s infinite alternate;
+}
+
+@keyframes timerPulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+.timer-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer-circle-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 6;
+}
+
+.timer-circle-progress {
+  fill: none;
+  stroke: #fbbf24;
+  stroke-width: 6;
+  stroke-dasharray: 264;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.timer-box.warning .timer-circle-progress { stroke: #ef4444 !important; }
+
+#timer-count-num {
+  font-size: clamp(18px, 2.5vh, 28px);
+  font-weight: 900;
+  color: #fef08a;
+  text-shadow: 2px 2px 0px #000000;
+  z-index: 2;
+  line-height: 1;
+}
+
+#stage-title {
+  font-size: clamp(18px, 2.4vw, 32px);
+  font-weight: 900;
+  color: #fef08a;
+  text-shadow: 2px 2px 0px #000000, 0 0 12px rgba(250, 204, 21, 0.5);
+  margin-bottom: 2.5vh;
+  letter-spacing: 1px;
+}
+
+/* 4. 自適應動態卡牌排列列 */
+.cards-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(14px, 2.5vw, 36px);
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 2vh;
+}
+
+/* ===== 🃏 🎯 徹底修復四角對齊與色差問題的像素卡牌 ===== */
+.card {
+  width: clamp(145px, 18vw, 240px);
+  height: clamp(210px, 42vh, 360px);
+  background: radial-gradient(circle at center, #2e1065 0%, #17073b 100%);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding: clamp(12px, 2vh, 22px) clamp(10px, 1.2vw, 18px);
+  user-select: none;
+  border-radius: 2px;
+  
+  /* 乾淨俐落的主要卡牌邊框 */
+  border: clamp(3px, 0.4vw, 5px) solid #fbbf24;
+  outline: clamp(2px, 0.25vw, 3px) solid #000000;
+  box-shadow: 0 8px 0px #000000, 0 15px 25px rgba(0, 0, 0, 0.8);
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  opacity: 0;
+  animation: dealFlyIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+             floatAir 3s ease-in-out infinite 0.4s;
+}
+
+/* 🎯 頂部兩個護角（左上與右上，精準 100% 貼邊） */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  height: clamp(8px, 1vw, 12px);
+  background: transparent;
+  box-shadow: 
+    inset clamp(8px, 1vw, 12px) 0 0 0 #fef08a, 
+    inset - clamp(8px, 1vw, 12px) 0 0 0 #fef08a;
+  border-top: 2px solid #78350f;
+  border-left: 2px solid #78350f;
+  border-right: 2px solid #78350f;
+  z-index: 10;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* 🎯 底部兩個護角（左下與右下，精準 100% 貼邊） */
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: -3px;
+  right: -3px;
+  height: clamp(8px, 1vw, 12px);
+  background: transparent;
+  box-shadow: 
+    inset clamp(8px, 1vw, 12px) 0 0 0 #fef08a, 
+    inset - clamp(8px, 1vw, 12px) 0 0 0 #fef08a;
+  border-bottom: 2px solid #78350f;
+  border-left: 2px solid #78350f;
+  border-right: 2px solid #78350f;
+  z-index: 10;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.card:nth-child(1) { animation-delay: 0.0s, 0.4s; }
+.card:nth-child(2) { animation-delay: 0.1s, 0.5s; }
+.card:nth-child(3) { animation-delay: 0.2s, 0.6s; }
+.card:nth-child(4) { animation-delay: 0.3s, 0.7s; }
+
+@keyframes dealFlyIn {
+  0% { opacity: 0; transform: translateY(-160px) scale(0.4); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes floatAir {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.05) !important;
+  box-shadow: 0 16px 0px #000000, 0 25px 35px rgba(250, 204, 21, 0.4) !important;
+}
+
+.card:active {
+  transform: translateY(-2px) scale(0.98) !important;
+  box-shadow: 0 4px 0px #000000 !important;
+}
+
+/* 頂部寶石 Tag 框 */
+.card-tag {
+  font-size: clamp(10px, 1.1vw, 15px);
+  font-weight: 900;
+  color: #fef08a;
+  padding: 3px clamp(8px, 1vw, 16px);
+  background: #1e1b4b;
+  border: 2px solid #d97706;
+  outline: 1px solid #000000;
+  border-radius: 2px;
+  box-shadow: 0 2px 0px #000000;
+  letter-spacing: 1px;
+  z-index: 5;
+  white-space: nowrap;
+}
+
+/* 中央卡牌圖示 */
+.card-icon {
+  font-size: clamp(34px, 4.2vw, 68px);
+  width: clamp(56px, 6.8vw, 110px);
+  height: clamp(56px, 6.8vw, 110px);
+  background: #110d38;
+  border: 3px solid #d97706;
+  outline: 2px solid #000000;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 2px 2px 0px #000000;
+  margin: 4px 0;
+  z-index: 5;
+  box-sizing: border-box;
+}
+
+/* 底部卡牌標題 */
+.card-title {
+  font-size: clamp(11px, 1.2vw, 18px);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.35;
+  text-shadow: 2px 2px 0px #000000;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 5;
+  padding: 0 4px;
+}
+
+/* ===== 🎨 各卡牌類型動態護角配色 ===== */
+
+/* 1. 人物卡 */
+.card.type-character,
+.card[data-tag*="人物"] {
+  background: radial-gradient(circle at center, #54230e 0%, #290f04 100%);
+  border-color: #f59e0b;
+}
+.card.type-character .card-tag,
+.card[data-tag*="人物"] .card-tag {
+  background: #78350f;
+  border-color: #fef08a;
+}
+.card.type-character .card-icon,
+.card[data-tag*="人物"] .card-icon {
+  border-color: #f59e0b;
+  background: #1c0d02;
+}
+
+/* 2. 地點卡 */
+.card.type-location,
+.card[data-tag*="地點"] {
+  background: radial-gradient(circle at center, #065f46 0%, #022c22 100%);
+  border-color: #10b981;
+}
+.card.type-location::before,
+.card.type-location::after {
+  box-shadow: 
+    inset clamp(8px, 1vw, 12px) 0 0 0 #a7f3d0, 
+    inset - clamp(8px, 1vw, 12px) 0 0 0 #a7f3d0;
+  border-color: #064e3b;
+}
+.card.type-location .card-tag,
+.card[data-tag*="地點"] .card-tag {
+  background: #064e3b;
+  border-color: #a7f3d0;
+}
+.card.type-location .card-icon,
+.card[data-tag*="地點"] .card-icon {
+  border-color: #34d399;
+  background: #022c22;
+}
+
+/* 3. 事件/動作卡 */
+.card.type-event,
+.card[data-tag*="事件"],
+.card[data-tag*="動作"] {
+  background: radial-gradient(circle at center, #831843 0%, #4c0519 100%);
+  border-color: #ec4899;
+}
+.card.type-event::before,
+.card.type-event::after {
+  box-shadow: 
+    inset clamp(8px, 1vw, 12px) 0 0 0 #f5d0fe, 
+    inset - clamp(8px, 1vw, 12px) 0 0 0 #f5d0fe;
+  border-color: #701a75;
+}
+.card.type-event .card-tag,
+.card[data-tag*="事件"] .card-tag {
+  background: #701a75;
+  border-color: #f5d0fe;
+}
+.card.type-event .card-icon,
+.card[data-tag*="事件"] .card-icon {
+  border-color: #f472b6;
+  background: #380220;
+}
+
+/* 4. 狀況/難題卡 */
+.card.type-condition,
+.card[data-tag*="狀況"],
+.card[data-tag*="難題"] {
+  background: radial-gradient(circle at center, #4c1d95 0%, #1e1b4b 100%);
+  border-color: #a855f7;
+}
+.card.type-condition::before,
+.card.type-condition::after {
+  box-shadow: 
+    inset clamp(8px, 1vw, 12px) 0 0 0 #e9d5ff, 
+    inset - clamp(8px, 1vw, 12px) 0 0 0 #e9d5ff;
+  border-color: #31105e;
+}
+.card.type-condition .card-tag,
+.card[data-tag*="狀況"] .card-tag {
+  background: #31105e;
+  border-color: #e9d5ff;
+}
+.card.type-condition .card-icon,
+.card[data-tag*="狀況"] .card-icon {
+  border-color: #c084fc;
+  background: #18032e;
+}
+
+/* 5. 結局卡 (修復透明看不見的問題並增強華麗極光金黃特效) */
+.card.ending-card,
+.card[data-tag*="結局"] {
+  background: radial-gradient(circle at center, #9a3412 0%, #451a03 100%) !important;
+  border-color: #fef08a !important;
+  opacity: 1 !important; /* 🛡️ 強制顯現，防止隱形透明 */
+  animation: dealFlyIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+             endingGlow 2s infinite alternate !important;
+  z-index: 20;
+}
+
+/* 結局卡護角光芒強化 */
+.card.ending-card::before,
+.card.ending-card::after,
+.card[data-tag*="結局"]::before,
+.card[data-tag*="結局"]::after {
+  box-shadow: 
+    inset clamp(8px, 1vw, 12px) 0 0 0 #fef08a, 
+    inset - clamp(8px, 1vw, 12px) 0 0 0 #fef08a !important;
+  border-color: #b45309 !important;
+}
+
+@keyframes endingGlow {
+  from { 
+    border-color: #fbbf24; 
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.8), 0 10px 0px #000000; 
+  }
+  to { 
+    border-color: #ffffff; 
+    box-shadow: 0 0 35px rgba(254, 240, 138, 1), 0 0 50px rgba(245, 158, 11, 0.6), 0 10px 0px #000000; 
+  }
+}
+
+.card.ending-card .card-tag,
+.card[data-tag*="結局"] .card-tag {
+  background: #d97706 !important;
+  border-color: #fef08a !important;
+  color: #ffffff !important;
+  text-shadow: 1px 1px 0px #000000;
+}
+
+.card.ending-card .card-icon,
+.card[data-tag*="結局"] .card-icon {
+  border-color: #fef08a !important;
+  background: #270e03 !important;
+}
+
+/* 6. 跳過/放棄卡 */
+.card.pass-card,
+.card[data-tag*="放棄"] {
+  background: radial-gradient(circle at center, #334155 0%, #0f172a 100%);
+  border-color: #64748b;
+  opacity: 0.9 !important;
+}
+.card.pass-card::before,
+.card.pass-card::after {
+  box-shadow: 
+    inset clamp(8px, 1vw, 12px) 0 0 0 #94a3b8, 
+    inset - clamp(8px, 1vw, 12px) 0 0 0 #94a3b8;
+  border-color: #1e293b;
+}
+
+/* 說故事模式：放大顯示選中的卡片 */
+.card.card-selected-display {
+  width: clamp(180px, 22vw, 280px);
+  height: clamp(260px, 48vh, 410px);
+  cursor: default;
+  transform: none !important;
+  box-shadow: 0 0 35px rgba(245, 158, 11, 0.8), 0 12px 0px #000000 !important;
+  animation: popupCard 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+}
+
+@keyframes popupCard {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.card.card-selected-display .card-icon {
+  width: clamp(80px, 9vw, 130px);
+  height: clamp(80px, 9vw, 130px);
+  font-size: clamp(48px, 6vw, 80px);
+}
+
+.card.card-selected-display .card-title {
+  font-size: clamp(14px, 1.5vw, 22px);
+}
+
+/* 下落動畫 */
+.card.card-fall { animation: cardFallDown 0.4s ease forwards !important; }
+@keyframes cardFallDown {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(120px) scale(0.5); }
+}
+
+/* ===== 🗣️ 評分按鈕與故事記錄員 ===== */
+.judge-actions-box {
+  display: flex;
+  justify-content: center;
+  gap: clamp(12px, 2vw, 24px);
+  margin-top: 2vh;
+  width: 100%;
+}
+
+.judge-actions-box.hidden { display: none !important; }
+
+.btn-judge {
+  padding: clamp(10px, 1.5vh, 16px) clamp(20px, 2.5vw, 36px);
+  font-size: clamp(15px, 1.6vw, 22px);
+  font-weight: 900;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 3px solid #000000;
+  box-shadow: 0 5px 0px #000000;
+  transition: all 0.1s ease;
+  letter-spacing: 0.5px;
+}
+
+.btn-judge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0px #000000;
+}
+
+.btn-judge:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0px #000000;
+}
+
+.btn-good {
+  background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
+  color: #ffffff;
+  text-shadow: 1px 1px 0px #052e16;
+}
+
+.btn-fail {
+  background: linear-gradient(180deg, #f87171 0%, #dc2626 100%);
+  color: #ffffff;
+  text-shadow: 1px 1px 0px #450a0a;
+}
+
+/* 故事記錄員 Modal 面板 */
+.story-recorder-modal {
+  margin-top: 2vh;
+  background: rgba(30, 27, 75, 0.95);
+  border: 4px solid #d97706;
+  outline: 2px solid #000000;
+  border-radius: 4px;
+  padding: clamp(10px, 1.5vh, 18px) clamp(12px, 1.5vw, 22px);
+  max-width: 650px;
+  width: 90%;
+  box-sizing: border-box;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.story-recorder-modal.hidden { display: none !important; }
+
+.story-recorder-modal h4 {
+  color: #fef08a;
+  margin: 0 0 10px 0;
+  font-size: clamp(13px, 1.4vw, 18px);
+  font-weight: 900;
+  text-align: left;
+  text-shadow: 1px 1px 0px #000000;
+}
+
+.story-recorder-modal textarea {
+  width: 100%;
+  height: clamp(65px, 10vh, 110px);
+  background: #0f172a;
+  border: 3px solid #4338ca;
+  border-radius: 2px;
+  color: #ffffff;
+  padding: 10px;
+  box-sizing: border-box;
+  outline: none;
+  font-size: clamp(13px, 1.3vw, 18px);
+  font-weight: bold;
+  resize: none;
+  box-shadow: inset 2px 2px 0px #000000;
+}
+
+.story-recorder-modal textarea:focus {
+  border-color: #facc15;
+  background: #1e1b4b;
+}
+
+/* ===== 🌟 像素風加分 / 扣分彈窗 (Score Popups) ===== */
+.score-popup {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  padding: clamp(10px, 1.5vh, 18px) clamp(20px, 3vw, 40px);
+  border-radius: 4px;
+  z-index: 999999;
+  pointer-events: none;
+  animation: popupFloat 1.5s ease-out forwards;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  border: 4px solid #000000;
+}
+
+.score-popup.good {
+  background: #15803d;
+  color: #fef08a;
+  border-color: #86efac;
+  text-shadow: 2px 2px 0px #000000;
+}
+
+.score-popup.fail {
+  background: #b91c1c;
+  color: #ffffff;
+  border-color: #fca5a5;
+  text-shadow: 2px 2px 0px #000000;
+}
+
+@keyframes popupFloat {
+  0% { opacity: 0; transform: translate(-50%, -30%) scale(0.5); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  80% { opacity: 1; transform: translate(-50%, -60%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -80%) scale(0.9); }
+}
+
+/* 📱 螢幕與觸控螢幕優化 (Mobile & Touch Screen) */
+@media (max-width: 768px), (max-height: 600px) {
+  .cards-row {
+    gap: 10px;
+    max-height: 65vh;
+    overflow-y: auto;
+    padding: 5px;
+  }
+
+  .card {
+    width: clamp(120px, 40vw, 155px);
+    height: clamp(180px, 32vh, 230px);
+    padding: 8px 6px;
+  }
+
+  .card-icon {
+    width: 48px; height: 48px;
+    font-size: 28px;
+  }
+
+  .card-title {
+    font-size: 11px;
+  }
+
+  .card.card-selected-display {
+    width: clamp(150px, 50vw, 190px);
+    height: clamp(220px, 40vh, 270px);
+  }
+
+  .btn-judge {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+/* ===== 🏆 完美像素城堡露台風格頒獎台結算畫面 ===== */
+#result-view {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  /* 🏰 城堡露台滿版像素背景圖 */
+  background-image: url('/assets/end_background.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  
+  justify-content: center;
+  align-items: center;
+  padding: 20px 10px;
+  z-index: 1000;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+#result-view.active { display: flex !important; }
+
+/* 像素風半透明主面板 (透露出後方城堡星空背景) */
+.result-card-container {
+  background: rgba(46, 16, 101, 0.88);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 4px solid #f59e0b;
+  outline: 3px solid #78350f;
+  border-radius: 4px;
+  padding: clamp(20px, 3vh, 32px) clamp(16px, 2vw, 30px);
+  max-width: 1050px;
+  width: 92%;
+  box-shadow: 0 12px 0px #000000, 0 20px 50px rgba(0, 0, 0, 0.9);
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 像素風格標題 */
+.result-title {
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 900;
+  color: #fef08a;
+  margin-bottom: 24px;
+  text-shadow: 
+    3px 3px 0px #451a03,
+    -2px -2px 0px #451a03,
+    2px -2px 0px #451a03,
+    -2px 2px 0px #451a03,
+    0 0 12px rgba(250, 204, 21, 0.6);
+  letter-spacing: 2px;
+}
+
+/* 頒獎台舞台 */
+.podium-stage {
+  display: flex;
+  gap: clamp(8px, 1.5vw, 16px);
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 28px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.podium-column {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 155px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.podium-column.rank-1 { order: 2; }
+.podium-column.rank-2 { order: 1; }
+.podium-column.rank-3 { order: 3; }
+.podium-column.rank-4 { order: 4; }
+.podium-column.rank-5 { order: 5; }
+.podium-column.rank-6 { order: 6; }
+
+/* 像素玩家資訊卡 */
+.podium-player-card {
+  background: rgba(30, 27, 75, 0.95);
+  border: 3px solid #4338ca;
+  outline: 2px solid #000000;
+  border-radius: 2px;
+  padding: 8px 4px;
+  width: 100%;
+  box-shadow: 0 4px 0px #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+.podium-column.rank-1 .podium-player-card {
+  border-color: #f59e0b;
+  outline-color: #fef08a;
+  background: radial-gradient(circle at center, #54230e 0%, #1e1b4b 100%);
+  box-shadow: 0 6px 0px #000000, 0 0 18px rgba(245, 158, 11, 0.6);
+  transform: scale(1.05);
+}
+
+.podium-crown {
+  font-size: 26px;
+  margin-bottom: -4px;
+  animation: pulseCrown 1.2s infinite alternate;
+}
+
+@keyframes pulseCrown {
+  from { transform: translateY(0) scale(1); }
+  to { transform: translateY(-4px) scale(1.15); }
+}
+
+.podium-avatar { font-size: 32px; filter: drop-shadow(2px 2px 0px #000); }
+
+.podium-name {
+  font-size: clamp(12px, 1.2vw, 15px);
+  font-weight: 900;
+  color: #fef08a;
+  margin: 4px 0 2px 0;
+  text-shadow: 2px 2px 0px #000000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.podium-score {
+  font-size: clamp(13px, 1.3vw, 16px);
+  font-weight: 900;
+  color: #fbbf24;
+  text-shadow: 1.5px 1.5px 0px #000000;
+}
+
+/* 像素領獎台階 (Podium Blocks) */
+.podium-block {
+  width: 100%;
+  border-radius: 2px 2px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 900;
+  color: #ffffff;
+  border: 3px solid #000000;
+  border-bottom: none;
+  text-shadow: 2px 2px 0px #000000;
+  box-shadow: inset 0 3px 0px rgba(255, 255, 255, 0.2);
+}
+
+.podium-column.rank-1 .podium-block {
+  height: 95px;
+  background: linear-gradient(180deg, #fef08a 0%, #d97706 100%);
+  color: #451a03;
+  text-shadow: 1px 1px 0px #fef08a;
+}
+
+.podium-column.rank-2 .podium-block {
+  height: 75px;
+  background: linear-gradient(180deg, #cbd5e1 0%, #475569 100%);
+}
+
+.podium-column.rank-3 .podium-block {
+  height: 55px;
+  background: linear-gradient(180deg, #f97316 0%, #78350f 100%);
+}
+
+.podium-column.rank-4 .podium-block,
+.podium-column.rank-5 .podium-block,
+.podium-column.rank-6 .podium-block {
+  height: 40px;
+  background: #334155;
+  font-size: 13px;
+}
+
+/* 像素迷你卡片列表 */
+.podium-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.mini-card-item {
+  background: #0f172a;
+  border-radius: 2px;
+  border: 2px solid #38bdf8;
+  padding: 3px 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 0px #000000;
+  text-align: left;
+}
+
+.mini-card-item.ending {
+  border-color: #f59e0b;
+  background: #451a03;
+}
+
+.mini-card-icon { font-size: 13px; flex-shrink: 0; }
+.mini-card-info { display: flex; flex-direction: column; overflow: hidden; }
+.mini-card-title { font-size: 10px; font-weight: 900; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 1px 1px 0px #000; }
+.mini-card-tag { font-size: 8px; color: #7dd3fc; font-weight: bold; }
+
+/* 底部操作按鈕區塊 */
+.result-actions {
+  display: flex;
+  gap: clamp(10px, 2vw, 20px);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.result-actions button {
+  padding: clamp(10px, 1.8vh, 14px) clamp(18px, 2.5vw, 32px);
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 900;
+  color: #451a03;
+  background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
+  border: 3px solid #fef3c7;
+  outline: 2px solid #78350f;
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 5px 0px #78350f, 0 8px 15px rgba(0, 0, 0, 0.6);
+  transition: all 0.12s ease;
+  text-shadow: 1px 1px 0px #fef08a;
+  letter-spacing: 1px;
+}
+
+.result-actions button:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #fbbf24 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0px #78350f, 0 12px 20px rgba(245, 158, 11, 0.5);
+}
+
+.result-actions button:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0px #78350f;
+}
+
+/* 📱 手機板自適應 */
+@media screen and (max-width: 768px) {
+  .podium-stage {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .podium-column {
+    max-width: 100%;
+    flex-direction: row;
+    align-items: center;
+    background: #1e1b4b;
+    border-radius: 2px;
+    padding: 6px 10px;
+    border: 2px solid #4338ca;
+  }
+
+  .podium-column.rank-1 { order: 1; border-color: #f59e0b; }
+  .podium-column.rank-2 { order: 2; }
+  .podium-column.rank-3 { order: 3; }
+  .podium-column.rank-4 { order: 4; }
+  .podium-column.rank-5 { order: 5; }
+  .podium-column.rank-6 { order: 6; }
+
+  .podium-block {
+    width: 55px; height: 32px !important;
+    border-radius: 2px; font-size: 13px;
+    flex-shrink: 0; margin-right: 10px; border-bottom: 3px solid #000;
+  }
+
+  .podium-player-card {
+    flex-direction: row; gap: 10px; background: transparent;
+    border: none; outline: none; box-shadow: none; margin-bottom: 0; padding: 0;
+    width: auto; flex-grow: 1;
+  }
+
+  .podium-crown { display: none; }
+  .podium-cards-container {
+    flex-direction: row; width: auto; max-height: none; overflow-x: auto;
+  }
+}

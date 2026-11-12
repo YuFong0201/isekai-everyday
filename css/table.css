@@ -1,0 +1,359 @@
+/* css/table.css - 遊戲內 3D 牌桌與像素風 UI 佈局樣式 */
+
+#table-view {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #0f172a;
+  image-rendering: pixelated;
+}
+
+/* 3D WebGL 畫布鋪滿全螢幕 (極光爆發動畫) */
+#three-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: block;
+  transition: filter 0.2s ease;
+}
+
+#three-canvas.magic-circle-burst {
+  animation: magicCanvasGlow 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes magicCanvasGlow {
+  0% {
+    filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.3)) brightness(1);
+  }
+  30% {
+    filter: drop-shadow(0 0 60px rgba(74, 222, 128, 0.95)) 
+            drop-shadow(0 0 100px rgba(56, 189, 248, 0.8)) 
+            drop-shadow(0 0 140px rgba(250, 204, 21, 0.7)) 
+            brightness(1.6);
+  }
+  65% {
+    filter: drop-shadow(0 0 35px rgba(74, 222, 128, 0.6)) brightness(1.25);
+  }
+  100% {
+    filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0)) brightness(1);
+  }
+}
+
+/* 頂部 Header 資訊列 */
+.game-header {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1000px;
+  min-height: 85px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+  background: rgba(43, 31, 59, 0.92);
+  border: 4px solid #d97706;
+  outline: 2px solid #000000;
+  border-radius: 4px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8), inset 0 0 6px rgba(217, 119, 6, 0.3);
+  color: white;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+#timer-display {
+  font-size: 15px;
+  font-weight: 900;
+  color: #fef08a;
+  text-shadow: 2px 2px 0px #000000;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+#current-player-banner {
+  font-size: 14px;
+  font-weight: 900;
+  color: #ffffff;
+  background: #371b58;
+  padding: 6px 16px;
+  border: 2px solid #6b21a8;
+  border-radius: 2px;
+  box-shadow: inset -2px -2px 0px #1e0836, 2px 2px 0px #000000;
+  text-shadow: 1px 1px 0px #000000;
+  white-space: nowrap;
+}
+
+#active-player-name {
+  color: #fbbf24;
+}
+
+/* 🃏 頂部玩家已抽牌卡片預覽 Stack 區 */
+#drawn-cards {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  max-width: 50%;
+  overflow-x: auto;
+  padding: 4px 6px;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  
+  /* Firefox 像素風格水平滾動條 */
+  scrollbar-width: thin;
+  scrollbar-color: #f59e0b #110d38;
+}
+
+/* Webkit (Chrome / Edge / Safari) 橫向像素滾動條整體高度 */
+#drawn-cards::-webkit-scrollbar {
+  height: 10px;
+}
+
+/* 滾動條軌道 (Track) */
+#drawn-cards::-webkit-scrollbar-track {
+  background: #110d38;
+  border-top: 2px solid #312e81;
+  border-radius: 2px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* 滾動條拖動滑塊 (Thumb) - 復古金黃像素質感 */
+#drawn-cards::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
+  border: 2px solid #fef3c7;
+  outline: 1px solid #78350f;
+  border-radius: 2px;
+  box-shadow: inset -1px -1px 0px #78350f, 1px 1px 0px #000000;
+  cursor: pointer;
+}
+
+/* 滑鼠懸停與按壓狀態效果 */
+#drawn-cards::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #fbbf24 100%);
+  border-color: #ffffff;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+}
+
+#drawn-cards::-webkit-scrollbar-thumb:active {
+  background: #d97706;
+}
+
+/* 隱藏預設的左右箭頭按鈕 */
+#drawn-cards::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.played-card-mini {
+  width: 50px;
+  height: 72px;
+  min-width: 50px;
+  background: #2e1065;
+  border: 3px solid #fbbf24;
+  outline: 1.5px solid #000000;
+  border-radius: 2px;
+  padding: 4px 2px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  box-shadow: 
+    inset 0 0 0 2px #451a03,
+    2px 2px 0px #000000;
+  animation: miniPopIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  user-select: none;
+}
+
+.played-card-mini .mini-tag {
+  font-size: 8px;
+  font-weight: 900;
+  color: #fef08a;
+  padding: 1px 3px;
+  border-radius: 1px;
+  background: #1e1b4b;
+  border: 1px solid #d97706;
+  line-height: 1;
+  transform: scale(0.85);
+}
+
+.played-card-mini .mini-icon {
+  font-size: 20px;
+  line-height: 1;
+  margin: 1px 0;
+}
+
+.played-card-mini .mini-title {
+  font-size: 8px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.1;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 1px 1px 0px #000000;
+}
+
+/* 迷你卡片各類型專屬屬性主題色 */
+.played-card-mini.type-character,
+.played-card-mini[data-tag*="人物"] { background: #3b1d11; border-color: #f59e0b; }
+.played-card-mini.type-character .mini-tag { background: #78350f; }
+
+.played-card-mini.type-location,
+.played-card-mini[data-tag*="地點"] { background: #064e3b; border-color: #10b981; }
+.played-card-mini.type-location .mini-tag { background: #064e3b; }
+
+.played-card-mini.type-event,
+.played-card-mini[data-tag*="事件"],
+.played-card-mini[data-tag*="動作"] { background: #701a75; border-color: #ec4899; }
+.played-card-mini.type-event .mini-tag { background: #701a75; }
+
+.played-card-mini.type-condition,
+.played-card-mini[data-tag*="狀況"],
+.played-card-mini[data-tag*="難題"] { background: #31105e; border-color: #a855f7; }
+.played-card-mini.type-condition .mini-tag { background: #31105e; }
+
+.played-card-mini.ending-card,
+.played-card-mini[data-tag*="結局"] { background: #78350f; border-color: #fbbf24; }
+.played-card-mini.ending-card .mini-tag { background: #d97706; color: #ffffff; }
+
+@keyframes miniPopIn {
+  from { transform: scale(0) translateY(-20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* 中央「點擊抽牌」大按鈕觸發區域 */
+.draw-trigger-box {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.btn-draw-main {
+  padding: 16px 36px;
+  font-size: 22px;
+  font-weight: 900;
+  color: #451a03;
+  background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
+  border: 4px solid #fef3c7;
+  outline: 3px solid #78350f;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 8px 0px #78350f, 0 15px 30px rgba(0, 0, 0, 0.8);
+  transition: all 0.15s ease;
+  text-shadow: 1px 1px 0px #fef08a;
+  letter-spacing: 2px;
+  animation: drawBtnPulse 2.5s ease-in-out infinite;
+}
+
+.btn-draw-main:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #fbbf24 100%);
+  transform: scale(1.06);
+  box-shadow: 0 10px 0px #78350f, 0 20px 35px rgba(245, 158, 11, 0.6);
+}
+
+.btn-draw-main:active {
+  transform: scale(0.98) translateY(4px);
+  box-shadow: 0 4px 0px #78350f, 0 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes drawBtnPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+/* 加分與評分跳字浮動效果 (Score Popups) */
+.score-popup {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  font-weight: 900;
+  padding: 12px 28px;
+  border-radius: 4px;
+  z-index: 99999;
+  pointer-events: none;
+  animation: popupFloat 1.5s ease-out forwards;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  border: 4px solid #000000;
+}
+
+.score-popup.good {
+  background: #15803d;
+  color: #fef08a;
+  border-color: #86efac;
+  text-shadow: 2px 2px 0px #000000;
+}
+
+.score-popup.fail {
+  background: #b91c1c;
+  color: #ffffff;
+  border-color: #fca5a5;
+  text-shadow: 2px 2px 0px #000000;
+}
+
+@keyframes popupFloat {
+  0% { opacity: 0; transform: translate(-50%, -30%) scale(0.5); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  80% { opacity: 1; transform: translate(-50%, -60%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -80%) scale(0.9); }
+}
+
+/* 📱 響應式微調 */
+@media (max-width: 640px) {
+  .game-header {
+    top: 10px;
+    padding: 8px 12px;
+    width: 95%;
+  }
+
+  #timer-display {
+    font-size: 13px;
+  }
+
+  #current-player-banner {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .btn-draw-main {
+    padding: 12px 24px;
+    font-size: 18px;
+  }
+}
+
+/* 🌟 全螢幕白色漸變過渡層樣式 (Whiteout Overlay) */
+#ending-white-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  z-index: 9999999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.0s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#ending-white-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#ending-white-overlay.fade-out {
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}

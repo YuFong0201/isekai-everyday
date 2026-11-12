@@ -1,0 +1,131 @@
+// js/components/GuideModal.js
+import { sfx } from '../utils/audio.js';
+
+export class GuideModal {
+  constructor() {
+    this.modalEl = null;
+    this.initModal();
+  }
+
+  initModal() {
+    // 建立 Modal 滿版蓋層
+    this.modalEl = document.createElement('div');
+    this.modalEl.id = 'guide-modal-overlay';
+    this.modalEl.className = 'guide-modal-overlay hidden';
+
+    this.modalEl.innerHTML = `
+      <div class="guide-modal-content">
+        <!-- 頂部標題與關閉按鈕 -->
+        <div class="guide-modal-header">
+          <h2 class="guide-modal-title">📖 遊戲冒險指南</h2>
+          <button type="button" class="btn-guide-close" id="btn-close-guide" aria-label="關閉">✖</button>
+        </div>
+
+        <!-- 滾動內容區 -->
+        <div class="guide-modal-body">
+          <div class="guide-story-box">
+            <p>在看似平凡的校園生活背後，其實隱藏著一個巨大的秘密！</p>
+            <p>據說，每當放學鐘聲響起，學校舊圖書館角落那張刻有閃耀魔法陣的古木桌就會悄悄發光。這是一扇通往奇幻異世界的「時空之門」！</p>
+            <p>今天放學後，魔法陣再次亮起了璀璨的極光，召喚你們前往未知的異世界！</p>
+            <p>然而，進入異世界的唯一方法，就是大家圍坐在魔法陣旁，合力講出一個最精彩、最刺激的冒險故事！每一次抽出的卡牌，都是異世界給予你們的命運考驗。</p>
+            <p class="guide-highlight">同學們，準備好了嗎？今天也要前往異世界囉！</p>
+          </div>
+
+          <hr class="guide-divider" />
+
+          <h3 class="guide-section-title">🎲 冒險四步驟</h3>
+          
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <div class="step-num">1</div>
+              <div class="step-info">
+                <h4>創立小隊</h4>
+                <ul>
+                  <li><strong>選擇隊員人數：</strong>支援 2 ~ 6 位玩家或小組一起遊玩。</li>
+                  <li><strong>輸入名字與選頭像：</strong>輸入自己的姓名或組別名稱，挑選一張你最喜歡的動物角色！</li>
+                  <li><strong>選擇冒險地圖：</strong>挑選今天想去的異世界故事主題，並設定冒險時間。</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="guide-step-card">
+              <div class="step-num">2</div>
+              <div class="step-info">
+                <h4>第一位勇者出發</h4>
+                <p>由第 1 位玩家點擊中央的 <strong>「召喚卡牌」</strong> 按鈕。</p>
+              </div>
+            </div>
+
+            <div class="guide-step-card">
+              <div class="step-num">3</div>
+              <div class="step-info">
+                <h4>輪流說故事與大爆發</h4>
+                <p><strong>每位玩家輪到自己的回合時：</strong></p>
+                <ul>
+                  <li><strong>抽牌：</strong>從隨機出現的 3 張卡牌中，挑選 1 張最想放入故事的元素（如果完全沒有靈感，也可以選擇「放棄牌」喔）。</li>
+                  <li><strong>展開冒險故事：</strong>選完牌後，進入你的說故事時間！發揮想像力，把卡牌上的「人物」、「地點」、「事件」等，講進故事裡！</li>
+                </ul>
+                <div class="guide-tip-box">
+                  💡 <strong>小秘訣：</strong>可以安排一位同學，在文字框打字記錄故事，這樣忘記故事發展時，就能隨時點擊左下角 <strong>「📜 瀏覽故事記錄」</strong>，查看之前隊員說過的故事，方便你接下去講喔！
+                </div>
+              </div>
+            </div>
+
+            <div class="guide-step-card">
+              <div class="step-num">4</div>
+              <div class="step-info">
+                <h4>說故事評分環節 (由同學和老師決定)</h4>
+                <ul>
+                  <li><span class="tag-good">👍 說得好 (+1 分)</span>：同學們覺得故事太讚了！成功加分。</li>
+                  <li><span class="tag-fail">👎 不行 (+0 分)</span>：同學們覺得故事講得太勉強或離題囉，這次沒有加分。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 底部確認按鈕 -->
+        <div class="guide-modal-footer">
+          <button type="button" class="btn-pixel-primary" id="btn-guide-confirm">我知道了，開始冒險</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(this.modalEl);
+
+    const btnClose = this.modalEl.querySelector('#btn-close-guide');
+    const btnConfirm = this.modalEl.querySelector('#btn-guide-confirm');
+
+    if (btnClose) btnClose.addEventListener('click', () => this.close());
+    if (btnConfirm) btnConfirm.addEventListener('click', () => this.close());
+    
+    // 點擊背景空白區域關閉
+    this.modalEl.addEventListener('click', (e) => {
+      if (e.target === this.modalEl) this.close();
+    });
+
+    // 支援 ESC 鍵快速關閉彈窗
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.modalEl && !this.modalEl.classList.contains('hidden')) {
+        this.close();
+      }
+    });
+  }
+
+  open() {
+    if (sfx && sfx.playClickCard) sfx.playClickCard();
+    if (this.modalEl) {
+      this.modalEl.classList.remove('hidden');
+      // 每次開啟自動滾動至最上方
+      const bodyEl = this.modalEl.querySelector('.guide-modal-body');
+      if (bodyEl) bodyEl.scrollTop = 0;
+    }
+  }
+
+  close() {
+    if (sfx && sfx.playClickCard) sfx.playClickCard();
+    if (this.modalEl) {
+      this.modalEl.classList.add('hidden');
+    }
+  }
+}

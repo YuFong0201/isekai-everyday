@@ -1,0 +1,34 @@
+/* css/storybook.css */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+.storybook-preview {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  background: #fffdfa;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.storybook-header {
+  text-align: center;
+  border-bottom: 2px dashed #cbd5e1;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.storybook-title {
+  font-size: 28px;
+  color: #1e3a8a;
+  margin-bottom: 8px;
+}
+
+.storybook-authors {
+  font-size: 16px;
+  color: #64748b;
+}
