@@ -666,8 +666,7 @@
   top: 0;
   left: 0;
   
-  /* 🏰 城堡露台滿版像素背景圖 */
-  background-image: url('/assets/end_background.jpg');
+  background-image: url('../assets/end_background.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -683,7 +682,6 @@
 
 #result-view.active { display: flex !important; }
 
-/* 像素風半透明主面板 (透露出後方城堡星空背景) */
 .result-card-container {
   background: rgba(46, 16, 101, 0.88);
   backdrop-filter: blur(4px);

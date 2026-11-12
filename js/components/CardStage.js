@@ -123,7 +123,6 @@ export class CardStage {
       const typeClass = this.getCardTypeClass(card);
       const cardEl = document.createElement('div');
       
-      // 🎯 確保加上正確認知的 class 與 data-tag 屬性
       cardEl.className = `card ${typeClass}`;
       cardEl.dataset.tag = card.tag || (card.isEnding ? '結局' : '卡牌');
       
@@ -260,7 +259,6 @@ export class CardStage {
     }, 750);
   }
 
-  // 🃏 渲染直向完整展示的像素迷你卡片
   addPlayedCardToTop(card) {
     if (!this.drawnContainer || !card || card.isPass) return;
 
