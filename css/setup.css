@@ -437,20 +437,23 @@
   box-shadow: 2px 2px 0px #000000, 0 0 8px #f59e0b;
 }
 
-
 .submit-btn-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: stretch; 
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 18px; /* 拉開兩顆按鈕之間的距離，預留充足呼吸空間 */
   margin-top: 26px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 /* 遊戲說明按鈕 */
 .btn-guide-trigger {
   flex: 1;
-  height: 54px; 
-  padding: 0;
+  min-width: 0; /* 防止內容撐破 flex 比例 */
+  height: 54px;
+  margin: 0 !important; /* 防止全域按鈕樣式覆蓋產生負邊距 */
+  padding: 0 8px;
   box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
@@ -460,15 +463,16 @@
   font-weight: 900;
   color: #fef08a;
   background: linear-gradient(180deg, #4c1d95 0%, #2e1065 100%);
-  border: 4px solid #a855f7; /* 與進入遊戲完全相同的 4px border */
-  outline: 2px solid #1e0836; /* 與進入遊戲完全相同的 2px outline */
-  border-radius: 2px;
+  border: 4px solid #a855f7;
+  outline: none; /* 移除會向外部溢出重疊的 outline */
+  border-radius: 4px;
   cursor: pointer;
-  /* 完全對等的 6px 底部立體陰影 + 10px 擴散陰影 */
-  box-shadow: 0 6px 0px #1e0836, 0 10px 20px rgba(0, 0, 0, 0.6);
+  /* 改用不佔外部空間的內外陰影模擬雙層像素邊框，兩側邊界乾乾淨淨 */
+  box-shadow: 0 0 0 2px #1e0836, 0 6px 0px #1e0836, 0 10px 20px rgba(0, 0, 0, 0.6);
   transition: all 0.1s ease;
   text-shadow: 1.5px 1.5px 0px #000000;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
 
 .btn-guide-trigger:hover {
@@ -476,19 +480,21 @@
   color: #ffffff;
   border-color: #e9d5ff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 0px #1e0836, 0 14px 25px rgba(168, 85, 247, 0.45);
+  box-shadow: 0 0 0 2px #1e0836, 0 8px 0px #1e0836, 0 14px 25px rgba(168, 85, 247, 0.45);
 }
 
 .btn-guide-trigger:active {
   transform: translateY(4px);
-  box-shadow: 0 2px 0px #1e0836, 0 5px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 0 2px #1e0836, 0 2px 0px #1e0836, 0 5px 10px rgba(0, 0, 0, 0.6);
 }
 
 /* 進入遊戲按鈕 */
 .pixel-start-btn {
-  flex: 1.4;
-  height: 54px; /* 固定一致高度 */
-  padding: 0;
+  flex: 1.35;
+  min-width: 0; /* 防止內容撐破 flex 比例 */
+  height: 54px;
+  margin: 0 !important; /* 防止 main.css 的 .btn 樣式覆蓋 */
+  padding: 0 8px;
   box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
@@ -498,26 +504,27 @@
   font-weight: 900;
   color: #451a03;
   background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
-  border: 4px solid #fef3c7; /* 4px border */
-  outline: 2px solid #78350f; /* 2px outline */
-  border-radius: 2px;
+  border: 4px solid #fef3c7;
+  outline: none; /* 移除會向外部溢出重疊的 outline */
+  border-radius: 4px;
   cursor: pointer;
-  /* 完全對等的 6px 底部立體陰影 + 10px 擴散陰影 */
-  box-shadow: 0 6px 0px #78350f, 0 10px 20px rgba(0, 0, 0, 0.6);
+  /* 與左側按鈕完全對等的雙層陰影結構 */
+  box-shadow: 0 0 0 2px #78350f, 0 6px 0px #78350f, 0 10px 20px rgba(0, 0, 0, 0.6);
   transition: all 0.1s ease;
   text-shadow: 1px 1px 0px #fef08a;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
 
 .pixel-start-btn:hover {
   background: linear-gradient(180deg, #ffffff 0%, #fbbf24 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 0px #78350f, 0 14px 25px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 0 2px #78350f, 0 8px 0px #78350f, 0 14px 25px rgba(245, 158, 11, 0.5);
 }
 
 .pixel-start-btn:active {
   transform: translateY(4px);
-  box-shadow: 0 2px 0px #78350f, 0 5px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 0 2px #78350f, 0 2px 0px #78350f, 0 5px 10px rgba(0, 0, 0, 0.6);
 }
 
 /* ===== 通用極限顯隱權重設定 ===== */
@@ -1089,4 +1096,77 @@
 .btn-pixel-primary:active {
   transform: translateY(3px);
   box-shadow: 0 2px 0px #78350f, 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+#setup-view {
+  height: 100dvh;
+  max-height: 100dvh;
+  padding: 12px 12px 76px 12px !important; /* 底部預留 76px 給懸浮工具列，絕不重疊 */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#setup-form.pixel-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  width: 100%;
+  max-width: 620px;
+  padding: clamp(12px, 2vh, 22px) clamp(12px, 2vw, 24px) !important;
+  box-sizing: border-box;
+  overflow: hidden; /* 外框固定不滾動 */
+}
+
+/* Logo 始終固定在視窗面板頂部 */
+#setup-form .logo-wrapper {
+  flex-shrink: 0;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px dashed rgba(250, 204, 21, 0.35);
+}
+
+#setup-form .game-logo-img {
+  max-height: clamp(68px, 13vh, 130px);
+  width: auto;
+  object-fit: contain;
+}
+
+/* 只有下方的設定項目區塊可以拖曳捲動 */
+.setup-scroll-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 10px 6px 2px;
+  box-sizing: border-box;
+  scrollbar-width: auto;
+  scrollbar-color: #f59e0b #1e1b4b;
+}
+
+/* 遊戲整體像素風格實體捲動條 */
+.setup-scroll-body::-webkit-scrollbar {
+  width: 12px;
+  display: block;
+  -webkit-appearance: none;
+}
+
+.setup-scroll-body::-webkit-scrollbar-track {
+  background: #17073b;
+  border: 2px solid #4338ca;
+  border-radius: 2px;
+  box-shadow: inset 1px 1px 0px #000000;
+}
+
+.setup-scroll-body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
+  border: 2px solid #78350f;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 0px #ffffff;
+}
+
+.setup-scroll-body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #fbbf24 100%);
 }

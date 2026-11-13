@@ -4,7 +4,7 @@ import { GameEngine } from './engine/GameEngine.js';
 import { GameTimer } from './engine/Timer.js';
 import { TableView } from './components/TableView.js';
 import { CardStage } from './components/CardStage.js';
-import { GuideModal } from './components/GuideModal.js'; // 👈 導入遊戲說明組件
+import { GuideModal } from './components/GuideModal.js';
 import { generateStorybook } from './utils/pdfExport.js';
 import { sfx, bgm } from './utils/audio.js';
 
@@ -17,6 +17,20 @@ function initApp() {
   const playerNamesContainer = document.getElementById('player-names-container');
   const gameDurationSlider = document.getElementById('game-duration');
   const durationDisplay = document.getElementById('duration-val-display');
+
+  // 🎯 自動將首頁選單 Logo 下方的設定項目包入獨立捲動容器，保持 Logo 固定不動
+  if (setupForm && !document.getElementById('setup-scroll-body')) {
+    const logoWrapper = setupForm.querySelector('.logo-wrapper');
+    if (logoWrapper) {
+      const scrollBody = document.createElement('div');
+      scrollBody.id = 'setup-scroll-body';
+      scrollBody.className = 'setup-scroll-body';
+      while (logoWrapper.nextSibling) {
+        scrollBody.appendChild(logoWrapper.nextSibling);
+      }
+      setupForm.appendChild(scrollBody);
+    }
+  }
 
   // 📖 初始化遊戲說明大彈窗組件
   const guideModal = new GuideModal();
@@ -134,7 +148,6 @@ function initApp() {
     });
   }
 
-  // 像素風格通用二選一彈窗
   function showPixelConfirm(title, msg, onYes) {
     if (!confirmModal) return;
     confirmTitle.textContent = title;
@@ -156,7 +169,6 @@ function initApp() {
     });
   }
 
-  // 🎨 像素頭像 Picker Modal 邏輯
   function openAvatarPicker(triggerBtn) {
     currentTargetAvatarBtn = triggerBtn;
     const currentSelectedAvatar = triggerBtn.dataset.avatar;
@@ -219,7 +231,6 @@ function initApp() {
 
   function returnToMenu() {
     if (window.gameTimer) window.gameTimer.stop();
-    
     if (cardStage) cardStage.close();
 
     playedStorySnippets = [];
@@ -381,23 +392,30 @@ function initApp() {
   let tableView = null;
   if (threeCanvas) tableView = new TableView(threeCanvas);
 
+  // 🎯 支援多張卡牌（1~3張）的動態計分與記錄邏輯
   const cardStage = new CardStage(
     document.getElementById('card-stage'),
     document.getElementById('drawn-cards'),
-    (isGood, selectedCard, isPass, textSnippet) => {
+    (isGood, selectedCardsInput, isPass, textSnippet) => {
       const currentIdx = window.game.currentPlayerIndex;
       const playerName = window.game.players[currentIdx].name;
+      const cardsList = Array.isArray(selectedCardsInput) ? selectedCardsInput : [selectedCardsInput];
+
+      // 計算實際選出的有效故事牌張數（1張=1分、2張=2分、3張=3分，放棄牌=0分）
+      const validCardsCount = cardsList.filter(c => c && !c.isPass).length;
+      const earnedPoints = (isGood && !isPass) ? validCardsCount : 0;
 
       const popup = document.createElement('div');
-      popup.className = `score-popup ${isGood && !isPass ? 'good' : 'fail'}`;
+      popup.className = `score-popup ${earnedPoints > 0 ? 'good' : 'fail'}`;
 
-      if (isGood && !isPass) {
-        window.game.players[currentIdx].score += 1;
-        popup.innerHTML = `🌟 +1分`;
+      if (earnedPoints > 0) {
+        window.game.players[currentIdx].score += earnedPoints;
+        popup.innerHTML = `🌟 +${earnedPoints}分`;
         if (sfx && sfx.playTurn) sfx.playTurn();
 
         if (textSnippet && textSnippet.length > 0) {
-          playedStorySnippets.push(`【${playerName} · ${selectedCard.name}】\n${textSnippet}`);
+          const cardNamesTitle = cardsList.map(c => c.name).join('、');
+          playedStorySnippets.push(`【${playerName} · ${cardNamesTitle} (+${earnedPoints}分)】\n${textSnippet}`);
         }
       } else {
         popup.innerHTML = `❌ +0分`;
@@ -409,7 +427,7 @@ function initApp() {
       if (tableView) tableView.renderSeats(window.game.players, currentIdx, effectType);
 
       setTimeout(() => {
-        const isEnding = selectedCard && (selectedCard.isEnding || selectedCard.tag === '結局');
+        const isEnding = cardsList.some(c => c && (c.isEnding || c.tag === '結局'));
         const isEndingSuccess = isEnding && isGood;
 
         if (isEndingSuccess) {
@@ -423,7 +441,7 @@ function initApp() {
           return;
         }
 
-        const nextIndex = window.game.nextTurn(isGood ? selectedCard : null);
+        const nextIndex = window.game.nextTurn(isGood ? cardsList : null);
 
         const activeNameBanner = document.getElementById('active-player-name');
         if (activeNameBanner) activeNameBanner.textContent = window.game.players[nextIndex].name;
@@ -447,7 +465,6 @@ function initApp() {
 
   function showPodiumScreen() {
     if (window.gameTimer) window.gameTimer.stop();
-
     if (cardStage) cardStage.close();
 
     bgm.playEndBGM();
@@ -546,14 +563,49 @@ function initApp() {
 
       window.game = new GameEngine(playersData, selectedDeck, duration);
 
+      // 初始化第一位玩家名稱顯示
+      const activeNameBanner = document.getElementById('active-player-name');
+      if (activeNameBanner && window.game.players[0]) {
+        activeNameBanner.textContent = window.game.players[0].name;
+      }
+
       const timerDisplay = document.getElementById('timer-display');
+      const totalSecondsAll = duration * 60;
+      const ringCircumference = 125.6; // 2 * Math.PI * 20
+
+      function renderCircularTimer(timeStr, remainSec) {
+        if (!timerDisplay) return;
+        const ratio = Math.max(0, Math.min(1, remainSec / totalSecondsAll));
+        const dashOffset = ringCircumference * (1 - ratio);
+        const isLow = remainSec <= 30;
+        timerDisplay.classList.toggle('timer-low', isLow);
+
+        timerDisplay.innerHTML = `
+          <div class="header-timer-ring" title="剩餘時間 ${timeStr}">
+            <svg viewBox="0 0 48 48">
+              <circle class="ring-bg" cx="24" cy="24" r="20"></circle>
+              <circle class="ring-fg" cx="24" cy="24" r="20"
+                style="stroke-dasharray: ${ringCircumference}; stroke-dashoffset: ${dashOffset};"></circle>
+            </svg>
+            <span class="ring-time-text">${timeStr}</span>
+          </div>
+        `;
+      }
+
+      const initMins = String(duration).padStart(2, '0');
+      renderCircularTimer(`${initMins}:00`, totalSecondsAll);
+
       window.gameTimer = new GameTimer(
         duration,
         (timeStr) => {
-          if (timerDisplay) timerDisplay.textContent = `⏱ 剩餘時間: ${timeStr}`;
+          const parts = timeStr.split(':');
+          const remainSec = parts.length === 2
+            ? (parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10))
+            : totalSecondsAll;
+          renderCircularTimer(timeStr, remainSec);
         },
         () => {
-          if (timerDisplay) timerDisplay.textContent = `⏱ 時間到！等待結局發表...`;
+          renderCircularTimer('結局', 0);
           if (window.game) window.game.triggerTimeUp();
         }
       );

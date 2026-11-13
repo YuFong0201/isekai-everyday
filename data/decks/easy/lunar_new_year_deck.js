@@ -1,0 +1,102 @@
+// data/decks/festival/lunar_new_year_deck.js
+
+const lunarNewYearDeck = {
+  id: 'lunar_new_year_deck',
+  name: '(易)🧧 過年紅包大作戰',
+  description: '恭喜發財紅包拿來！貼春聯、吃年夜飯、放鞭炮，充滿年味的歡樂團圓夜！',
+  bgm: 'warm',
+  cards: {
+    characters: [
+      { id: 'ny_c1', name: '阿公', tag: '人物', icon: '👴' },
+      { id: 'ny_c2', name: '阿嬤', tag: '人物', icon: '👵' },
+      { id: 'ny_c3', name: '爸爸', tag: '人物', icon: '👨' },
+      { id: 'ny_c4', name: '媽媽', tag: '人物', icon: '👩' },
+      { id: 'ny_c5', name: '表哥', tag: '人物', icon: '👦' },
+      { id: 'ny_c6', name: '表妹', tag: '人物', icon: '👧' },
+      { id: 'ny_c7', name: '舅舅', tag: '人物', icon: '🧔' },
+      { id: 'ny_c8', name: '阿姨', tag: '人物', icon: '👩‍🦱' },
+      { id: 'ny_c9', name: '財神爺', tag: '人物', icon: '🧧' },
+      { id: 'ny_c10', name: '年獸', tag: '人物', icon: '👹' },
+      { id: 'ny_c11', name: '舞獅隊', tag: '人物', icon: '🦁' },
+      { id: 'ny_c12', name: '小狗', tag: '人物', icon: '🐶' },
+      { id: 'ny_c13', name: '鄰居', tag: '人物', icon: '🏘️' },
+      { id: 'ny_c14', name: '大廚師', tag: '人物', icon: '👨‍🍳' },
+      { id: 'ny_c15', name: '門神', tag: '人物', icon: '🛡️' },
+      { id: 'ny_c16', name: '小財神', tag: '人物', icon: '👶' }
+    ],
+    times: [
+      { id: 'ny_t1', name: '除夕夜吃團圓飯時', tag: '時間', icon: '🍲' },
+      { id: 'ny_t2', name: '大年初一早上', tag: '時間', icon: '🌅' },
+      { id: 'ny_t3', name: '發紅包那一秒', tag: '時間', icon: '🧧' },
+      { id: 'ny_t4', name: '守歲跨年十二點', tag: '時間', icon: '🕛' },
+      { id: 'ny_t5', name: '大掃除貼春聯時', tag: '時間', icon: '🧹' },
+      { id: 'ny_t6', name: '去廟裡拜拜的時候', tag: '時間', icon: '⛩️' },
+      { id: 'ny_t7', name: '回阿嬤家那一天', tag: '時間', icon: '🚗' },
+      { id: 'ny_t8', name: '放鞭炮那一瞬間', tag: '時間', icon: '🧨' },
+      { id: 'ny_t9', name: '逛年貨大街時', tag: '時間', icon: '🏮' },
+      { id: 'ny_t10', name: '元宵節提燈籠夜', tag: '時間', icon: '🌕' },
+      { id: 'ny_t11', name: '晚上點仙女棒時', tag: '時間', icon: '✨' },
+      { id: 'ny_t12', name: '寒假最後一天', tag: '時間', icon: '🎒' }
+    ],
+    places: [
+      { id: 'ny_p1', name: '阿嬤家客廳', tag: '地點', icon: '🛋️' },
+      { id: 'ny_p2', name: '大圓餐桌旁', tag: '地點', icon: '🍽️' },
+      { id: 'ny_p3', name: '貼春聯的大門口', tag: '地點', icon: '🚪' },
+      { id: 'ny_p4', name: '熱鬧的年貨大街', tag: '地點', icon: '🏮' },
+      { id: 'ny_p5', name: '廟口廣場', tag: '地點', icon: '⛩️' },
+      { id: 'ny_p6', name: '鄉下三合院', tag: '地點', icon: '🏠' },
+      { id: 'ny_p7', name: '高速公路上', tag: '地點', icon: '🛣️' },
+      { id: 'ny_p8', name: '廚房爐灶前', tag: '地點', icon: '🍳' },
+      { id: 'ny_p9', name: '空地放鞭炮區', tag: '地點', icon: '🧨' },
+      { id: 'ny_p10', name: '枕頭底下', tag: '地點', icon: '🛏️' },
+      { id: 'ny_p11', name: '糖果餅乾盒旁', tag: '地點', icon: '🍬' },
+      { id: 'ny_p12', name: '刮刮樂彩券行', tag: '地點', icon: '🎫' },
+      { id: 'ny_p13', name: '燈會主燈前', tag: '地點', icon: '🐉' },
+      { id: 'ny_p14', name: '親戚家走廊', tag: '地點', icon: '🚶' },
+      { id: 'ny_p15', name: '橘子樹下', tag: '地點', icon: '🍊' },
+      { id: 'ny_p16', name: '電視機前面', tag: '地點', icon: '📺' }
+    ],
+    events: [
+      { id: 'ny_e1', name: '領到超大包壓歲錢', tag: '事件', icon: '🧧' },
+      { id: 'ny_e2', name: '春聯不小心貼倒了', tag: '事件', icon: '🙃' },
+      { id: 'ny_e3', name: '吃到包硬幣的餃子', tag: '事件', icon: '🥟' },
+      { id: 'ny_e4', name: '講吉祥話比賽奪冠', tag: '事件', icon: '🗣️' },
+      { id: 'ny_e5', name: '紅包袋差點弄丟了', tag: '事件', icon: '😱' },
+      { id: 'ny_e6', name: '鞭炮聲嚇跑年獸', tag: '事件', icon: '🧨' },
+      { id: 'ny_e7', name: '玩桌遊贏得全場冠軍', tag: '事件', icon: '🎲' },
+      { id: 'ny_e8', name: '舞獅跳到面前眨眼睛', tag: '事件', icon: '🦁' },
+      { id: 'ny_e9', name: '點燃亮晶晶仙女棒', tag: '事件', icon: '✨' },
+      { id: 'ny_e10', name: '抽中廟裡上上籤', tag: '事件', icon: '🎋' },
+      { id: 'ny_e11', name: '吃太多年糕黏住牙齒', tag: '事件', icon: '🦷' },
+      { id: 'ny_e12', name: '幫阿嬤端出佛跳牆', tag: '事件', icon: '🍲' },
+      { id: 'ny_e13', name: '刮刮樂中了小獎金', tag: '事件', icon: '🪙' },
+      { id: 'ny_e14', name: '熬夜守歲撐到睡著', tag: '事件', icon: '😴' },
+      { id: 'ny_e15', name: '高速公路大塞車', tag: '事件', icon: '🚗' },
+      { id: 'ny_e16', name: '糖果盒瞬間被吃光', tag: '事件', icon: '🍬' },
+      { id: 'ny_e17', name: '穿上全新紅色新衣', tag: '事件', icon: '👕' },
+      { id: 'ny_e18', name: '全家拍新年大合照', tag: '事件', icon: '📸' },
+      { id: 'ny_e19', name: '猜燈謎全部答對', tag: '事件', icon: '🏮' },
+      { id: 'ny_e20', name: '把紅包存進小豬撲滿', tag: '事件', icon: '🐷' }
+    ],
+    challenges: [
+      { id: 'ny_s1', name: '雙手抱拳喊「恭喜發財！」', tag: '狀況', icon: '🙏' },
+      { id: 'ny_s2', name: '說出一句四字新年吉祥話', tag: '狀況', icon: '🧧' },
+      { id: 'ny_s3', name: '模仿鞭炮「劈里啪啦」聲', tag: '狀況', icon: '🧨' },
+      { id: 'ny_s4', name: '做出「雙手接紅包鞠躬」動作', tag: '狀況', icon: '🙇' },
+      { id: 'ny_s5', name: '模仿舞獅打鼓「咚咚鏘」聲', tag: '狀況', icon: '🥁' },
+      { id: 'ny_s6', name: '用超喜氣洋洋的語氣說話', tag: '狀況', icon: '🥳' },
+      { id: 'ny_s7', name: '做出「貼春聯往後看正不正」', tag: '狀況', icon: '🖌️' },
+      { id: 'ny_s8', name: '台詞出現一道年菜名稱', tag: '狀況', icon: '🍲' },
+      { id: 'ny_s9', name: '做出「數紅包鈔票開心笑」', tag: '狀況', icon: '😆' },
+      { id: 'ny_s10', name: '模仿年獸「吼嗚——」嚇人聲', tag: '狀況', icon: '👹' },
+      { id: 'ny_s11', name: '做出「拿仙女棒畫圈圈」動作', tag: '狀況', icon: '✨' },
+      { id: 'ny_s12', name: '用阿公阿嬤慈祥的語氣說話', tag: '狀況', icon: '👵' },
+      { id: 'ny_s13', name: '加入一個表兄弟姊妹玩鬧橋段', tag: '狀況', icon: '👦' },
+      { id: 'ny_s14', name: '做出「吃太多摸肚子」動作', tag: '狀況', icon: '🫃' },
+      { id: 'ny_s15', name: '喊出「紅包拿來！」', tag: '狀況', icon: '🙌' },
+      { id: 'ny_s16', name: '結尾說「新年快樂萬事如意！」', tag: '狀況', icon: '🎊' }
+    ]
+  }
+};
+
+export default lunarNewYearDeck;

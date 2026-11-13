@@ -19,12 +19,74 @@ export class CardStage {
     this.timerProgress = document.getElementById('timer-progress');
     this.countdownInterval = null;
 
-    this.selectedCard = null;
-    this.displayCardEl = null;
+    this.selectedCards = [];
+    this.displayCardEls = [];
+    this.confirmActionBox = null;
+    this.passConfirmModal = null;
+    this.maxSelectCount = 3;
+  }
+
+  // 建立或取得放棄確認彈窗
+  ensurePassConfirmModal() {
+    if (this.passConfirmModal) return this.passConfirmModal;
+
+    const overlay = document.createElement('div');
+    overlay.id = 'pass-confirm-overlay';
+    overlay.className = 'pass-confirm-overlay hidden';
+    overlay.innerHTML = `
+      <div class="pass-confirm-box" role="dialog" aria-modal="true" aria-labelledby="pass-confirm-title">
+        <div class="pass-confirm-icon">🤡</div>
+        <h3 id="pass-confirm-title" class="pass-confirm-title">確定放棄?</h3>
+        <p class="pass-confirm-desc">選擇放棄牌將跳過本回合，且本輪不會獲得分數喔！</p>
+        <div class="pass-confirm-actions">
+          <button type="button" id="btn-pass-confirm-yes" class="btn-pass-yes">是</button>
+          <button type="button" id="btn-pass-confirm-no" class="btn-pass-no">否</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    this.passConfirmModal = overlay;
+    return overlay;
+  }
+
+  openPassConfirm(cardsRow, passCard) {
+    const modal = this.ensurePassConfirmModal();
+    const btnYes = modal.querySelector('#btn-pass-confirm-yes');
+    const btnNo = modal.querySelector('#btn-pass-confirm-no');
+
+    btnYes.onclick = (e) => {
+      e.stopPropagation();
+      sfx.playClickCard();
+      this.closePassConfirm();
+      this.triggerPass(cardsRow, passCard);
+    };
+
+    btnNo.onclick = (e) => {
+      e.stopPropagation();
+      sfx.playClickCard();
+      this.closePassConfirm();
+    };
+
+    // 點擊半透明遮罩視同取消
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        sfx.playClickCard();
+        this.closePassConfirm();
+      }
+    };
+
+    modal.classList.remove('hidden');
+  }
+
+  closePassConfirm() {
+    if (this.passConfirmModal) {
+      this.passConfirmModal.classList.add('hidden');
+    }
   }
 
   close() {
     this.stopSelectionTimer();
+    this.closePassConfirm();
     
     if (this.stageContainer) {
       this.stageContainer.classList.add('hidden');
@@ -32,6 +94,10 @@ export class CardStage {
 
     if (this.judgeBox) {
       this.judgeBox.classList.add('hidden');
+    }
+
+    if (this.confirmActionBox) {
+      this.confirmActionBox.classList.add('hidden');
     }
 
     if (this.modalStoryRecorder) {
@@ -43,15 +109,18 @@ export class CardStage {
       this.storyInput.value = '';
     }
 
+    this.selectedCards = [];
+    this.displayCardEls = [];
     bgm.setStorytellingMode(false);
   }
 
-  startSelectionTimer(cardsRow, cards) {
+  startSelectionTimer(cardsRow, cards, isPureEndingOnly = false) {
     this.stopSelectionTimer();
     if (!this.timerBox) return;
 
     this.timerBox.classList.remove('hidden', 'warning');
-    let timeLeft = 20;
+    const totalSeconds = 25;
+    let timeLeft = totalSeconds;
     const totalDash = 264;
 
     this.timerCountNum.textContent = timeLeft;
@@ -60,16 +129,28 @@ export class CardStage {
     this.countdownInterval = setInterval(() => {
       timeLeft--;
       this.timerCountNum.textContent = timeLeft;
-      const offset = totalDash * (1 - timeLeft / 20);
+      const offset = totalDash * (1 - timeLeft / totalSeconds);
       this.timerProgress.style.strokeDashoffset = offset;
 
       if (timeLeft <= 5) this.timerBox.classList.add('warning');
 
       if (timeLeft <= 0) {
         this.stopSelectionTimer();
-        const passCard = cards.find(c => c.isPass) || cards[cards.length - 1];
-        const passCardEl = cardsRow.querySelector('.pass-card') || cardsRow.lastElementChild;
-        if (passCardEl) this.handleCardClick(passCardEl, cardsRow, passCard);
+        this.closePassConfirm();
+
+        // 倒數結束處理：已有勾選則確認、純結局階段自動進入結局、其餘自動放棄
+        if (this.selectedCards.length > 0) {
+          this.confirmSelection(cardsRow);
+        } else if (isPureEndingOnly) {
+          const endingCard = cards.find(c => c.isEnding);
+          if (endingCard) {
+            this.selectedCards = [endingCard];
+            this.confirmSelection(cardsRow);
+          }
+        } else {
+          const passCard = cards.find(c => c.isPass) || cards[cards.length - 1];
+          this.triggerPass(cardsRow, passCard);
+        }
       }
     }, 1000);
   }
@@ -94,12 +175,80 @@ export class CardStage {
     if (tag.includes('事件') || tag.includes('動作')) return 'type-event';
     if (tag.includes('狀況') || tag.includes('難題')) return 'type-condition';
 
-    return 'type-event'; // 預設類別
+    return 'type-event';
+  }
+
+  ensureConfirmBox() {
+    if (this.confirmActionBox) return this.confirmActionBox;
+    const contentEl = this.stageContainer.querySelector('.card-stage-content');
+    if (!contentEl) return null;
+
+    this.confirmActionBox = document.createElement('div');
+    this.confirmActionBox.id = 'multi-select-confirm-box';
+    this.confirmActionBox.className = 'multi-select-confirm-box hidden';
+    this.confirmActionBox.innerHTML = `
+      <div id="multi-select-hint" class="multi-select-hint">請點選 1 ~ 3 張想融入故事的卡牌</div>
+      <button type="button" id="btn-confirm-cards" class="btn-confirm-cards" disabled>
+        ✨ 確定選牌 (已選 0 / 3 張)
+      </button>
+    `;
+    contentEl.appendChild(this.confirmActionBox);
+    return this.confirmActionBox;
+  }
+
+  updateMultiSelectUI(cardsRow) {
+    const confirmBox = this.ensureConfirmBox();
+    if (!confirmBox) return;
+
+    const btnConfirm = confirmBox.querySelector('#btn-confirm-cards');
+    const hintEl = confirmBox.querySelector('#multi-select-hint');
+    const count = this.selectedCards.length;
+
+    // 更新卡片選取狀態與左上/右上序號徽章
+    const cardEls = cardsRow.querySelectorAll('.card');
+    cardEls.forEach(el => {
+      const cid = el.dataset.cardId;
+      const selIdx = this.selectedCards.findIndex(c => c.id === cid);
+      let badge = el.querySelector('.card-select-badge');
+
+      if (selIdx !== -1) {
+        el.classList.add('is-selected');
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'card-select-badge';
+          el.appendChild(badge);
+        }
+        badge.textContent = selIdx + 1;
+      } else {
+        el.classList.remove('is-selected');
+        if (badge) badge.remove();
+      }
+    });
+
+    if (btnConfirm) {
+      btnConfirm.disabled = (count === 0);
+      btnConfirm.textContent = count > 0
+        ? `✨ 確定選牌 (已選 ${count} / ${this.maxSelectCount} 張)`
+        : `請至少選擇 1 張卡牌`;
+    }
+
+    if (hintEl) {
+      if (count >= this.maxSelectCount) {
+        hintEl.textContent = `已達上限 ${this.maxSelectCount} 張！可點擊已選卡牌取消重選，或按下確定`;
+        hintEl.classList.add('limit-reached');
+      } else {
+        hintEl.textContent = `點擊卡牌可複選（最多 ${this.maxSelectCount} 張），再點一次可取消`;
+        hintEl.classList.remove('limit-reached');
+      }
+    }
   }
 
   showOptions(cards) {
     if (!this.stageContainer) return;
 
+    this.selectedCards = [];
+    this.displayCardEls = [];
+    this.closePassConfirm();
     this.stageContainer.classList.remove('hidden');
     bgm.setStorytellingMode(false);
 
@@ -111,19 +260,51 @@ export class CardStage {
     if (this.storyInput) this.storyInput.value = '';
 
     const hasEnding = cards.some(c => c.isEnding || (c.tag && c.tag.includes('結局')));
+    const storyCardsCount = cards.filter(c => !c.isEnding && !c.isPass).length;
+    // 僅當牌庫完全沒有剩餘故事牌時，進入純單選結局模式
+    const isPureEndingOnly = hasEnding && storyCardsCount === 0;
+
     if (this.stageTitle) {
-      this.stageTitle.textContent = hasEnding ? '👑 進入故事大結局！請挑選結局卡：' : '✨ 請選擇一張卡牌展開故事：';
+      if (isPureEndingOnly) {
+        this.stageTitle.textContent = '👑 進入故事大結局！請挑選結局卡：';
+      } else if (hasEnding) {
+        this.stageTitle.textContent = '✨ 牌庫即將見底！可複選 1 ~ 3 張（含結局卡）完成冒險：';
+      } else {
+        this.stageTitle.textContent = '✨ 請挑選 1 ~ 3 張卡牌串連成故事：';
+      }
     }
 
     const cardsRow = this.stageContainer.querySelector('.cards-row');
     if (!cardsRow) return;
     cardsRow.innerHTML = '';
+    cardsRow.classList.remove('story-display-mode');
 
-    cards.forEach((card) => {
+    const confirmBox = this.ensureConfirmBox();
+    if (confirmBox) {
+      if (isPureEndingOnly) {
+        confirmBox.classList.add('hidden');
+      } else {
+        confirmBox.classList.remove('hidden');
+        const btnConfirm = confirmBox.querySelector('#btn-confirm-cards');
+        if (btnConfirm) {
+          btnConfirm.onclick = () => {
+            if (this.selectedCards.length > 0) {
+              sfx.playClickCard();
+              this.confirmSelection(cardsRow);
+            }
+          };
+        }
+      }
+    }
+
+    cards.forEach((card, index) => {
       const typeClass = this.getCardTypeClass(card);
       const cardEl = document.createElement('div');
+      const uniqueId = card.id || `opt_${index}`;
+      card.id = uniqueId;
       
       cardEl.className = `card ${typeClass}`;
+      cardEl.dataset.cardId = uniqueId;
       cardEl.dataset.tag = card.tag || (card.isEnding ? '結局' : '卡牌');
       
       cardEl.innerHTML = `
@@ -134,49 +315,98 @@ export class CardStage {
 
       cardEl.addEventListener('click', (e) => {
         e.stopPropagation();
-        sfx.playClickCard(); 
-        this.stopSelectionTimer();
-        this.handleCardClick(cardEl, cardsRow, card);
+        sfx.playClickCard();
+
+        // 點擊放棄牌時跳出二次確認彈窗避免誤觸
+        if (card.isPass) {
+          this.openPassConfirm(cardsRow, card);
+          return;
+        }
+
+        // 純結局階段單選直接進入結局發表
+        if (isPureEndingOnly) {
+          this.selectedCards = [card];
+          this.confirmSelection(cardsRow);
+          return;
+        }
+
+        // 一般卡牌與混合結局階段切換選取或取消（最多 3 張）
+        const existIdx = this.selectedCards.findIndex(c => c.id === uniqueId);
+        if (existIdx !== -1) {
+          this.selectedCards.splice(existIdx, 1);
+        } else {
+          if (this.selectedCards.length >= this.maxSelectCount) {
+            cardEl.classList.remove('card-shake');
+            void cardEl.offsetWidth;
+            cardEl.classList.add('card-shake');
+            return;
+          }
+          this.selectedCards.push(card);
+        }
+
+        this.updateMultiSelectUI(cardsRow);
       });
 
       cardsRow.appendChild(cardEl);
     });
 
-    this.startSelectionTimer(cardsRow, cards);
-  }
-
-  handleCardClick(cardEl, container, card) {
-    this.stopSelectionTimer();
-    this.selectedCard = card;
-
-    if (card.isPass) {
-      if (this.storyInput) this.storyInput.value = '';
-      bgm.setStorytellingMode(false);
-      Array.from(container.children).forEach(child => child.classList.add('card-fall'));
-      setTimeout(() => {
-        this.stageContainer.classList.add('hidden');
-        if (this.onResult) this.onResult(false, card, true, '');
-      }, 400);
-      return;
+    if (!isPureEndingOnly) {
+      this.updateMultiSelectUI(cardsRow);
     }
 
+    this.startSelectionTimer(cardsRow, cards, isPureEndingOnly);
+  }
+
+  triggerPass(container, passCard) {
+    this.stopSelectionTimer();
+    this.closePassConfirm();
+    this.selectedCards = [passCard];
+
+    if (this.confirmActionBox) this.confirmActionBox.classList.add('hidden');
+    if (this.storyInput) this.storyInput.value = '';
+    bgm.setStorytellingMode(false);
+
+    Array.from(container.children).forEach(child => child.classList.add('card-fall'));
+    setTimeout(() => {
+      this.stageContainer.classList.add('hidden');
+      if (this.onResult) this.onResult(false, [passCard], true, '');
+    }, 400);
+  }
+
+  confirmSelection(container) {
+    this.stopSelectionTimer();
+    this.closePassConfirm();
+    if (this.confirmActionBox) this.confirmActionBox.classList.add('hidden');
+
     container.innerHTML = '';
-    
-    const typeClass = this.getCardTypeClass(card);
-    this.displayCardEl = document.createElement('div');
-    this.displayCardEl.className = `card card-selected-display ${typeClass}`;
-    this.displayCardEl.dataset.tag = card.tag || (card.isEnding ? '結局' : '卡牌');
+    container.classList.add('story-display-mode');
+    this.displayCardEls = [];
 
-    this.displayCardEl.innerHTML = `
-      <span class="card-tag">${card.tag || (card.isEnding ? '結局' : '卡牌')}</span>
-      <div class="card-icon">${card.icon || (card.isEnding ? '👑' : '🃏')}</div>
-      <div class="card-title">${card.name}</div>
-    `;
-    container.appendChild(this.displayCardEl);
+    const isEnding = this.selectedCards.some(c => c.isEnding);
 
-    if (this.stageTitle) this.stageTitle.textContent = card.isEnding ? '👑 請為故事寫下完美的結局！' : '請發表您的故事內容！';
+    // 並排顯示選中的 1 ~ 3 張卡牌
+    this.selectedCards.forEach((card) => {
+      const typeClass = this.getCardTypeClass(card);
+      const cardEl = document.createElement('div');
+      cardEl.className = `card card-selected-display ${typeClass}`;
+      cardEl.dataset.tag = card.tag || (card.isEnding ? '結局' : '卡牌');
+
+      cardEl.innerHTML = `
+        <span class="card-tag">${card.tag || (card.isEnding ? '結局' : '卡牌')}</span>
+        <div class="card-icon">${card.icon || (card.isEnding ? '👑' : '🃏')}</div>
+        <div class="card-title">${card.name}</div>
+      `;
+      container.appendChild(cardEl);
+      this.displayCardEls.push(cardEl);
+    });
+
+    if (this.stageTitle) {
+      this.stageTitle.textContent = isEnding
+        ? '👑 請為故事寫下完美的結局！'
+        : `🗣️ 請將這 ${this.selectedCards.length} 張卡牌串連成一個故事！`;
+    }
     
-    // 進入發表故事環節：自動調小背景音量
+    // 進入發表故事環節時調小背景音量
     bgm.setStorytellingMode(true);
 
     if (this.storyInput) this.storyInput.value = '';
@@ -184,6 +414,12 @@ export class CardStage {
     if (this.modalStoryRecorder) {
       this.modalStoryRecorder.classList.remove('hidden');
       this.modalStoryRecorder.style.display = 'block';
+    }
+
+    // 依有效故事牌張數動態更新按鈕加分數
+    const validCount = this.selectedCards.filter(c => c && !c.isPass).length;
+    if (this.btnGood) {
+      this.btnGood.textContent = `👍 說得好 (+${validCount} 分)`;
     }
 
     this.btnGood.onclick = () => {
@@ -204,30 +440,29 @@ export class CardStage {
     if (isGood) {
       if (this.storyInput) this.storyInput.value = '';
       this.animateDirectFlyToTop(() => {
-        if (this.onResult) this.onResult(true, this.selectedCard, false, textSnippet);
+        if (this.onResult) this.onResult(true, this.selectedCards, false, textSnippet);
       });
     } else {
       if (this.storyInput) this.storyInput.value = '';
-      if (this.displayCardEl) this.displayCardEl.classList.add('card-fall');
+      this.displayCardEls.forEach(el => el.classList.add('card-fall'));
       if (this.modalStoryRecorder) {
         this.modalStoryRecorder.classList.add('hidden');
         this.modalStoryRecorder.style.display = 'none';
       }
       setTimeout(() => {
         this.stageContainer.classList.add('hidden');
-        if (this.onResult) this.onResult(false, this.selectedCard, false, '');
+        if (this.onResult) this.onResult(false, this.selectedCards, false, '');
       }, 400);
     }
   }
 
   animateDirectFlyToTop(onComplete) {
-    if (!this.displayCardEl || !this.drawnContainer) {
+    if (this.displayCardEls.length === 0 || !this.drawnContainer) {
       this.stageContainer.classList.add('hidden');
       onComplete();
       return;
     }
 
-    const cardRect = this.displayCardEl.getBoundingClientRect();
     const targetRect = this.drawnContainer.getBoundingClientRect();
 
     if (this.judgeBox) this.judgeBox.classList.add('hidden');
@@ -237,26 +472,36 @@ export class CardStage {
     }
     if (this.stageTitle) this.stageTitle.textContent = '';
 
-    this.displayCardEl.style.position = 'fixed';
-    this.displayCardEl.style.left = `${cardRect.left}px`;
-    this.displayCardEl.style.top = `${cardRect.top}px`;
-    this.displayCardEl.style.margin = '0';
-    this.displayCardEl.style.zIndex = '9999';
-    this.displayCardEl.style.transition = 'all 0.75s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    // 取得所有卡片在畫面上的原始位置
+    const rects = this.displayCardEls.map(el => el.getBoundingClientRect());
+
+    this.displayCardEls.forEach((el, idx) => {
+      el.style.position = 'fixed';
+      el.style.left = `${rects[idx].left}px`;
+      el.style.top = `${rects[idx].top}px`;
+      el.style.margin = '0';
+      el.style.zIndex = `${9999 + idx}`;
+      el.style.transition = `all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${idx * 0.08}s`;
+    });
 
     this.stageContainer.classList.add('hidden');
 
     requestAnimationFrame(() => {
-      this.displayCardEl.style.left = `${targetRect.right + 10}px`;
-      this.displayCardEl.style.top = `${targetRect.top + 5}px`;
-      this.displayCardEl.style.transform = 'scale(0.35)';
-      this.displayCardEl.style.opacity = '0.7';
+      this.displayCardEls.forEach((el, idx) => {
+        el.style.left = `${targetRect.right + 10 + idx * 24}px`;
+        el.style.top = `${targetRect.top + 5}px`;
+        el.style.transform = 'scale(0.32)';
+        el.style.opacity = '0.75';
+      });
     });
 
     setTimeout(() => {
-      this.addPlayedCardToTop(this.selectedCard);
+      this.selectedCards.forEach(card => this.addPlayedCardToTop(card));
+      // 動畫結束後移除暫時建立的飛行動畫元素避免殘留
+      this.displayCardEls.forEach(el => el.remove());
+      this.displayCardEls = [];
       onComplete();
-    }, 750);
+    }, 780);
   }
 
   addPlayedCardToTop(card) {

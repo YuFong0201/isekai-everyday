@@ -1,0 +1,102 @@
+// data/decks/nature/taiwan_animals_deck.js
+
+const taiwanAnimalsDeck = {
+  id: 'taiwan_animals_deck',
+  name: '(易)🐻 台灣森友會',
+  description: '台灣黑熊、梅花鹿、穿山甲與藍鵲齊聚一堂！一場最熱鬧的森林奧運會正式開跑！',
+  bgm: 'warm',
+  cards: {
+    characters: [
+      { id: 'ta_c1', name: '台灣黑熊', tag: '人物', icon: '🐻' },
+      { id: 'ta_c2', name: '梅花鹿', tag: '人物', icon: '🦌' },
+      { id: 'ta_c3', name: '穿山甲', tag: '人物', icon: '🦔' },
+      { id: 'ta_c4', name: '台灣藍鵲', tag: '人物', icon: '🐦' },
+      { id: 'ta_c5', name: '石虎', tag: '人物', icon: '🐆' },
+      { id: 'ta_c6', name: '台灣獼猴', tag: '人物', icon: '🐒' },
+      { id: 'ta_c7', name: '帝雉', tag: '人物', icon: '🦚' },
+      { id: 'ta_c8', name: '櫻花鉤吻鮭', tag: '人物', icon: '🐟' },
+      { id: 'ta_c9', name: '台北樹蛙', tag: '人物', icon: '🐸' },
+      { id: 'ta_c10', name: '紫斑蝶', tag: '人物', icon: '🦋' },
+      { id: 'ta_c11', name: '貓頭鷹', tag: '人物', icon: '🦉' },
+      { id: 'ta_c12', name: '飛鼠', tag: '人物', icon: '🐿️' },
+      { id: 'ta_c13', name: '山豬', tag: '人物', icon: '🐗' },
+      { id: 'ta_c14', name: '野兔', tag: '人物', icon: '🐇' },
+      { id: 'ta_c15', name: '綠蠵龜', tag: '人物', icon: '🐢' },
+      { id: 'ta_c16', name: '獨角仙', tag: '人物', icon: '🪲' }
+    ],
+    times: [
+      { id: 'ta_t1', name: '太陽升起時', tag: '時間', icon: '🌅' },
+      { id: 'ta_t2', name: '比賽鳴槍那一秒', tag: '時間', icon: '🔫' },
+      { id: 'ta_t3', name: '中午休息時間', tag: '時間', icon: '☀️' },
+      { id: 'ta_t4', name: '決賽最後一圈', tag: '時間', icon: '🔥' },
+      { id: 'ta_t5', name: '頒獎典禮時刻', tag: '時間', icon: '🏆' },
+      { id: 'ta_t6', name: '起大霧的時候', tag: '時間', icon: '🌫️' },
+      { id: 'ta_t7', name: '太陽下山前', tag: '時間', icon: '🌇' },
+      { id: 'ta_t8', name: '春天花開時', tag: '時間', icon: '🌸' },
+      { id: 'ta_t9', name: '螢火蟲亮起時', tag: '時間', icon: '✨' },
+      { id: 'ta_t10', name: '午後雷陣雨時', tag: '時間', icon: '🌦️' },
+      { id: 'ta_t11', name: '開幕典禮進場時', tag: '時間', icon: '🚩' },
+      { id: 'ta_t12', name: '滿月升起的夜晚', tag: '時間', icon: '🌕' }
+    ],
+    places: [
+      { id: 'ta_p1', name: '阿里山神木下', tag: '地點', icon: '🌲' },
+      { id: 'ta_p2', name: '日月潭湖畔', tag: '地點', icon: '🏞️' },
+      { id: 'ta_p3', name: '玉山頂峰', tag: '地點', icon: '🏔️' },
+      { id: 'ta_p4', name: '七家灣溪裡', tag: '地點', icon: '💧' },
+      { id: 'ta_p5', name: '墾丁沙灘', tag: '地點', icon: '🏖️' },
+      { id: 'ta_p6', name: '陽明山草原', tag: '地點', icon: '🌿' },
+      { id: 'ta_p7', name: '太魯閣峽谷', tag: '地點', icon: '🪨' },
+      { id: 'ta_p8', name: '森林大草皮', tag: '地點', icon: '🌱' },
+      { id: 'ta_p9', name: '竹林小徑', tag: '地點', icon: '🎋' },
+      { id: 'ta_p10', name: '瀑布水潭邊', tag: '地點', icon: '🌊' },
+      { id: 'ta_p11', name: '紅樹林濕地', tag: '地點', icon: '🦀' },
+      { id: 'ta_p12', name: '老榕樹樹洞', tag: '地點', icon: '🌳' },
+      { id: 'ta_p13', name: '蝴蝶谷', tag: '地點', icon: '🦋' },
+      { id: 'ta_p14', name: '泥巴障礙道', tag: '地點', icon: '🤎' },
+      { id: 'ta_p15', name: '空中樹冠層', tag: '地點', icon: '🍃' },
+      { id: 'ta_p16', name: '森林頒獎台', tag: '地點', icon: '🏅' }
+    ],
+    events: [
+      { id: 'ta_e1', name: '賽跑衝過終點線', tag: '事件', icon: '🏁' },
+      { id: 'ta_e2', name: '穿山甲縮成球滾動', tag: '事件', icon: '⚽' },
+      { id: 'ta_e3', name: '舉重打破森林紀錄', tag: '事件', icon: '🏋️' },
+      { id: 'ta_e4', name: '拔河比賽繩子斷了', tag: '事件', icon: '🪢' },
+      { id: 'ta_e5', name: '游泳比賽逆流而上', tag: '事件', icon: '🏊' },
+      { id: 'ta_e6', name: '飛鼠滑翔飛越全場', tag: '事件', icon: '🪁' },
+      { id: 'ta_e7', name: '獼猴偷吃選手香蕉', tag: '事件', icon: '🍌' },
+      { id: 'ta_e8', name: '藍鵲組成啦啦隊', tag: '事件', icon: '📣' },
+      { id: 'ta_e9', name: '大隊接力完美傳棒', tag: '事件', icon: '🏃' },
+      { id: 'ta_e10', name: '跳遠跳進泥巴坑', tag: '事件', icon: '💦' },
+      { id: 'ta_e11', name: '停下來幫助受傷對手', tag: '事件', icon: '🤝' },
+      { id: 'ta_e12', name: '樹蛙合唱加油歌', tag: '事件', icon: '🎶' },
+      { id: 'ta_e13', name: '獨角仙摔角大對決', tag: '事件', icon: '🪲' },
+      { id: 'ta_e14', name: '起大霧迷失方向', tag: '事件', icon: '🌫️' },
+      { id: 'ta_e15', name: '貓頭鷹擔任公正裁判', tag: '事件', icon: '🦉' },
+      { id: 'ta_e16', name: '蝴蝶在空中排字', tag: '事件', icon: '✨' },
+      { id: 'ta_e17', name: '山豬衝刺剎不住車', tag: '事件', icon: '💨' },
+      { id: 'ta_e18', name: '兩隊平手並列冠軍', tag: '事件', icon: '🥇' },
+      { id: 'ta_e19', name: '舉辦森林水果派對', tag: '事件', icon: '🍉' },
+      { id: 'ta_e20', name: '大家一起大合照', tag: '事件', icon: '📸' }
+    ],
+    challenges: [
+      { id: 'ta_s1', name: '模仿一種動物的叫聲', tag: '狀況', icon: '🐾' },
+      { id: 'ta_s2', name: '做出「舉起獎盃歡呼」動作', tag: '狀況', icon: '🏆' },
+      { id: 'ta_s3', name: '用體育主播語氣轉播', tag: '狀況', icon: '🎙️' },
+      { id: 'ta_s4', name: '做出「全力衝刺跑步」動作', tag: '狀況', icon: '🏃' },
+      { id: 'ta_s5', name: '喊出「加油！加油！」', tag: '狀況', icon: '📣' },
+      { id: 'ta_s6', name: '做出「舉重用力」的表情', tag: '狀況', icon: '🏋️' },
+      { id: 'ta_s7', name: '模仿小鳥拍翅膀飛翔', tag: '狀況', icon: '🐦' },
+      { id: 'ta_s8', name: '加入一個友愛互助的橋段', tag: '狀況', icon: '❤️' },
+      { id: 'ta_s9', name: '做出「青蛙蹲跳」的動作', tag: '狀況', icon: '🐸' },
+      { id: 'ta_s10', name: '模仿鳴槍「砰——！」聲', tag: '狀況', icon: '🔫' },
+      { id: 'ta_s11', name: '用超熱血的語氣說話', tag: '狀況', icon: '🔥' },
+      { id: 'ta_s12', name: '台詞出現一個台灣地名', tag: '狀況', icon: '🗺️' },
+      { id: 'ta_s13', name: '做出「拔河往後拉」動作', tag: '狀況', icon: '🪢' },
+      { id: 'ta_s14', name: '模仿蝴蝶優雅飛舞姿勢', tag: '狀況', icon: '🦋' },
+      { id: 'ta_s15', name: '加入一個搞笑的失誤場面', tag: '狀況', icon: '🤡' },
+      { id: 'ta_s16', name: '結尾說「愛護台灣大自然！」', tag: '狀況', icon: '🌲' }
+    ]
+  }
+};
+
+export default taiwanAnimalsDeck;

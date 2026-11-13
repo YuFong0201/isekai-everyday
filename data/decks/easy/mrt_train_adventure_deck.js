@@ -1,0 +1,102 @@
+// data/decks/life/mrt_train_adventure_deck.js
+
+const mrtTrainAdventureDeck = {
+  id: 'mrt_train_adventure_deck',
+  name: '(易)🚇 捷運與火車大冒險',
+  description: '嗶！進站刷卡搭列車！沿途經過各個車站，展開充滿驚奇的城市鐵道旅行！',
+  bgm: 'default',
+  cards: {
+    characters: [
+      { id: 'mt_c1', name: '站長', tag: '人物', icon: '👮' },
+      { id: 'mt_c2', name: '列車長', tag: '人物', icon: '🧑‍✈️' },
+      { id: 'mt_c3', name: '小學生', tag: '人物', icon: '🎒' },
+      { id: 'mt_c4', name: '老奶奶', tag: '人物', icon: '👵' },
+      { id: 'mt_c5', name: '外國旅客', tag: '人物', icon: '🧳' },
+      { id: 'mt_c6', name: '盲人與導盲犬', tag: '人物', icon: '🦮' },
+      { id: 'mt_c7', name: '上班族', tag: '人物', icon: '💼' },
+      { id: 'mt_c8', name: '小弟弟', tag: '人物', icon: '🧒' },
+      { id: 'mt_c9', name: '清潔人員', tag: '人物', icon: '🧹' },
+      { id: 'mt_c10', name: '便當阿姨', tag: '人物', icon: '🍱' },
+      { id: 'mt_c11', name: '警察', tag: '人物', icon: '🚓' },
+      { id: 'mt_c12', name: '街頭畫家', tag: '人物', icon: '🎨' },
+      { id: 'mt_c13', name: '魔術師', tag: '人物', icon: '🎩' },
+      { id: 'mt_c14', name: '迷路的小貓', tag: '人物', icon: '🐱' },
+      { id: 'mt_c15', name: '同學', tag: '人物', icon: '👦' },
+      { id: 'mt_c16', name: '爸爸', tag: '人物', icon: '👨' }
+    ],
+    times: [
+      { id: 'mt_t1', name: '早上上學尖峰時', tag: '時間', icon: '🌅' },
+      { id: 'mt_t2', name: '車門關閉逼逼響時', tag: '時間', icon: '🚪' },
+      { id: 'mt_t3', name: '列車進站那一秒', tag: '時間', icon: '🚇' },
+      { id: 'mt_t4', name: '放學搭車回家時', tag: '時間', icon: '🌇' },
+      { id: 'mt_t5', name: '過山洞變黑那一刻', tag: '時間', icon: '🌑' },
+      { id: 'mt_t6', name: '週末出去玩早上', tag: '時間', icon: '☀️' },
+      { id: 'mt_t7', name: '末班車快開走前', tag: '時間', icon: '🕛' },
+      { id: 'mt_t8', name: '下雨天躲雨進站時', tag: '時間', icon: '🌧️' },
+      { id: 'mt_t9', name: '中午買火車便當時', tag: '時間', icon: '🍱' },
+      { id: 'mt_t10', name: '轉車換線跑百米時', tag: '時間', icon: '🏃' },
+      { id: 'mt_t11', name: '刷卡進閘門瞬間', tag: '時間', icon: '💳' },
+      { id: 'mt_t12', name: '抵達終點站時', tag: '時間', icon: '🏁' }
+    ],
+    places: [
+      { id: 'mt_p1', name: '捷運月台排隊線', tag: '地點', icon: '🚇' },
+      { id: 'mt_p2', name: '刷卡感應閘門口', tag: '地點', icon: '🚧' },
+      { id: 'mt_p3', name: '博愛座旁邊', tag: '地點', icon: '💺' },
+      { id: 'mt_p4', name: '第一節車廂車頭', tag: '地點', icon: '🚆' },
+      { id: 'mt_p5', name: '地下街商店街', tag: '地點', icon: '🛍️' },
+      { id: 'mt_p6', name: '手扶梯上', tag: '地點', icon: '🪜' },
+      { id: 'mt_p7', name: '車站服務台', tag: '地點', icon: '💁' },
+      { id: 'mt_p8', name: '火車站大廳', tag: '地點', icon: '🏛️' },
+      { id: 'mt_p9', name: '高架橋軌道上', tag: '地點', icon: '🌉' },
+      { id: 'mt_p10', name: '隧道裡面', tag: '地點', icon: '🕳️' },
+      { id: 'mt_p11', name: '加值售票機前', tag: '地點', icon: '🪙' },
+      { id: 'mt_p12', name: '失物招領中心', tag: '地點', icon: '🎒' },
+      { id: 'mt_p13', name: '海邊支線小車站', tag: '地點', icon: '🌊' },
+      { id: 'mt_p14', name: '山洞口鐵橋上', tag: '地點', icon: '⛰️' },
+      { id: 'mt_p15', name: '車廂連結處', tag: '地點', icon: '🔗' },
+      { id: 'mt_p16', name: '出口一號樓梯', tag: '地點', icon: '🚪' }
+    ],
+    events: [
+      { id: 'mt_e1', name: '主動讓座給老奶奶', tag: '事件', icon: '❤️' },
+      { id: 'mt_e2', name: '不小心坐過站了', tag: '事件', icon: '😱' },
+      { id: 'mt_e3', name: '書包忘記拿下車', tag: '事件', icon: '🎒' },
+      { id: 'mt_e4', name: '悠遊卡餘額不足卡關', tag: '事件', icon: '💳' },
+      { id: 'mt_e5', name: '搭反方向列車看錯邊', tag: '事件', icon: '🔄' },
+      { id: 'mt_e6', name: '買到熱騰騰鐵路便當', tag: '事件', icon: '🍱' },
+      { id: 'mt_e7', name: '在月台撿到遺失玩偶', tag: '事件', icon: '🧸' },
+      { id: 'mt_e8', name: '幫外國旅客指路', tag: '事件', icon: '🗺️' },
+      { id: 'mt_e9', name: '看到窗外美麗大海', tag: '事件', icon: '🌊' },
+      { id: 'mt_e10', name: '門快關上差點夾到書包', tag: '事件', icon: '⚡' },
+      { id: 'mt_e11', name: '搭到彩繪主題列車', tag: '事件', icon: '🎨' },
+      { id: 'mt_e12', name: '跟家人分開上不同車', tag: '事件', icon: '😨' },
+      { id: 'mt_e13', name: '列車過山洞耳朵悶悶', tag: '事件', icon: '👂' },
+      { id: 'mt_e14', name: '在地下街迷失方向', tag: '事件', icon: '🌀' },
+      { id: 'mt_e15', name: '站長幫忙廣播找人', tag: '事件', icon: '📢' },
+      { id: 'mt_e16', name: '看到駕駛室前方風景', tag: '事件', icon: '👀' },
+      { id: 'mt_e17', name: '列車突然緊急煞車', tag: '事件', icon: '🛑' },
+      { id: 'mt_e18', name: '在車站蓋紀念戳章', tag: '事件', icon: '💮' },
+      { id: 'mt_e19', name: '水壺打翻趕緊擦乾', tag: '事件', icon: '💧' },
+      { id: 'mt_e20', name: '平安順利抵達目的地', tag: '事件', icon: '🎉' }
+    ],
+    challenges: [
+      { id: 'mt_s1', name: '模仿車門關閉「逼逼逼」聲', tag: '狀況', icon: '🔔' },
+      { id: 'mt_s2', name: '用捷運廣播小姐語氣說話', tag: '狀況', icon: '🎙️' },
+      { id: 'mt_s3', name: '做出「手拉吊環站穩」姿勢', tag: '狀況', icon: '🚇' },
+      { id: 'mt_s4', name: '喊出「請緊握扶手站穩踏階」', tag: '狀況', icon: '📢' },
+      { id: 'mt_s5', name: '做出「刷悠遊卡進站」動作', tag: '狀況', icon: '💳' },
+      { id: 'mt_s6', name: '模仿火車「況且況且」行駛聲', tag: '狀況', icon: '🚂' },
+      { id: 'mt_s7', name: '做出「列車轉彎身體傾斜」', tag: '狀況', icon: '🤸' },
+      { id: 'mt_s8', name: '加入一個熱心讓座或助人橋段', tag: '狀況', icon: '❤️' },
+      { id: 'mt_s9', name: '做出「看車站路線圖找路」', tag: '狀況', icon: '🗺️' },
+      { id: 'mt_s10', name: '喊出「糟糕！坐過站了！」', tag: '狀況', icon: '😱' },
+      { id: 'mt_s11', name: '模仿站長吹哨指揮「嗶——」', tag: '狀況', icon: '👮' },
+      { id: 'mt_s12', name: '用驚喜看窗外風景的語氣說', tag: '狀況', icon: '🪟' },
+      { id: 'mt_s13', name: '台詞出現一個台灣車站名字', tag: '狀況', icon: '🚉' },
+      { id: 'mt_s14', name: '做出「吞口水舒緩耳鳴」動作', tag: '狀況', icon: '👂' },
+      { id: 'mt_s15', name: '加入一個遵守乘車禮儀的提醒', tag: '狀況', icon: '✨' },
+      { id: 'mt_s16', name: '結尾說「搭車旅行真方便！」', tag: '狀況', icon: '🚆' }
+    ]
+  }
+};
+
+export default mrtTrainAdventureDeck;

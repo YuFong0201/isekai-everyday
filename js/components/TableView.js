@@ -41,17 +41,16 @@ export class TableView {
     this.scene.background = new THREE.Color(0x0a081d);
 
     // 2. 環境光與方向光
-    const ambientLight = new THREE.AmbientLight(0xfff5ea, 0.6);
+    const ambientLight = new THREE.AmbientLight(0xfff5ea, 0.55);
     this.scene.add(ambientLight);
 
-    // 酒館主題聚光燈
-    this.spotLight1 = new THREE.SpotLight(0xfebd59, 2.2);
+    this.spotLight1 = new THREE.SpotLight(0xfebd59, 1.6);
     this.spotLight1.position.set(0, 25, 5);
     this.spotLight1.angle = Math.PI / 3;
     this.spotLight1.penumbra = 0.8;
     this.scene.add(this.spotLight1);
 
-    this.spotLight2 = new THREE.SpotLight(0xa855f7, 1.2);
+    this.spotLight2 = new THREE.SpotLight(0xa855f7, 1.0);
     this.spotLight2.position.set(-15, 20, -10);
     this.spotLight2.angle = Math.PI / 4;
     this.spotLight2.penumbra = 0.9;
@@ -66,7 +65,7 @@ export class TableView {
     const tableGeometry = new THREE.CylinderGeometry(7.2, 7.4, 0.4, 64);
     const tableMaterial = new THREE.MeshStandardMaterial({
       map: tableTexture,
-      roughness: 0.35,
+      roughness: 0.45,
       metalness: 0.1
     });
     this.tableMesh = new THREE.Mesh(tableGeometry, tableMaterial);
@@ -91,16 +90,16 @@ export class TableView {
     ctx.translate(512, 512);
 
     const auroraGrad = ctx.createRadialGradient(0, 0, 50, 0, 0, 500);
-    auroraGrad.addColorStop(0, 'rgba(254, 240, 138, 0.95)');
-    auroraGrad.addColorStop(0.3, 'rgba(74, 222, 128, 0.85)');
-    auroraGrad.addColorStop(0.65, 'rgba(56, 189, 248, 0.7)');
-    auroraGrad.addColorStop(0.88, 'rgba(168, 85, 247, 0.5)');
+    auroraGrad.addColorStop(0, 'rgba(250, 204, 21, 0.75)');
+    auroraGrad.addColorStop(0.3, 'rgba(52, 211, 153, 0.7)');
+    auroraGrad.addColorStop(0.65, 'rgba(56, 189, 248, 0.6)');
+    auroraGrad.addColorStop(0.88, 'rgba(168, 85, 247, 0.45)');
     auroraGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
     ctx.strokeStyle = auroraGrad;
-    ctx.shadowColor = '#4ade80';
-    ctx.shadowBlur = 25;
-    ctx.lineWidth = 14;
+    ctx.shadowColor = '#10b981';
+    ctx.shadowBlur = 15;
+    ctx.lineWidth = 12;
 
     ctx.beginPath();
     for (let i = 0; i < 5; i++) {
@@ -113,7 +112,7 @@ export class TableView {
     ctx.closePath();
     ctx.stroke();
 
-    ctx.lineWidth = 7;
+    ctx.lineWidth = 6;
     ctx.beginPath();
     for (let i = 0; i < 5; i++) {
       const angle = (i * 144 - 90 + 36) * (Math.PI / 180);
@@ -125,12 +124,12 @@ export class TableView {
     ctx.closePath();
     ctx.stroke();
 
-    ctx.lineWidth = 12;
+    ctx.lineWidth = 10;
     ctx.beginPath();
     ctx.arc(0, 0, 475, 0, Math.PI * 2);
     ctx.stroke();
 
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.arc(0, 0, 270, 0, Math.PI * 2);
     ctx.stroke();
@@ -144,7 +143,7 @@ export class TableView {
     this.auroraMaterial = new THREE.MeshBasicMaterial({
       map: texture,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.35,
       blending: THREE.AdditiveBlending,
       side: THREE.DoubleSide,
       depthWrite: false
@@ -161,7 +160,6 @@ export class TableView {
     canvas.width = 1024;
     canvas.height = 1024;
     const ctx = canvas.getContext('2d');
-
 
     ctx.fillStyle = '#3259d8';
     ctx.fillRect(0, 0, 1024, 1024);
@@ -184,16 +182,9 @@ export class TableView {
   }
 
   triggerMagicCircleGlow() {
-    if (this.canvas) {
-      this.canvas.classList.remove('magic-circle-burst');
-      void this.canvas.offsetWidth;
-      this.canvas.classList.add('magic-circle-burst');
-      setTimeout(() => this.canvas.classList.remove('magic-circle-burst'), 1300);
-    }
-
     if (window.gsap && this.auroraCircleMesh) {
-      gsap.to(this.auroraPointLight, { intensity: 8, duration: 0.3, yoyo: true, repeat: 1 });
-      gsap.to(this.spotLight1, { intensity: 4.5, duration: 0.3, yoyo: true, repeat: 1 });
+      gsap.to(this.auroraPointLight, { intensity: 1.8, duration: 0.35, yoyo: true, repeat: 1 });
+      gsap.to(this.spotLight1, { intensity: 2.1, duration: 0.35, yoyo: true, repeat: 1 });
 
       gsap.to(this.auroraCircleMesh.rotation, {
         z: this.auroraCircleMesh.rotation.z + Math.PI * 2,
@@ -202,7 +193,7 @@ export class TableView {
       });
 
       gsap.to(this.auroraCircleMesh.position, {
-        y: 1.2,
+        y: 1.0,
         duration: 0.5,
         yoyo: true,
         repeat: 1,
@@ -210,13 +201,13 @@ export class TableView {
       });
 
       gsap.to(this.auroraMaterial, {
-        opacity: 1.0,
-        duration: 0.3,
+        opacity: 0.68,
+        duration: 0.35,
         yoyo: true,
         repeat: 1,
         ease: "power2.inOut",
         onComplete: () => {
-          this.auroraMaterial.opacity = 0.4;
+          this.auroraMaterial.opacity = 0.35;
         }
       });
     }
@@ -232,10 +223,9 @@ export class TableView {
     whiteOverlay.classList.remove('active', 'fade-out');
 
     if (window.gsap && this.auroraCircleMesh) {
-
-      gsap.to(this.auroraPointLight, { intensity: 22, duration: 2.8, ease: "power3.in" });
-      gsap.to(this.spotLight1, { intensity: 8, duration: 2.8 });
-      gsap.to(this.spotLight2, { intensity: 6, duration: 2.8 });
+      gsap.to(this.auroraPointLight, { intensity: 6, duration: 2.8, ease: "power2.in" });
+      gsap.to(this.spotLight1, { intensity: 3.2, duration: 2.8 });
+      gsap.to(this.spotLight2, { intensity: 2.5, duration: 2.8 });
 
       gsap.to(this.auroraCircleMesh.rotation, {
         z: this.auroraCircleMesh.rotation.z + Math.PI * 6,
@@ -257,7 +247,7 @@ export class TableView {
       });
 
       gsap.to(this.auroraMaterial, {
-        opacity: 1.0,
+        opacity: 0.85,
         duration: 2.5
       });
 
@@ -270,10 +260,10 @@ export class TableView {
 
         this.auroraCircleMesh.position.set(0, 0.05, 0);
         this.auroraCircleMesh.scale.set(1, 1, 1);
-        this.auroraMaterial.opacity = 0.4;
+        this.auroraMaterial.opacity = 0.35;
         this.auroraPointLight.intensity = 0;
-        this.spotLight1.intensity = 2.2;
-        this.spotLight2.intensity = 1.2;
+        this.spotLight1.intensity = 1.6;
+        this.spotLight2.intensity = 1.0;
 
         setTimeout(() => {
           whiteOverlay.classList.add('fade-out');

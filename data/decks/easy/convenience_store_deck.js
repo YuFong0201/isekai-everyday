@@ -1,0 +1,102 @@
+// data/decks/life/convenience_store_deck.js
+
+const convenienceStoreDeck = {
+  id: 'convenience_store_deck',
+  name: '(易)🏪 超商奇遇記',
+  description: '叮咚！歡迎光臨！台灣街角最熟悉的便利商店，竟藏著意想不到的神祕任務！',
+  bgm: 'default',
+  cards: {
+    characters: [
+      { id: 'cs_c1', name: '店員', tag: '人物', icon: '🧑‍💼' },
+      { id: 'cs_c2', name: '店長', tag: '人物', icon: '👨‍💼' },
+      { id: 'cs_c3', name: '小學生', tag: '人物', icon: '🎒' },
+      { id: 'cs_c4', name: '老爺爺', tag: '人物', icon: '👴' },
+      { id: 'cs_c5', name: '外送員', tag: '人物', icon: '🛵' },
+      { id: 'cs_c6', name: '黑貓', tag: '人物', icon: '🐈‍⬛' },
+      { id: 'cs_c7', name: '小狗', tag: '人物', icon: '🐶' },
+      { id: 'cs_c8', name: '消防員', tag: '人物', icon: '🧑‍🚒' },
+      { id: 'cs_c9', name: '郵差', tag: '人物', icon: '📮' },
+      { id: 'cs_c10', name: '鄰居阿姨', tag: '人物', icon: '👩' },
+      { id: 'cs_c11', name: '大哥哥', tag: '人物', icon: '👦' },
+      { id: 'cs_c12', name: '小妹妹', tag: '人物', icon: '👧' },
+      { id: 'cs_c13', name: '魔術師', tag: '人物', icon: '🎩' },
+      { id: 'cs_c14', name: '機器人', tag: '人物', icon: '🤖' },
+      { id: 'cs_c15', name: '外星人', tag: '人物', icon: '👽' },
+      { id: 'cs_c16', name: '幽靈', tag: '人物', icon: '👻' }
+    ],
+    times: [
+      { id: 'cs_t1', name: '上學前', tag: '時間', icon: '🌅' },
+      { id: 'cs_t2', name: '放學後', tag: '時間', icon: '🌇' },
+      { id: 'cs_t3', name: '颱風天', tag: '時間', icon: '🌀' },
+      { id: 'cs_t4', name: '半夜十二點', tag: '時間', icon: '🕛' },
+      { id: 'cs_t5', name: '大熱天下午', tag: '時間', icon: '☀️' },
+      { id: 'cs_t6', name: '下大雨時', tag: '時間', icon: '🌧️' },
+      { id: 'cs_t7', name: '補貨車剛到時', tag: '時間', icon: '🚚' },
+      { id: 'cs_t8', name: '微波爐響起時', tag: '時間', icon: '♨️' },
+      { id: 'cs_t9', name: '自動門打開瞬間', tag: '時間', icon: '🚪' },
+      { id: 'cs_t10', name: '集點最後一天', tag: '時間', icon: '📅' },
+      { id: 'cs_t11', name: '週六早上', tag: '時間', icon: '🌤️' },
+      { id: 'cs_t12', name: '停電那一刻', tag: '時間', icon: '⚡' }
+    ],
+    places: [
+      { id: 'cs_p1', name: '結帳櫃檯', tag: '地點', icon: '🧾' },
+      { id: 'cs_p2', name: '茶葉蛋鍋前', tag: '地點', icon: '🥚' },
+      { id: 'cs_p3', name: '關東煮區', tag: '地點', icon: '🍢' },
+      { id: 'cs_p4', name: '飲料冷藏櫃', tag: '地點', icon: '🥤' },
+      { id: 'cs_p5', name: '冰淇淋冰櫃', tag: '地點', icon: '🍦' },
+      { id: 'cs_p6', name: '御飯糰貨架', tag: '地點', icon: '🍙' },
+      { id: 'cs_p7', name: '零食走道', tag: '地點', icon: '🍪' },
+      { id: 'cs_p8', name: '微波爐旁', tag: '地點', icon: '📻' },
+      { id: 'cs_p9', name: '休憩座位區', tag: '地點', icon: '🪑' },
+      { id: 'cs_p10', name: '提款機前', tag: '地點', icon: '🏧' },
+      { id: 'cs_p11', name: '影印機旁', tag: '地點', icon: '🖨️' },
+      { id: 'cs_p12', name: '包裹寄件櫃', tag: '地點', icon: '📦' },
+      { id: 'cs_p13', name: '自動門門口', tag: '地點', icon: '🚪' },
+      { id: 'cs_p14', name: '雜誌書報架', tag: '地點', icon: '📚' },
+      { id: 'cs_p15', name: '倉庫門口', tag: '地點', icon: '🔒' },
+      { id: 'cs_p16', name: '騎樓休息區', tag: '地點', icon: '☂️' }
+    ],
+    events: [
+      { id: 'cs_e1', name: '買到最後一個飯糰', tag: '事件', icon: '🍙' },
+      { id: 'cs_e2', name: '統一發票中大獎', tag: '事件', icon: '🧾' },
+      { id: 'cs_e3', name: '錢包忘記帶了', tag: '事件', icon: '😱' },
+      { id: 'cs_e4', name: '霜淇淋擠歪了', tag: '事件', icon: '🍦' },
+      { id: 'cs_e5', name: '自動門一直開關', tag: '事件', icon: '🚪' },
+      { id: 'cs_e6', name: '集點貼紙集滿了', tag: '事件', icon: '💮' },
+      { id: 'cs_e7', name: '茶葉蛋滾出來', tag: '事件', icon: '🥚' },
+      { id: 'cs_e8', name: '飲料買一送一', tag: '事件', icon: '🎉' },
+      { id: 'cs_e9', name: '拿錯別人的包裹', tag: '事件', icon: '📦' },
+      { id: 'cs_e10', name: '關東煮湯灑出來', tag: '事件', icon: '🥣' },
+      { id: 'cs_e11', name: '遇到神秘顧客', tag: '事件', icon: '🕵️' },
+      { id: 'cs_e12', name: '影印機吐出藏寶圖', tag: '事件', icon: '🗺️' },
+      { id: 'cs_e13', name: '發現隱藏版商品', tag: '事件', icon: '✨' },
+      { id: 'cs_e14', name: '冰箱門打不開', tag: '事件', icon: '❄️' },
+      { id: 'cs_e15', name: '悠遊卡餘額不足', tag: '事件', icon: '💳' },
+      { id: 'cs_e16', name: '貓咪跑進店裡', tag: '事件', icon: '🐱' },
+      { id: 'cs_e17', name: '微波便當大爆炸', tag: '事件', icon: '💥' },
+      { id: 'cs_e18', name: '幫老爺爺買東西', tag: '事件', icon: '🤝' },
+      { id: 'cs_e19', name: '颱風天搶購泡麵', tag: '事件', icon: '🍜' },
+      { id: 'cs_e20', name: '獲得限量公仔', tag: '事件', icon: '🏆' }
+    ],
+    challenges: [
+      { id: 'cs_s1', name: '喊出「歡迎光臨！」', tag: '狀況', icon: '🔔' },
+      { id: 'cs_s2', name: '模仿條碼機「嗶」聲', tag: '狀況', icon: '🔊' },
+      { id: 'cs_s3', name: '做出刷悠遊卡的動作', tag: '狀況', icon: '💳' },
+      { id: 'cs_s4', name: '喊出「謝謝光臨！」', tag: '狀況', icon: '🙇' },
+      { id: 'cs_s5', name: '模仿微波爐「叮」一聲', tag: '狀況', icon: '♨️' },
+      { id: 'cs_s6', name: '做出「打開冰櫃冷到發抖」', tag: '狀況', icon: '🥶' },
+      { id: 'cs_s7', name: '用超有禮貌的店員語氣', tag: '狀況', icon: '😊' },
+      { id: 'cs_s8', name: '台詞出現「集點貼紙」', tag: '狀況', icon: '💮' },
+      { id: 'cs_s9', name: '做出「撕開御飯糰包裝」動作', tag: '狀況', icon: '🍙' },
+      { id: 'cs_s10', name: '模仿自動門「叮咚」門鈴', tag: '狀況', icon: '🎶' },
+      { id: 'cs_s11', name: '用很驚訝的語氣看發票', tag: '狀況', icon: '🧾' },
+      { id: 'cs_s12', name: '做出「擠霜淇淋」的手勢', tag: '狀況', icon: '🍦' },
+      { id: 'cs_s13', name: '加入一個熱心助人的舉動', tag: '狀況', icon: '❤️' },
+      { id: 'cs_s14', name: '台詞包含一種飲料名稱', tag: '狀況', icon: '🥤' },
+      { id: 'cs_s15', name: '做出「翻書包找錢包」動作', tag: '狀況', icon: '🎒' },
+      { id: 'cs_s16', name: '結尾說「超商真是好幫手！」', tag: '狀況', icon: '🏪' }
+    ]
+  }
+};
+
+export default convenienceStoreDeck;

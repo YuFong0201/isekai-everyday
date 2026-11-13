@@ -1,0 +1,102 @@
+// data/decks/nature/zoo_adventure_deck.js
+
+const zooAdventureDeck = {
+  id: 'zoo_adventure_deck',
+  name: '(易)🦁 動物園奇幻一日遊',
+  description: '校外教學來到動物園！企鵝、長頸鹿與調皮猴子齊聚一堂，快來展開觀察大冒險！',
+  bgm: 'warm',
+  cards: {
+    characters: [
+      { id: 'za_c1', name: '長頸鹿', tag: '人物', icon: '🦒' },
+      { id: 'za_c2', name: '大象', tag: '人物', icon: '🐘' },
+      { id: 'za_c3', name: '企鵝', tag: '人物', icon: '🐧' },
+      { id: 'za_c4', name: '獅子', tag: '人物', icon: '🦁' },
+      { id: 'za_c5', name: '猴子', tag: '人物', icon: '🐒' },
+      { id: 'za_c6', name: '無尾熊', tag: '人物', icon: '🐨' },
+      { id: 'za_c7', name: '大貓熊', tag: '人物', icon: '🐼' },
+      { id: 'za_c8', name: '河馬', tag: '人物', icon: '🦛' },
+      { id: 'za_c9', name: '紅鶴', tag: '人物', icon: '🦩' },
+      { id: 'za_c10', name: '穿山甲', tag: '人物', icon: '🦔' },
+      { id: 'za_c11', name: '保育員', tag: '人物', icon: '🧑‍🌾' },
+      { id: 'za_c12', name: '導覽員', tag: '人物', icon: '🎤' },
+      { id: 'za_c13', name: '小學生', tag: '人物', icon: '🎒' },
+      { id: 'za_c14', name: '老師', tag: '人物', icon: '👩‍🏫' },
+      { id: 'za_c15', name: '攝影師', tag: '人物', icon: '📷' },
+      { id: 'za_c16', name: '孔雀', tag: '人物', icon: '🦚' }
+    ],
+    times: [
+      { id: 'za_t1', name: '早上開園時', tag: '時間', icon: '🌅' },
+      { id: 'za_t2', name: '餵食秀開始時', tag: '時間', icon: '🐟' },
+      { id: 'za_t3', name: '中午野餐時間', tag: '時間', icon: '🍱' },
+      { id: 'za_t4', name: '動物睡午覺時', tag: '時間', icon: '😴' },
+      { id: 'za_t5', name: '搭遊園車的時候', tag: '時間', icon: '🚂' },
+      { id: 'za_t6', name: '大太陽的下午', tag: '時間', icon: '☀️' },
+      { id: 'za_t7', name: '突然下起小雨時', tag: '時間', icon: '🌦️' },
+      { id: 'za_t8', name: '閉園廣播響起時', tag: '時間', icon: '📢' },
+      { id: 'za_t9', name: '校外教學集合前', tag: '時間', icon: '⏰' },
+      { id: 'za_t10', name: '週末人最多時', tag: '時間', icon: '👨‍👩‍👧‍👦' },
+      { id: 'za_t11', name: '孔雀開屏那一秒', tag: '時間', icon: '✨' },
+      { id: 'za_t12', name: '太陽快下山時', tag: '時間', icon: '🌇' }
+    ],
+    places: [
+      { id: 'za_p1', name: '動物園大門口', tag: '地點', icon: '🏛️' },
+      { id: 'za_p2', name: '企鵝館', tag: '地點', icon: '🐧' },
+      { id: 'za_p3', name: '非洲草原區', tag: '地點', icon: '🦁' },
+      { id: 'za_p4', name: '熱帶雨林館', tag: '地點', icon: '🌴' },
+      { id: 'za_p5', name: '大貓熊館', tag: '地點', icon: '🐼' },
+      { id: 'za_p6', name: '可愛動物區', tag: '地點', icon: '🐇' },
+      { id: 'za_p7', name: '兩棲爬蟲館', tag: '地點', icon: '🐢' },
+      { id: 'za_p8', name: '遊園車站牌', tag: '地點', icon: '🚂' },
+      { id: 'za_p9', name: '紀念品商店', tag: '地點', icon: '🧸' },
+      { id: 'za_p10', name: '野餐大草坪', tag: '地點', icon: '🧺' },
+      { id: 'za_p11', name: '鳥園大籠子', tag: '地點', icon: '🦜' },
+      { id: 'za_p12', name: '台灣動物區', tag: '地點', icon: '🐻' },
+      { id: 'za_p13', name: '水池邊木棧道', tag: '地點', icon: '🌉' },
+      { id: 'za_p14', name: '教育中心', tag: '地點', icon: '📚' },
+      { id: 'za_p15', name: '冰淇淋攤車前', tag: '地點', icon: '🍦' },
+      { id: 'za_p16', name: '紅鶴水池旁', tag: '地點', icon: '🦩' }
+    ],
+    events: [
+      { id: 'za_e1', name: '猴子搶走零食袋', tag: '事件', icon: '🍌' },
+      { id: 'za_e2', name: '企鵝排隊跳水', tag: '事件', icon: '💦' },
+      { id: 'za_e3', name: '獅子突然大吼一聲', tag: '事件', icon: '📢' },
+      { id: 'za_e4', name: '大象用鼻子噴水', tag: '事件', icon: '🐘' },
+      { id: 'za_e5', name: '無尾熊抱樹睡著了', tag: '事件', icon: '😴' },
+      { id: 'za_e6', name: '長頸鹿伸長脖子吃葉', tag: '事件', icon: '🌿' },
+      { id: 'za_e7', name: '地圖被風吹走了', tag: '事件', icon: '🗺️' },
+      { id: 'za_e8', name: '在園區裡迷路了', tag: '事件', icon: '😱' },
+      { id: 'za_e9', name: '河馬張開超級大嘴', tag: '事件', icon: '🦛' },
+      { id: 'za_e10', name: '收集滿所有紀念印章', tag: '事件', icon: '💮' },
+      { id: 'za_e11', name: '孔雀展開美麗羽毛', tag: '事件', icon: '🦚' },
+      { id: 'za_e12', name: '貓熊在地上翻跟斗', tag: '事件', icon: '🐼' },
+      { id: 'za_e13', name: '發現動物寶寶誕生', tag: '事件', icon: '🍼' },
+      { id: 'za_e14', name: '遊園車客滿沒搭到', tag: '事件', icon: '🚂' },
+      { id: 'za_e15', name: '跟動物拍出搞笑合照', tag: '事件', icon: '📸' },
+      { id: 'za_e16', name: '紅鶴單腳站立睡覺', tag: '事件', icon: '🦩' },
+      { id: 'za_e17', name: '幫迷路的小朋友找媽媽', tag: '事件', icon: '🤝' },
+      { id: 'za_e18', name: '買到可愛動物玩偶', tag: '事件', icon: '🧸' },
+      { id: 'za_e19', name: '水壺掉進水池邊', tag: '事件', icon: '💧' },
+      { id: 'za_e20', name: '全班準時集合回家', tag: '事件', icon: '🚌' }
+    ],
+    challenges: [
+      { id: 'za_s1', name: '模仿獅子「吼——！」叫聲', tag: '狀況', icon: '🦁' },
+      { id: 'za_s2', name: '做出企鵝搖擺走路動作', tag: '狀況', icon: '🐧' },
+      { id: 'za_s3', name: '模仿猴子抓癢「吱吱」叫', tag: '狀況', icon: '🐒' },
+      { id: 'za_s4', name: '做出大象長鼻子的姿勢', tag: '狀況', icon: '🐘' },
+      { id: 'za_s5', name: '用導覽員介紹的語氣說話', tag: '狀況', icon: '🎤' },
+      { id: 'za_s6', name: '做出拿望遠鏡觀察的動作', tag: '狀況', icon: '🔭' },
+      { id: 'za_s7', name: '喊出「快看那邊！」', tag: '狀況', icon: '👉' },
+      { id: 'za_s8', name: '單腳站立模仿紅鶴講話', tag: '狀況', icon: '🦩' },
+      { id: 'za_s9', name: '做出拿相機拍照的動作', tag: '狀況', icon: '📷' },
+      { id: 'za_s10', name: '用輕聲細語怕吵醒動物', tag: '狀況', icon: '🤫' },
+      { id: 'za_s11', name: '台詞出現一種動物特徵', tag: '狀況', icon: '🐾' },
+      { id: 'za_s12', name: '做出打開地圖找路的動作', tag: '狀況', icon: '🗺️' },
+      { id: 'za_s13', name: '用超興奮發現新大陸語氣', tag: '狀況', icon: '✨' },
+      { id: 'za_s14', name: '加入一個愛護動物的提醒', tag: '狀況', icon: '❤️' },
+      { id: 'za_s15', name: '模仿蓋紀念章「咚！」聲', tag: '狀況', icon: '💮' },
+      { id: 'za_s16', name: '結尾說「動物園真好玩！」', tag: '狀況', icon: '🎉' }
+    ]
+  }
+};
+
+export default zooAdventureDeck;

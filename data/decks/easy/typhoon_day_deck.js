@@ -1,0 +1,102 @@
+// data/decks/life/typhoon_day_deck.js
+
+const typhoonDayDeck = {
+  id: 'typhoon_day_deck',
+  name: '(易)🌀 颱風天的奇幻居家日',
+  description: '風雨呼呼吹，宣布停班停課啦！準備手電筒、泡麵與零食，在家展開大冒險！',
+  bgm: 'suspense',
+  cards: {
+    characters: [
+      { id: 'td_c1', name: '爸爸', tag: '人物', icon: '👨' },
+      { id: 'td_c2', name: '媽媽', tag: '人物', icon: '👩' },
+      { id: 'td_c3', name: '哥哥', tag: '人物', icon: '👦' },
+      { id: 'td_c4', name: '姊姊', tag: '人物', icon: '👧' },
+      { id: 'td_c5', name: '阿公', tag: '人物', icon: '👴' },
+      { id: 'td_c6', name: '阿嬤', tag: '人物', icon: '👵' },
+      { id: 'td_c7', name: '小狗', tag: '人物', icon: '🐶' },
+      { id: 'td_c8', name: '貓咪', tag: '人物', icon: '🐱' },
+      { id: 'td_c9', name: '氣象主播', tag: '人物', icon: '📺' },
+      { id: 'td_c10', name: '水電師傅', tag: '人物', icon: '🔧' },
+      { id: 'td_c11', name: '鄰居', tag: '人物', icon: '🏘️' },
+      { id: 'td_c12', name: '風精靈', tag: '人物', icon: '🌬️' },
+      { id: 'td_c13', name: '雨精靈', tag: '人物', icon: '💧' },
+      { id: 'td_c14', name: '小青蛙', tag: '人物', icon: '🐸' },
+      { id: 'td_c15', name: '小麻雀', tag: '人物', icon: '🐦' },
+      { id: 'td_c16', name: '管理員', tag: '人物', icon: '👮' }
+    ],
+    times: [
+      { id: 'td_t1', name: '宣布停班停課時', tag: '時間', icon: '📢' },
+      { id: 'td_t2', name: '暴風雨最強的時候', tag: '時間', icon: '⛈️' },
+      { id: 'td_t3', name: '突然停電那一秒', tag: '時間', icon: '🌑' },
+      { id: 'td_t4', name: '中午吃泡麵時', tag: '時間', icon: '🍜' },
+      { id: 'td_t5', name: '颱風眼經過時', tag: '時間', icon: '🌤️' },
+      { id: 'td_t6', name: '清晨起床聽雨聲', tag: '時間', icon: '🌧️' },
+      { id: 'td_t7', name: '半夜打雷閃電時', tag: '時間', icon: '⚡' },
+      { id: 'td_t8', name: '風雨變小的下午', tag: '時間', icon: '🌥️' },
+      { id: 'td_t9', name: '點蠟燭的夜晚', tag: '時間', icon: '🕯️' },
+      { id: 'td_t10', name: '重新來電那一刻', tag: '時間', icon: '💡' },
+      { id: 'td_t11', name: '雨過天晴出現彩虹', tag: '時間', icon: '🌈' },
+      { id: 'td_t12', name: '颱風來臨前一天', tag: '時間', icon: '🛒' }
+    ],
+    places: [
+      { id: 'td_p1', name: '客廳沙發', tag: '地點', icon: '🛋️' },
+      { id: 'td_p2', name: '貼滿膠帶的窗戶前', tag: '地點', icon: '🪟' },
+      { id: 'td_p3', name: '陽台', tag: '地點', icon: '🪴' },
+      { id: 'td_p4', name: '廚房', tag: '地點', icon: '🍳' },
+      { id: 'td_p5', name: '棉被城堡裡', tag: '地點', icon: '⛺' },
+      { id: 'td_p6', name: '樓梯間', tag: '地點', icon: '🪜' },
+      { id: 'td_p7', name: '浴室', tag: '地點', icon: '🛁' },
+      { id: 'td_p8', name: '儲藏室', tag: '地點', icon: '📦' },
+      { id: 'td_p9', name: '大門口玄關', tag: '地點', icon: '🚪' },
+      { id: 'td_p10', name: '餐桌旁', tag: '地點', icon: '🍽️' },
+      { id: 'td_p11', name: '頂樓門前', tag: '地點', icon: '🏢' },
+      { id: 'td_p12', name: '書房', tag: '地點', icon: '📚' },
+      { id: 'td_p13', name: '電視機前', tag: '地點', icon: '📺' },
+      { id: 'td_p14', name: '地下室', tag: '地點', icon: '🔦' },
+      { id: 'td_p15', name: '走廊', tag: '地點', icon: '🚶' },
+      { id: 'td_p16', name: '臥室大床', tag: '地點', icon: '🛏️' }
+    ],
+    events: [
+      { id: 'td_e1', name: '全家人歡呼放颱風假', tag: '事件', icon: '🎉' },
+      { id: 'td_e2', name: '窗戶貼上米字膠帶', tag: '事件', icon: '🪟' },
+      { id: 'td_e3', name: '手電筒沒電了', tag: '事件', icon: '🔦' },
+      { id: 'td_e4', name: '全家一起吃泡麵', tag: '事件', icon: '🍜' },
+      { id: 'td_e5', name: '陽台盆栽被吹倒', tag: '事件', icon: '🪴' },
+      { id: 'td_e6', name: '停電玩手影遊戲', tag: '事件', icon: '👐' },
+      { id: 'td_e7', name: '雨水從窗縫滲進來', tag: '事件', icon: '💧' },
+      { id: 'td_e8', name: '用棉被搭起秘密堡壘', tag: '事件', icon: '⛺' },
+      { id: 'td_e9', name: '全家比賽玩桌遊', tag: '事件', icon: '🎲' },
+      { id: 'td_e10', name: '收留迷路的小鳥', tag: '事件', icon: '🐦' },
+      { id: 'td_e11', name: '搶救陽台的衣服', tag: '事件', icon: '👕' },
+      { id: 'td_e12', name: '聽到巨大雷聲', tag: '事件', icon: '⚡' },
+      { id: 'td_e13', name: '分享所有存糧零食', tag: '事件', icon: '🍪' },
+      { id: 'td_e14', name: '發現窗外出現彩虹', tag: '事件', icon: '🌈' },
+      { id: 'td_e15', name: '水桶裝滿備用水', tag: '事件', icon: '🪣' },
+      { id: 'td_e16', name: '在黑暗中講故事', tag: '事件', icon: '📖' },
+      { id: 'td_e17', name: '小狗害怕躲進被窩', tag: '事件', icon: '🐶' },
+      { id: 'td_e18', name: '一起擦乾地板積水', tag: '事件', icon: '🧹' },
+      { id: 'td_e19', name: '新聞報導最新動態', tag: '事件', icon: '📺' },
+      { id: 'td_e20', name: '全家平安度過颱風', tag: '事件', icon: '❤️' }
+    ],
+    challenges: [
+      { id: 'td_s1', name: '模仿狂風「呼——」聲', tag: '狀況', icon: '🌬️' },
+      { id: 'td_s2', name: '喊「放颱風假啦！」', tag: '狀況', icon: '🥳' },
+      { id: 'td_s3', name: '模仿打雷「轟隆隆」', tag: '狀況', icon: '⚡' },
+      { id: 'td_s4', name: '做出「拿手電筒照路」', tag: '狀況', icon: '🔦' },
+      { id: 'td_s5', name: '用氣象主播語氣播報', tag: '狀況', icon: '📺' },
+      { id: 'td_s6', name: '做出「用力關緊窗戶」動作', tag: '狀況', icon: '🪟' },
+      { id: 'td_s7', name: '模仿大口吃泡麵「吸溜」聲', tag: '狀況', icon: '🍜' },
+      { id: 'td_s8', name: '做出「嚇一跳抱住頭」動作', tag: '狀況', icon: '😱' },
+      { id: 'td_s9', name: '用神秘低沉語氣講故事', tag: '狀況', icon: '🕯️' },
+      { id: 'td_s10', name: '做出手影小鳥飛翔動作', tag: '狀況', icon: '👐' },
+      { id: 'td_s11', name: '台詞出現一樣防颱用品', tag: '狀況', icon: '🔋' },
+      { id: 'td_s12', name: '模仿雨滴「滴答滴答」聲', tag: '狀況', icon: '🌧️' },
+      { id: 'td_s13', name: '做出「蓋上棉被躲起來」', tag: '狀況', icon: '🛏️' },
+      { id: 'td_s14', name: '用開朗樂觀的語氣說話', tag: '狀況', icon: '😊' },
+      { id: 'td_s15', name: '加入一個全家合作的橋段', tag: '狀況', icon: '🤝' },
+      { id: 'td_s16', name: '結尾說「平安就是福！」', tag: '狀況', icon: '🌈' }
+    ]
+  }
+};
+
+export default typhoonDayDeck;

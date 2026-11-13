@@ -1,6 +1,6 @@
-/* css/card.css - 完美對齊且自適應動態縮放的像素 RPG 介面 */
+/* css/card.css - 6張選牌(5張故事卡+1張放棄) 鎖定比例不變形之像素 RPG 介面 */
 
-/* 1. 牌桌中央抽牌按鈕 (回歸首頁黃金像素按鈕風格) */
+/* 1. 牌桌中央抽牌按鈕 */
 .draw-trigger-box {
   position: absolute !important;
   top: 52% !important;
@@ -74,17 +74,17 @@
 .card-stage-content {
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  width: 95%; position: relative;
-  max-width: 1400px;
+  width: 96%; position: relative;
+  max-width: 1480px;
   text-align: center;
 }
 
-/* 3. 🎯 完美置中對齊的計時器 */
+/* 3. 計時器 */
 .timer-box {
   position: relative;
-  width: clamp(56px, 8vh, 84px);
-  height: clamp(56px, 8vh, 84px);
-  margin-bottom: 1.5vh;
+  width: clamp(50px, 7vh, 76px);
+  height: clamp(50px, 7vh, 76px);
+  margin-bottom: 1vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,6 +94,7 @@
   border-radius: 50%;
   box-shadow: 0 6px 0px #000000;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .timer-box.hidden { display: none !important; }
@@ -135,7 +136,7 @@
 .timer-box.warning .timer-circle-progress { stroke: #ef4444 !important; }
 
 #timer-count-num {
-  font-size: clamp(18px, 2.5vh, 28px);
+  font-size: clamp(16px, 2.2vh, 24px);
   font-weight: 900;
   color: #fef08a;
   text-shadow: 2px 2px 0px #000000;
@@ -144,29 +145,33 @@
 }
 
 #stage-title {
-  font-size: clamp(18px, 2.4vw, 32px);
+  font-size: clamp(17px, 2.1vw, 28px);
   font-weight: 900;
   color: #fef08a;
   text-shadow: 2px 2px 0px #000000, 0 0 12px rgba(250, 204, 21, 0.5);
-  margin-bottom: 2.5vh;
+  margin: 0 0 1.8vh 0;
   letter-spacing: 1px;
 }
 
-/* 4. 自適應動態卡牌排列列 */
+/* 4. 6 張卡牌並排排版與鎖定 2:3 比例 */
 .cards-row {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(14px, 2.5vw, 36px);
+  gap: clamp(10px, 1.5vw, 22px);
   flex-wrap: wrap;
   width: 100%;
-  margin-bottom: 2vh;
+  margin-bottom: 1.5vh;
+  padding: 8px 4px;
+  box-sizing: border-box;
 }
 
-/* ===== 🃏 🎯 徹底修復四角對齊與色差問題的像素卡牌 ===== */
 .card {
-  width: clamp(145px, 18vw, 240px);
-  height: clamp(210px, 42vh, 360px);
+  width: clamp(128px, 13.5vw, 195px);
+  aspect-ratio: 2 / 3;
+  height: auto;
+  max-height: 44vh;
+  flex: 0 0 auto;
   background: radial-gradient(circle at center, #2e1065 0%, #17073b 100%);
   box-sizing: border-box;
   display: flex;
@@ -175,68 +180,30 @@
   align-items: center;
   cursor: pointer;
   position: relative;
-  padding: clamp(12px, 2vh, 22px) clamp(10px, 1.2vw, 18px);
+  padding: clamp(10px, 1.4vh, 18px) clamp(8px, 0.9vw, 14px);
   user-select: none;
-  border-radius: 2px;
+  border-radius: 3px;
   
-  /* 乾淨俐落的主要卡牌邊框 */
-  border: clamp(3px, 0.4vw, 5px) solid #fbbf24;
-  outline: clamp(2px, 0.25vw, 3px) solid #000000;
-  box-shadow: 0 8px 0px #000000, 0 15px 25px rgba(0, 0, 0, 0.8);
+  border: clamp(3px, 0.35vw, 4px) solid #fbbf24;
+  outline: 2px solid #000000;
+  box-shadow: 0 8px 0px #000000, 0 12px 22px rgba(0, 0, 0, 0.8);
 
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
   opacity: 0;
+  /* 飛入後持續上下微幅飄浮 */
   animation: dealFlyIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
              floatAir 3s ease-in-out infinite 0.4s;
 }
 
-/* 🎯 頂部兩個護角（左上與右上，精準 100% 貼邊） */
-.card::before {
-  content: "";
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  height: clamp(8px, 1vw, 12px);
-  background: transparent;
-  box-shadow: 
-    inset clamp(8px, 1vw, 12px) 0 0 0 #fef08a, 
-    inset - clamp(8px, 1vw, 12px) 0 0 0 #fef08a;
-  border-top: 2px solid #78350f;
-  border-left: 2px solid #78350f;
-  border-right: 2px solid #78350f;
-  z-index: 10;
-  pointer-events: none;
-  box-sizing: border-box;
-}
-
-/* 🎯 底部兩個護角（左下與右下，精準 100% 貼邊） */
-.card::after {
-  content: "";
-  position: absolute;
-  bottom: -3px;
-  left: -3px;
-  right: -3px;
-  height: clamp(8px, 1vw, 12px);
-  background: transparent;
-  box-shadow: 
-    inset clamp(8px, 1vw, 12px) 0 0 0 #fef08a, 
-    inset - clamp(8px, 1vw, 12px) 0 0 0 #fef08a;
-  border-bottom: 2px solid #78350f;
-  border-left: 2px solid #78350f;
-  border-right: 2px solid #78350f;
-  z-index: 10;
-  pointer-events: none;
-  box-sizing: border-box;
-}
-
-.card:nth-child(1) { animation-delay: 0.0s, 0.4s; }
-.card:nth-child(2) { animation-delay: 0.1s, 0.5s; }
-.card:nth-child(3) { animation-delay: 0.2s, 0.6s; }
-.card:nth-child(4) { animation-delay: 0.3s, 0.7s; }
+.card:nth-child(1) { animation-delay: 0.00s, 0.40s; }
+.card:nth-child(2) { animation-delay: 0.06s, 0.55s; }
+.card:nth-child(3) { animation-delay: 0.12s, 0.70s; }
+.card:nth-child(4) { animation-delay: 0.18s, 0.85s; }
+.card:nth-child(5) { animation-delay: 0.24s, 1.00s; }
+.card:nth-child(6) { animation-delay: 0.30s, 1.15s; }
 
 @keyframes dealFlyIn {
-  0% { opacity: 0; transform: translateY(-160px) scale(0.4); }
+  0% { opacity: 0; transform: translateY(-120px) scale(0.5); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
@@ -245,22 +212,110 @@
   50% { transform: translateY(-8px); }
 }
 
-.card:hover {
-  transform: translateY(-10px) scale(1.05) !important;
-  box-shadow: 0 16px 0px #000000, 0 25px 35px rgba(250, 204, 21, 0.4) !important;
+/* 頂部兩個護角 */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  height: clamp(7px, 0.8vw, 10px);
+  background: transparent;
+  box-shadow: 
+    inset clamp(7px, 0.8vw, 10px) 0 0 0 #fef08a, 
+    inset calc(-1 * clamp(7px, 0.8vw, 10px)) 0 0 0 #fef08a;
+  border-top: 2px solid #78350f;
+  border-left: 2px solid #78350f;
+  border-right: 2px solid #78350f;
+  z-index: 10;
+  pointer-events: none;
+  box-sizing: border-box;
 }
 
-.card:active {
-  transform: translateY(-2px) scale(0.98) !important;
-  box-shadow: 0 4px 0px #000000 !important;
+/* 底部兩個護角 */
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: -3px;
+  right: -3px;
+  height: clamp(7px, 0.8vw, 10px);
+  background: transparent;
+  box-shadow: 
+    inset clamp(7px, 0.8vw, 10px) 0 0 0 #fef08a, 
+    inset calc(-1 * clamp(7px, 0.8vw, 10px)) 0 0 0 #fef08a;
+  border-bottom: 2px solid #78350f;
+  border-left: 2px solid #78350f;
+  border-right: 2px solid #78350f;
+  z-index: 10;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.04) !important;
+  box-shadow: 0 14px 0px #000000, 0 20px 30px rgba(250, 204, 21, 0.4) !important;
+}
+
+/* 多選狀態：被勾選的卡牌暫停飄動並高亮浮起 */
+.card.is-selected {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: translateY(-14px) scale(1.06) !important;
+  border-color: #ffffff !important;
+  outline: 3px solid #facc15 !important;
+  box-shadow: 0 16px 0px #000000, 0 0 28px rgba(250, 204, 21, 0.95) !important;
+  z-index: 15;
+}
+
+/* 右上角選擇序號徽章 (1, 2, 3) */
+.card-select-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
+  color: #451a03;
+  border: 3px solid #ffffff;
+  outline: 2px solid #000000;
+  border-radius: 50%;
+  font-size: 15px;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 0px #000000;
+  z-index: 25;
+  animation: badgePop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes badgePop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+/* 超過 3 張時的晃動警告動畫，必須鎖定 opacity: 1 避免消失 */
+.card.card-shake {
+  opacity: 1 !important;
+  border-color: #ef4444 !important;
+  animation: cardShakeX 0.35s ease-in-out !important;
+}
+
+@keyframes cardShakeX {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px) rotate(-2deg); }
+  40% { transform: translateX(7px) rotate(2deg); }
+  60% { transform: translateX(-5px) rotate(-1deg); }
+  80% { transform: translateX(5px) rotate(1deg); }
 }
 
 /* 頂部寶石 Tag 框 */
 .card-tag {
-  font-size: clamp(10px, 1.1vw, 15px);
+  font-size: clamp(10px, 0.95vw, 14px);
   font-weight: 900;
   color: #fef08a;
-  padding: 3px clamp(8px, 1vw, 16px);
+  padding: 2px clamp(8px, 0.8vw, 14px);
   background: #1e1b4b;
   border: 2px solid #d97706;
   outline: 1px solid #000000;
@@ -273,9 +328,10 @@
 
 /* 中央卡牌圖示 */
 .card-icon {
-  font-size: clamp(34px, 4.2vw, 68px);
-  width: clamp(56px, 6.8vw, 110px);
-  height: clamp(56px, 6.8vw, 110px);
+  font-size: clamp(28px, 3.2vw, 52px);
+  width: 56%;
+  aspect-ratio: 1 / 1;
+  height: auto;
   background: #110d38;
   border: 3px solid #d97706;
   outline: 2px solid #000000;
@@ -291,10 +347,10 @@
 
 /* 底部卡牌標題 */
 .card-title {
-  font-size: clamp(11px, 1.2vw, 18px);
+  font-size: clamp(11px, 1.05vw, 16px);
   font-weight: 900;
   color: #ffffff;
-  line-height: 1.35;
+  line-height: 1.3;
   text-shadow: 2px 2px 0px #000000;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -303,12 +359,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 5;
-  padding: 0 4px;
+  padding: 0 2px;
+  width: 100%;
 }
 
-/* ===== 🎨 各卡牌類型動態護角配色 ===== */
-
-/* 1. 人物卡 */
+/* 各卡牌類型動態護角配色 */
 .card.type-character,
 .card[data-tag*="人物"] {
   background: radial-gradient(circle at center, #54230e 0%, #290f04 100%);
@@ -325,7 +380,6 @@
   background: #1c0d02;
 }
 
-/* 2. 地點卡 */
 .card.type-location,
 .card[data-tag*="地點"] {
   background: radial-gradient(circle at center, #065f46 0%, #022c22 100%);
@@ -334,8 +388,8 @@
 .card.type-location::before,
 .card.type-location::after {
   box-shadow: 
-    inset clamp(8px, 1vw, 12px) 0 0 0 #a7f3d0, 
-    inset - clamp(8px, 1vw, 12px) 0 0 0 #a7f3d0;
+    inset clamp(7px, 0.8vw, 10px) 0 0 0 #a7f3d0, 
+    inset calc(-1 * clamp(7px, 0.8vw, 10px)) 0 0 0 #a7f3d0;
   border-color: #064e3b;
 }
 .card.type-location .card-tag,
@@ -349,7 +403,6 @@
   background: #022c22;
 }
 
-/* 3. 事件/動作卡 */
 .card.type-event,
 .card[data-tag*="事件"],
 .card[data-tag*="動作"] {
@@ -359,8 +412,8 @@
 .card.type-event::before,
 .card.type-event::after {
   box-shadow: 
-    inset clamp(8px, 1vw, 12px) 0 0 0 #f5d0fe, 
-    inset - clamp(8px, 1vw, 12px) 0 0 0 #f5d0fe;
+    inset clamp(7px, 0.8vw, 10px) 0 0 0 #f5d0fe, 
+    inset calc(-1 * clamp(7px, 0.8vw, 10px)) 0 0 0 #f5d0fe;
   border-color: #701a75;
 }
 .card.type-event .card-tag,
@@ -374,7 +427,6 @@
   background: #380220;
 }
 
-/* 4. 狀況/難題卡 */
 .card.type-condition,
 .card[data-tag*="狀況"],
 .card[data-tag*="難題"] {
@@ -384,8 +436,8 @@
 .card.type-condition::before,
 .card.type-condition::after {
   box-shadow: 
-    inset clamp(8px, 1vw, 12px) 0 0 0 #e9d5ff, 
-    inset - clamp(8px, 1vw, 12px) 0 0 0 #e9d5ff;
+    inset clamp(7px, 0.8vw, 10px) 0 0 0 #e9d5ff, 
+    inset calc(-1 * clamp(7px, 0.8vw, 10px)) 0 0 0 #e9d5ff;
   border-color: #31105e;
 }
 .card.type-condition .card-tag,
@@ -399,25 +451,23 @@
   background: #18032e;
 }
 
-/* 5. 結局卡 (修復透明看不見的問題並增強華麗極光金黃特效) */
 .card.ending-card,
 .card[data-tag*="結局"] {
   background: radial-gradient(circle at center, #9a3412 0%, #451a03 100%) !important;
   border-color: #fef08a !important;
-  opacity: 1 !important; /* 🛡️ 強制顯現，防止隱形透明 */
+  opacity: 1 !important;
   animation: dealFlyIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
              endingGlow 2s infinite alternate !important;
   z-index: 20;
 }
 
-/* 結局卡護角光芒強化 */
 .card.ending-card::before,
 .card.ending-card::after,
 .card[data-tag*="結局"]::before,
 .card[data-tag*="結局"]::after {
   box-shadow: 
-    inset clamp(8px, 1vw, 12px) 0 0 0 #fef08a, 
-    inset - clamp(8px, 1vw, 12px) 0 0 0 #fef08a !important;
+    inset clamp(7px, 0.8vw, 10px) 0 0 0 #fef08a, 
+    inset calc(-1 * clamp(7px, 0.8vw, 10px)) 0 0 0 #fef08a !important;
   border-color: #b45309 !important;
 }
 
@@ -446,28 +496,93 @@
   background: #270e03 !important;
 }
 
-/* 6. 跳過/放棄卡 */
 .card.pass-card,
 .card[data-tag*="放棄"] {
   background: radial-gradient(circle at center, #334155 0%, #0f172a 100%);
   border-color: #64748b;
-  opacity: 0.9 !important;
+  opacity: 0.92 !important;
 }
 .card.pass-card::before,
 .card.pass-card::after {
   box-shadow: 
-    inset clamp(8px, 1vw, 12px) 0 0 0 #94a3b8, 
-    inset - clamp(8px, 1vw, 12px) 0 0 0 #94a3b8;
+    inset clamp(7px, 0.8vw, 10px) 0 0 0 #94a3b8, 
+    inset calc(-1 * clamp(7px, 0.8vw, 10px)) 0 0 0 #94a3b8;
   border-color: #1e293b;
 }
 
-/* 說故事模式：放大顯示選中的卡片 */
+/* 多選確認控制區 */
+.multi-select-confirm-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1vh;
+  width: 100%;
+}
+
+.multi-select-confirm-box.hidden { display: none !important; }
+
+.multi-select-hint {
+  font-size: clamp(13px, 1.2vw, 16px);
+  font-weight: bold;
+  color: #bae6fd;
+  text-shadow: 1px 1px 0px #000000;
+}
+
+.multi-select-hint.limit-reached {
+  color: #fde047;
+}
+
+.btn-confirm-cards {
+  padding: clamp(10px, 1.5vh, 14px) clamp(24px, 3vw, 42px);
+  font-size: clamp(15px, 1.5vw, 20px);
+  font-weight: 900;
+  color: #451a03;
+  background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
+  border: 4px solid #fef3c7;
+  outline: 2px solid #78350f;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 5px 0px #78350f, 0 10px 20px rgba(0, 0, 0, 0.7);
+  transition: all 0.12s ease;
+  text-shadow: 1px 1px 0px #fef08a;
+  letter-spacing: 1px;
+}
+
+.btn-confirm-cards:hover:not(:disabled) {
+  background: linear-gradient(180deg, #ffffff 0%, #fbbf24 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0px #78350f, 0 14px 24px rgba(245, 158, 11, 0.5);
+}
+
+.btn-confirm-cards:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0px #78350f;
+}
+
+.btn-confirm-cards:disabled {
+  background: #334155;
+  color: #94a3b8;
+  border-color: #475569;
+  outline-color: #0f172a;
+  box-shadow: 0 4px 0px #0f172a;
+  text-shadow: none;
+  cursor: not-allowed;
+}
+
+/* 說故事模式：並排顯示選中的 1~3 張卡片 */
+.cards-row.story-display-mode {
+  gap: clamp(12px, 2vw, 28px);
+}
+
 .card.card-selected-display {
-  width: clamp(180px, 22vw, 280px);
-  height: clamp(260px, 48vh, 410px);
+  width: clamp(140px, 16vw, 220px);
+  aspect-ratio: 2 / 3;
+  height: auto;
+  max-height: 38vh;
   cursor: default;
   transform: none !important;
-  box-shadow: 0 0 35px rgba(245, 158, 11, 0.8), 0 12px 0px #000000 !important;
+  box-shadow: 0 0 28px rgba(245, 158, 11, 0.75), 0 10px 0px #000000 !important;
   animation: popupCard 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
 }
 
@@ -476,14 +591,8 @@
   to { transform: scale(1); opacity: 1; }
 }
 
-.card.card-selected-display .card-icon {
-  width: clamp(80px, 9vw, 130px);
-  height: clamp(80px, 9vw, 130px);
-  font-size: clamp(48px, 6vw, 80px);
-}
-
 .card.card-selected-display .card-title {
-  font-size: clamp(14px, 1.5vw, 22px);
+  font-size: clamp(12px, 1.3vw, 18px);
 }
 
 /* 下落動畫 */
@@ -493,20 +602,20 @@
   100% { opacity: 0; transform: translateY(120px) scale(0.5); }
 }
 
-/* ===== 🗣️ 評分按鈕與故事記錄員 ===== */
+/* 評分按鈕與故事記錄員 */
 .judge-actions-box {
   display: flex;
   justify-content: center;
   gap: clamp(12px, 2vw, 24px);
-  margin-top: 2vh;
+  margin-top: 1.5vh;
   width: 100%;
 }
 
 .judge-actions-box.hidden { display: none !important; }
 
 .btn-judge {
-  padding: clamp(10px, 1.5vh, 16px) clamp(20px, 2.5vw, 36px);
-  font-size: clamp(15px, 1.6vw, 22px);
+  padding: clamp(10px, 1.4vh, 15px) clamp(18px, 2.4vw, 34px);
+  font-size: clamp(14px, 1.5vw, 20px);
   font-weight: 900;
   border-radius: 4px;
   cursor: pointer;
@@ -540,12 +649,12 @@
 
 /* 故事記錄員 Modal 面板 */
 .story-recorder-modal {
-  margin-top: 2vh;
+  margin-top: 1.5vh;
   background: rgba(30, 27, 75, 0.95);
   border: 4px solid #d97706;
   outline: 2px solid #000000;
   border-radius: 4px;
-  padding: clamp(10px, 1.5vh, 18px) clamp(12px, 1.5vw, 22px);
+  padding: clamp(10px, 1.4vh, 16px) clamp(12px, 1.5vw, 20px);
   max-width: 650px;
   width: 90%;
   box-sizing: border-box;
@@ -556,8 +665,8 @@
 
 .story-recorder-modal h4 {
   color: #fef08a;
-  margin: 0 0 10px 0;
-  font-size: clamp(13px, 1.4vw, 18px);
+  margin: 0 0 8px 0;
+  font-size: clamp(13px, 1.3vw, 17px);
   font-weight: 900;
   text-align: left;
   text-shadow: 1px 1px 0px #000000;
@@ -565,7 +674,7 @@
 
 .story-recorder-modal textarea {
   width: 100%;
-  height: clamp(65px, 10vh, 110px);
+  height: clamp(60px, 9vh, 100px);
   background: #0f172a;
   border: 3px solid #4338ca;
   border-radius: 2px;
@@ -573,7 +682,7 @@
   padding: 10px;
   box-sizing: border-box;
   outline: none;
-  font-size: clamp(13px, 1.3vw, 18px);
+  font-size: clamp(13px, 1.2vw, 16px);
   font-weight: bold;
   resize: none;
   box-shadow: inset 2px 2px 0px #000000;
@@ -584,7 +693,6 @@
   background: #1e1b4b;
 }
 
-/* ===== 🌟 像素風加分 / 扣分彈窗 (Score Popups) ===== */
 .score-popup {
   position: fixed;
   top: 40%;
@@ -622,46 +730,200 @@
   100% { opacity: 0; transform: translate(-50%, -80%) scale(0.9); }
 }
 
-/* 📱 螢幕與觸控螢幕優化 (Mobile & Touch Screen) */
-@media (max-width: 768px), (max-height: 600px) {
+/* 放棄牌二次確認彈窗 */
+.pass-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  background: rgba(9, 5, 24, 0.82);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  box-sizing: border-box;
+  z-index: 250000;
+}
+
+.pass-confirm-overlay.hidden {
+  display: none !important;
+}
+
+.pass-confirm-box {
+  width: min(360px, 90vw);
+  max-height: 85dvh;
+  background: radial-gradient(circle at top, #311068 0%, #17073b 100%);
+  border: 4px solid #f59e0b;
+  outline: 3px solid #000000;
+  border-radius: 4px;
+  padding: clamp(18px, 3vh, 26px) clamp(16px, 4vw, 24px);
+  box-shadow: 0 10px 0px #000000, 0 18px 36px rgba(0, 0, 0, 0.9);
+  text-align: center;
+  box-sizing: border-box;
+  animation: popConfirmIn 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popConfirmIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.pass-confirm-icon {
+  font-size: clamp(32px, 5vw, 42px);
+  margin-bottom: 6px;
+}
+
+.pass-confirm-title {
+  margin: 0 0 8px 0;
+  font-size: clamp(18px, 2.4vw, 22px);
+  font-weight: 900;
+  color: #fef08a;
+  text-shadow: 2px 2px 0px #000000;
+  letter-spacing: 1px;
+}
+
+.pass-confirm-desc {
+  margin: 0 0 18px 0;
+  font-size: clamp(13px, 1.5vw, 15px);
+  color: #e2e8f0;
+  line-height: 1.45;
+  text-shadow: 1px 1px 0px #000000;
+}
+
+.pass-confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 18px);
+}
+
+.pass-confirm-actions button {
+  flex: 1 1 0;
+  max-width: 120px;
+  padding: clamp(8px, 1.4vh, 11px) 12px;
+  font-size: clamp(14px, 1.6vw, 16px);
+  font-weight: 900;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.12s ease;
+}
+
+.pass-confirm-actions button:active {
+  transform: translateY(2px);
+}
+
+.btn-pass-yes {
+  color: #ffffff;
+  background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+  border: 3px solid #fca5a5;
+  outline: 2px solid #000000;
+  box-shadow: 0 4px 0px #000000;
+  text-shadow: 1.5px 1.5px 0px #000000;
+}
+
+.btn-pass-yes:hover {
+  filter: brightness(1.12);
+}
+
+.btn-pass-no {
+  color: #451a03;
+  background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
+  border: 3px solid #fef3c7;
+  outline: 2px solid #000000;
+  box-shadow: 0 4px 0px #000000;
+  text-shadow: 1px 1px 0px #fef08a;
+}
+
+.btn-pass-no:hover {
+  filter: brightness(1.08);
+}
+
+@media (max-width: 1024px) {
   .cards-row {
+    max-width: 640px;
+    gap: 14px;
+  }
+  .card {
+    width: clamp(130px, 24vw, 175px);
+    aspect-ratio: 2 / 3;
+    max-height: 36vh;
+  }
+}
+
+@media (max-width: 640px) {
+  .cards-row {
+    max-width: 390px;
     gap: 10px;
-    max-height: 65vh;
-    overflow-y: auto;
-    padding: 5px;
+    max-height: 55vh;
+    overflow-y: scroll;
+    padding: 14px 12px 14px 8px;
+    scrollbar-width: auto;
+    scrollbar-color: #f59e0b #1e1b4b;
+  }
+
+  /* 手機版實體化像素風格捲動條 */
+  .cards-row::-webkit-scrollbar {
+    width: 12px;
+    display: block;
+    -webkit-appearance: none;
+  }
+
+  .cards-row::-webkit-scrollbar-track {
+    background: #17073b;
+    border: 2px solid #4338ca;
+    border-radius: 2px;
+    box-shadow: inset 1px 1px 0px #000000;
+  }
+
+  .cards-row::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
+    border: 2px solid #78350f;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 0px #ffffff;
   }
 
   .card {
-    width: clamp(120px, 40vw, 155px);
-    height: clamp(180px, 32vh, 230px);
+    width: clamp(105px, 37vw, 140px);
+    aspect-ratio: 2 / 3;
+    max-height: none;
     padding: 8px 6px;
   }
 
-  .card-icon {
-    width: 48px; height: 48px;
-    font-size: 28px;
+  /* 手機版選中卡牌縮小上浮位移，避免頂部裁切 */
+  .card.is-selected {
+    transform: translateY(-4px) scale(1.02) !important;
+  }
+
+  /* 手機版數字徽章收入卡牌右上角內側 */
+  .card-select-badge {
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+    border-width: 2px;
   }
 
   .card-title {
     font-size: 11px;
   }
-
   .card.card-selected-display {
-    width: clamp(150px, 50vw, 190px);
-    height: clamp(220px, 40vh, 270px);
+    width: clamp(100px, 28vw, 130px);
+    aspect-ratio: 2 / 3;
   }
-
   .btn-judge {
-    padding: 8px 16px;
-    font-size: 14px;
+    padding: 8px 14px;
+    font-size: 13px;
   }
 }
 
-/* ===== 🏆 完美像素城堡露台風格頒獎台結算畫面 ===== */
+/* ===== 像素城堡露台風格頒獎台結算畫面 ===== */
 #result-view {
   display: none;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   position: fixed;
   top: 0;
   left: 0;
@@ -674,36 +936,43 @@
   
   justify-content: center;
   align-items: center;
-  padding: 20px 10px;
+  padding: 12px 12px 76px 12px;
   z-index: 1000;
-  overflow-y: auto;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
 #result-view.active { display: flex !important; }
 
 .result-card-container {
-  background: rgba(46, 16, 101, 0.88);
+  background: rgba(46, 16, 101, 0.92);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border: 4px solid #f59e0b;
   outline: 3px solid #78350f;
   border-radius: 4px;
-  padding: clamp(20px, 3vh, 32px) clamp(16px, 2vw, 30px);
+  padding: clamp(14px, 2.2vh, 26px) clamp(12px, 2vw, 28px);
   max-width: 1050px;
-  width: 92%;
+  width: 94%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 12px 0px #000000, 0 20px 50px rgba(0, 0, 0, 0.9);
   text-align: center;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;
 }
 
-/* 像素風格標題 */
+/* 1. 頂部標題：始終固定在最上方 */
 .result-title {
-  font-size: clamp(22px, 3vw, 34px);
+  flex-shrink: 0;
+  font-size: clamp(20px, 2.8vw, 32px);
   font-weight: 900;
   color: #fef08a;
-  margin-bottom: 24px;
+  margin: 0 0 clamp(10px, 1.8vh, 20px) 0;
+  padding-bottom: 8px;
+  border-bottom: 2px dashed rgba(250, 204, 21, 0.35);
   text-shadow: 
     3px 3px 0px #451a03,
     -2px -2px 0px #451a03,
@@ -713,15 +982,51 @@
   letter-spacing: 2px;
 }
 
-/* 頒獎台舞台 */
+/* 2. 中央玩家名單/名次區：空間不足時僅此區域可上下拖動 */
 .podium-stage {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   gap: clamp(8px, 1.5vw, 16px);
   justify-content: center;
   align-items: flex-end;
-  margin-bottom: 28px;
+  margin-bottom: clamp(10px, 1.8vh, 20px);
   width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6px 8px 6px 4px;
   box-sizing: border-box;
+  scrollbar-width: auto;
+  scrollbar-color: #f59e0b #17073b;
+}
+
+/* 遊戲整體像素風格實體捲動條 */
+.podium-stage::-webkit-scrollbar,
+.podium-cards-container::-webkit-scrollbar {
+  width: 10px;
+  display: block;
+  -webkit-appearance: none;
+}
+
+.podium-stage::-webkit-scrollbar-track,
+.podium-cards-container::-webkit-scrollbar-track {
+  background: #17073b;
+  border: 2px solid #4338ca;
+  border-radius: 2px;
+  box-shadow: inset 1px 1px 0px #000000;
+}
+
+.podium-stage::-webkit-scrollbar-thumb,
+.podium-cards-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
+  border: 2px solid #78350f;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 0px #ffffff;
+}
+
+.podium-stage::-webkit-scrollbar-thumb:hover,
+.podium-cards-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #fbbf24 100%);
 }
 
 .podium-column {
@@ -732,7 +1037,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }
 
 .podium-column.rank-1 { order: 2; }
@@ -763,7 +1068,7 @@
   outline-color: #fef08a;
   background: radial-gradient(circle at center, #54230e 0%, #1e1b4b 100%);
   box-shadow: 0 6px 0px #000000, 0 0 18px rgba(245, 158, 11, 0.6);
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 .podium-crown {
@@ -777,7 +1082,22 @@
   to { transform: translateY(-4px) scale(1.15); }
 }
 
-.podium-avatar { font-size: 32px; filter: drop-shadow(2px 2px 0px #000); }
+.podium-avatar {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.podium-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 2px solid #f59e0b;
+}
 
 .podium-name {
   font-size: clamp(12px, 1.2vw, 15px);
@@ -798,43 +1118,44 @@
   text-shadow: 1.5px 1.5px 0px #000000;
 }
 
-/* 像素領獎台階 (Podium Blocks) */
+/* 像素領獎台階 */
 .podium-block {
   width: 100%;
   border-radius: 2px 2px 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: clamp(14px, 1.5vw, 18px);
+  font-size: clamp(13px, 1.4vw, 17px);
   font-weight: 900;
   color: #ffffff;
   border: 3px solid #000000;
   border-bottom: none;
   text-shadow: 2px 2px 0px #000000;
   box-shadow: inset 0 3px 0px rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
 }
 
 .podium-column.rank-1 .podium-block {
-  height: 95px;
+  height: 85px;
   background: linear-gradient(180deg, #fef08a 0%, #d97706 100%);
   color: #451a03;
   text-shadow: 1px 1px 0px #fef08a;
 }
 
 .podium-column.rank-2 .podium-block {
-  height: 75px;
+  height: 68px;
   background: linear-gradient(180deg, #cbd5e1 0%, #475569 100%);
 }
 
 .podium-column.rank-3 .podium-block {
-  height: 55px;
+  height: 50px;
   background: linear-gradient(180deg, #f97316 0%, #78350f 100%);
 }
 
 .podium-column.rank-4 .podium-block,
 .podium-column.rank-5 .podium-block,
 .podium-column.rank-6 .podium-block {
-  height: 40px;
+  height: 36px;
   background: #334155;
   font-size: 13px;
 }
@@ -845,10 +1166,12 @@
   flex-direction: column;
   gap: 5px;
   width: 100%;
-  max-height: 120px;
+  max-height: 110px;
   overflow-y: auto;
-  padding: 2px;
+  padding: 2px 4px 2px 2px;
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #f59e0b #17073b;
 }
 
 .mini-card-item {
@@ -861,6 +1184,7 @@
   gap: 4px;
   box-shadow: 0 2px 0px #000000;
   text-align: left;
+  flex-shrink: 0;
 }
 
 .mini-card-item.ending {
@@ -873,18 +1197,20 @@
 .mini-card-title { font-size: 10px; font-weight: 900; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 1px 1px 0px #000; }
 .mini-card-tag { font-size: 8px; color: #7dd3fc; font-weight: bold; }
 
-/* 底部操作按鈕區塊 */
+/* 3. 底部操作按鈕區塊：始終固定在視窗底部 */
 .result-actions {
+  flex-shrink: 0;
   display: flex;
-  gap: clamp(10px, 2vw, 20px);
+  gap: clamp(8px, 1.5vw, 18px);
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 2px dashed rgba(250, 204, 21, 0.35);
 }
 
 .result-actions button {
-  padding: clamp(10px, 1.8vh, 14px) clamp(18px, 2.5vw, 32px);
-  font-size: clamp(14px, 1.4vw, 18px);
+  padding: clamp(8px, 1.4vh, 13px) clamp(12px, 2vw, 28px);
+  font-size: clamp(13px, 1.3vw, 17px);
   font-weight: 900;
   color: #451a03;
   background: linear-gradient(180deg, #fef08a 0%, #f59e0b 100%);
@@ -892,16 +1218,17 @@
   outline: 2px solid #78350f;
   border-radius: 2px;
   cursor: pointer;
-  box-shadow: 0 5px 0px #78350f, 0 8px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 0px #78350f, 0 8px 15px rgba(0, 0, 0, 0.6);
   transition: all 0.12s ease;
   text-shadow: 1px 1px 0px #fef08a;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .result-actions button:hover {
   background: linear-gradient(180deg, #ffffff 0%, #fbbf24 100%);
   transform: translateY(-2px);
-  box-shadow: 0 7px 0px #78350f, 0 12px 20px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 6px 0px #78350f, 0 12px 20px rgba(245, 158, 11, 0.5);
 }
 
 .result-actions button:active {
@@ -909,45 +1236,107 @@
   box-shadow: 0 2px 0px #78350f;
 }
 
-/* 📱 手機板自適應 */
+/* 手機與窄螢幕自適應 */
 @media screen and (max-width: 768px) {
   .podium-stage {
     flex-direction: column;
+    justify-content: flex-start;
     align-items: stretch;
-    gap: 10px;
+    gap: 8px;
+    overflow-y: scroll;
+    padding: 4px 10px 4px 2px;
   }
 
   .podium-column {
     max-width: 100%;
+    flex: 0 0 auto;
     flex-direction: row;
     align-items: center;
     background: #1e1b4b;
-    border-radius: 2px;
-    padding: 6px 10px;
+    border-radius: 3px;
+    padding: 6px 8px;
     border: 2px solid #4338ca;
+    gap: 8px;
   }
 
-  .podium-column.rank-1 { order: 1; border-color: #f59e0b; }
+  .podium-column.rank-1 {
+    order: 1;
+    border-color: #f59e0b;
+    background: radial-gradient(circle at left, #54230e 0%, #1e1b4b 100%);
+  }
   .podium-column.rank-2 { order: 2; }
   .podium-column.rank-3 { order: 3; }
   .podium-column.rank-4 { order: 4; }
   .podium-column.rank-5 { order: 5; }
   .podium-column.rank-6 { order: 6; }
 
-  .podium-block {
-    width: 55px; height: 32px !important;
-    border-radius: 2px; font-size: 13px;
-    flex-shrink: 0; margin-right: 10px; border-bottom: 3px solid #000;
+  .podium-column.rank-1 .podium-player-card {
+    transform: none !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
 
   .podium-player-card {
-    flex-direction: row; gap: 10px; background: transparent;
-    border: none; outline: none; box-shadow: none; margin-bottom: 0; padding: 0;
-    width: auto; flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin-bottom: 0;
+    padding: 0;
+    width: auto;
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .podium-avatar {
+    width: 38px;
+    height: 38px;
+  }
+
+  .podium-name {
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .podium-score {
+    font-size: 13px;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .podium-block {
+    width: 54px;
+    height: 30px !important;
+    border-radius: 2px;
+    font-size: 12px;
+    flex-shrink: 0;
+    border-bottom: 3px solid #000;
   }
 
   .podium-crown { display: none; }
+
   .podium-cards-container {
-    flex-direction: row; width: auto; max-height: none; overflow-x: auto;
+    flex-direction: row;
+    width: auto;
+    max-width: 90px;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-shrink: 0;
+  }
+
+  .result-actions {
+    gap: 6px;
+  }
+
+  .result-actions button {
+    padding: 8px 10px;
+    font-size: 12px;
   }
 }

@@ -1,0 +1,102 @@
+// data/decks/fantasy/toy_room_night_deck.js
+
+const toyRoomNightDeck = {
+  id: 'toy_room_night_deck',
+  name: '(易)🧸 半夜玩具總動員',
+  description: '當小朋友睡著關燈後，玩具箱裡的積木、玩偶與遙控車全都偷偷醒過來啦！',
+  bgm: 'magic',
+  cards: {
+    characters: [
+      { id: 'tr_c1', name: '泰迪熊', tag: '人物', icon: '🧸' },
+      { id: 'tr_c2', name: '機器人', tag: '人物', icon: '🤖' },
+      { id: 'tr_c3', name: '遙控車', tag: '人物', icon: '🏎️' },
+      { id: 'tr_c4', name: '積木士兵', tag: '人物', icon: '🧱' },
+      { id: 'tr_c5', name: '洋娃娃', tag: '人物', icon: '🪆' },
+      { id: 'tr_c6', name: '恐龍模型', tag: '人物', icon: '🦖' },
+      { id: 'tr_c7', name: '發條青蛙', tag: '人物', icon: '🐸' },
+      { id: 'tr_c8', name: '小火車', tag: '人物', icon: '🚂' },
+      { id: 'tr_c9', name: '魔術方塊', tag: '人物', icon: '🧊' },
+      { id: 'tr_c10', name: '竹蜻蜓', tag: '人物', icon: '🚁' },
+      { id: 'tr_c11', name: '陀螺', tag: '人物', icon: '🌀' },
+      { id: 'tr_c12', name: '小主人', tag: '人物', icon: '🧒' },
+      { id: 'tr_c13', name: '大花貓', tag: '人物', icon: '🐱' },
+      { id: 'tr_c14', name: '紙飛機', tag: '人物', icon: '✈️' },
+      { id: 'tr_c15', name: '不倒翁', tag: '人物', icon: '🎎' },
+      { id: 'tr_c16', name: '彈珠', tag: '人物', icon: '🔮' }
+    ],
+    times: [
+      { id: 'tr_t1', name: '房間關燈那一秒', tag: '時間', icon: '🌑' },
+      { id: 'tr_t2', name: '半夜十二點', tag: '時間', icon: '🕛' },
+      { id: 'tr_t3', name: '小主人打呼時', tag: '時間', icon: '😴' },
+      { id: 'tr_t4', name: '月光照進窗戶時', tag: '時間', icon: '🌙' },
+      { id: 'tr_t5', name: '鬧鐘快響起前', tag: '時間', icon: '⏰' },
+      { id: 'tr_t6', name: '門把轉動那一刻', tag: '時間', icon: '🚪' },
+      { id: 'tr_t7', name: '天快亮的時候', tag: '時間', icon: '🌅' },
+      { id: 'tr_t8', name: '小主人翻身瞬間', tag: '時間', icon: '🛏️' },
+      { id: 'tr_t9', name: '電池快沒電時', tag: '時間', icon: '🪫' },
+      { id: 'tr_t10', name: '生日拆禮物瞬間', tag: '時間', icon: '🎁' },
+      { id: 'tr_t11', name: '午睡時間', tag: '時間', icon: '☀️' },
+      { id: 'tr_t12', name: '大掃除整理玩具時', tag: '時間', icon: '🧹' }
+    ],
+    places: [
+      { id: 'tr_p1', name: '玩具箱裡', tag: '地點', icon: '📦' },
+      { id: 'tr_p2', name: '書桌上面', tag: '地點', icon: '🪑' },
+      { id: 'tr_p3', name: '床底下', tag: '地點', icon: '🛏️' },
+      { id: 'tr_p4', name: '積木城堡', tag: '地點', icon: '🏰' },
+      { id: 'tr_p5', name: '書櫃最頂層', tag: '地點', icon: '📚' },
+      { id: 'tr_p6', name: '地毯大草原', tag: '地點', icon: '🧶' },
+      { id: 'tr_p7', name: '枕頭山脈', tag: '地點', icon: '⛰️' },
+      { id: 'tr_p8', name: '窗台邊', tag: '地點', icon: '🪟' },
+      { id: 'tr_p9', name: '衣櫃深處', tag: '地點', icon: '🚪' },
+      { id: 'tr_p10', name: '火車軌道上', tag: '地點', icon: '🛤️' },
+      { id: 'tr_p11', name: '檯燈底下', tag: '地點', icon: '💡' },
+      { id: 'tr_p12', name: '書包旁邊', tag: '地點', icon: '🎒' },
+      { id: 'tr_p13', name: '陽台門口', tag: '地點', icon: '🪴' },
+      { id: 'tr_p14', name: '走廊地板', tag: '地點', icon: '🚶' },
+      { id: 'tr_p15', name: '電腦鍵盤上', tag: '地點', icon: '⌨️' },
+      { id: 'tr_p16', name: '小主人腳邊', tag: '地點', icon: '🦶' }
+    ],
+    events: [
+      { id: 'tr_e1', name: '蓋出一座超大積木城', tag: '事件', icon: '🏰' },
+      { id: 'tr_e2', name: '房間裡舉辦賽車比賽', tag: '事件', icon: '🏎️' },
+      { id: 'tr_e3', name: '拯救掉進床底的夥伴', tag: '事件', icon: '🆘' },
+      { id: 'tr_e4', name: '小主人差點醒過來', tag: '事件', icon: '😱' },
+      { id: 'tr_e5', name: '大家立刻定格裝死', tag: '事件', icon: '🗿' },
+      { id: 'tr_e6', name: '機器人電池沒電了', tag: '事件', icon: '🪫' },
+      { id: 'tr_e7', name: '大花貓闖進房間搗蛋', tag: '事件', icon: '🐱' },
+      { id: 'tr_e8', name: '舉辦玩具夜間派對', tag: '事件', icon: '🎉' },
+      { id: 'tr_e9', name: '幫忙把散落書本收好', tag: '事件', icon: '📚' },
+      { id: 'tr_e10', name: '恐龍跟機器人比力氣', tag: '事件', icon: '💪' },
+      { id: 'tr_e11', name: '替小主人蓋好被子', tag: '事件', icon: '🛏️' },
+      { id: 'tr_e12', name: '歡迎新來的玩具朋友', tag: '事件', icon: '🎁' },
+      { id: 'tr_e13', name: '搭小火車環遊房間', tag: '事件', icon: '🚂' },
+      { id: 'tr_e14', name: '尋找遺失的拼圖塊', tag: '事件', icon: '🧩' },
+      { id: 'tr_e15', name: '發條轉太緊一直跳', tag: '事件', icon: '🐸' },
+      { id: 'tr_e16', name: '紙飛機載著大家飛翔', tag: '事件', icon: '✈️' },
+      { id: 'tr_e17', name: '縫補破掉的玩偶手臂', tag: '事件', icon: '🧵' },
+      { id: 'tr_e18', name: '在檯燈下演皮影戲', tag: '事件', icon: '🎭' },
+      { id: 'tr_e19', name: '鬧鐘響前衝回原位', tag: '事件', icon: '⚡' },
+      { id: 'tr_e20', name: '守護小主人甜美夢境', tag: '事件', icon: '✨' }
+    ],
+    challenges: [
+      { id: 'tr_s1', name: '講到一半突然定格3秒', tag: '狀況', icon: '🗿' },
+      { id: 'tr_s2', name: '模仿機器人說話的語氣', tag: '狀況', icon: '🤖' },
+      { id: 'tr_s3', name: '喊出「小主人醒來了快躲！」', tag: '狀況', icon: '🤫' },
+      { id: 'tr_s4', name: '模仿火車「嘟嘟——」聲', tag: '狀況', icon: '🚂' },
+      { id: 'tr_s5', name: '用躡手躡腳的動作說話', tag: '狀況', icon: '👣' },
+      { id: 'tr_s6', name: '模仿恐龍「吼——！」叫聲', tag: '狀況', icon: '🦖' },
+      { id: 'tr_s7', name: '做出「電池沒電慢動作」', tag: '狀況', icon: '🪫' },
+      { id: 'tr_s8', name: '用溫柔守護的語氣說話', tag: '狀況', icon: '🧸' },
+      { id: 'tr_s9', name: '做出「疊積木往上蓋」動作', tag: '狀況', icon: '🧱' },
+      { id: 'tr_s10', name: '模仿轉發條「喀喀喀」聲', tag: '狀況', icon: '🔑' },
+      { id: 'tr_s11', name: '台詞出現一樣玩具名稱', tag: '狀況', icon: '🪀' },
+      { id: 'tr_s12', name: '用悄悄話的音量說這段', tag: '狀況', icon: '💬' },
+      { id: 'tr_s13', name: '做出「伸懶腰剛睡醒」動作', tag: '狀況', icon: '🙆' },
+      { id: 'tr_s14', name: '加入一個團結合作的橋段', tag: '狀況', icon: '🤝' },
+      { id: 'tr_s15', name: '做出「光速衝回原位」動作', tag: '狀況', icon: '💨' },
+      { id: 'tr_s16', name: '結尾說「晚安，小主人！」', tag: '狀況', icon: '🌙' }
+    ]
+  }
+};
+
+export default toyRoomNightDeck;

@@ -70,73 +70,87 @@ export class GameEngine {
   }
 
   drawOptions() {
-    // 情況 A：結局卡階段
-    if (!this.cardPool || this.cardPool.length === 0 || this.isEndingPhase || this.timeIsUp) {
-      this.isEndingPhase = true;
-      return [
-        {
-          id: 'ending_card',
-          name: '🎬 故事完美結局 (為故事畫下句點)',
-          tag: '結局',
-          icon: '👑',
-          isEnding: true
-        },
-        {
-          id: 'pass',
-          name: '放棄牌 (跳過)',
-          tag: '放棄',
-          icon: '🤡',
-          isPass: true
-        }
-      ];
-    }
+    const endingCard = {
+      id: 'ending_card',
+      name: '🎬 故事完美結局 (為故事畫下句點)',
+      tag: '結局',
+      icon: '👑',
+      isEnding: true
+    };
 
-    let options = [];
-
-    // 💡 情況 B：第一個抽牌的人 (playedCards 長度為 0) 的特殊生成邏輯
-    if (this.playedCards.length === 0) {
-      // 1. 嚴格過濾出非「事件」且非「狀況」的卡片
-      const allowedCards = this.cardPool.filter(c => c.tag !== '事件' && c.tag !== '狀況');
-
-      // 2. 搜尋所有的角色/人物卡
-      const characterCards = allowedCards.filter(c => c.tag === '人物' || c.tag === '角色');
-
-      if (characterCards.length > 0) {
-        // 必定包含至少一張角色卡
-        const pickedChar = characterCards[Math.floor(Math.random() * characterCards.length)];
-        options.push(pickedChar);
-
-        // 從其餘可允許的卡片（非事件、非狀況）隨機挑選補滿至多 3 張
-        const remainingAllowed = allowedCards.filter(c => c.id !== pickedChar.id);
-        this.shuffle(remainingAllowed);
-        options = options.concat(remainingAllowed.slice(0, 2));
-      } else {
-        // 備用方案：若無角色卡，則完全隨機抽取非事件、非狀況卡
-        this.shuffle(allowedCards);
-        options = allowedCards.slice(0, 3);
-      }
-    } else {
-      // 情況 C：後續常規玩家抽牌 (隨機 3 張)
-      const count = Math.min(3, this.cardPool.length);
-      options = this.cardPool.slice(0, count);
-    }
-
-    options.push({
+    const passCard = {
       id: 'pass',
       name: '放棄牌 (跳過)',
       tag: '放棄',
       icon: '🤡',
       isPass: true
-    });
+    };
+
+    // 情況 A：純結局卡階段（牌庫完全空了、或時間到了）
+    if (!this.cardPool || this.cardPool.length === 0 || this.timeIsUp) {
+      this.isEndingPhase = true;
+      return [endingCard, passCard];
+    }
+
+    // 情況 B：剩餘卡片數 <= 3 張時，將「結局牌」加入剩餘的故事牌中一起供玩家選擇
+    if (this.cardPool.length <= 3) {
+      this.shuffle(this.cardPool);
+      return [...this.cardPool, endingCard, passCard];
+    }
+
+    let options = [];
+
+    // 情況 C：第一個抽牌的人 (playedCards 長度為 0) 的特殊生成邏輯 (共 5 張)
+    if (this.playedCards.length === 0) {
+      const allowedCards = this.cardPool.filter(c => c.tag !== '事件' && c.tag !== '狀況');
+      const characterCards = allowedCards.filter(c => c.tag === '人物' || c.tag === '角色');
+
+      if (characterCards.length > 0) {
+        const pickedChar = characterCards[Math.floor(Math.random() * characterCards.length)];
+        options.push(pickedChar);
+
+        const remainingAllowed = allowedCards.filter(c => c.id !== pickedChar.id);
+        this.shuffle(remainingAllowed);
+        options = options.concat(remainingAllowed.slice(0, 4));
+      } else {
+        this.shuffle(allowedCards);
+        options = allowedCards.slice(0, 5);
+      }
+
+      if (options.length < 5 && this.cardPool.length > options.length) {
+        const pickedIds = new Set(options.map(c => c.id));
+        const extraCards = this.cardPool.filter(c => !pickedIds.has(c.id));
+        this.shuffle(extraCards);
+        options = options.concat(extraCards.slice(0, 5 - options.length));
+      }
+    } else {
+      // 情況 D：後續常規玩家抽牌 (隨機 5 張)
+      this.shuffle(this.cardPool);
+      const count = Math.min(5, this.cardPool.length);
+      options = this.cardPool.slice(0, count);
+    }
+
+    // 加上放棄牌
+    options.push(passCard);
 
     return options;
   }
 
-  nextTurn(playedCard) {
-    if (playedCard && !playedCard.isPass) {
-      this.playedCards.push(playedCard);
-      this.players[this.currentPlayerIndex].drawnCards.push(playedCard);
-      this.cardPool = this.cardPool.filter(c => c.id !== playedCard.id);
+  // 支援傳入單張卡牌或「多張卡牌陣列」
+  nextTurn(playedCardsInput) {
+    const cardsList = Array.isArray(playedCardsInput)
+      ? playedCardsInput
+      : (playedCardsInput ? [playedCardsInput] : []);
+
+    const validCards = cardsList.filter(c => c && !c.isPass);
+
+    if (validCards.length > 0) {
+      const usedIds = new Set(validCards.map(c => c.id));
+      validCards.forEach(card => {
+        this.playedCards.push(card);
+        this.players[this.currentPlayerIndex].drawnCards.push(card);
+      });
+      this.cardPool = this.cardPool.filter(c => !usedIds.has(c.id));
     }
 
     this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;

@@ -1,0 +1,102 @@
+// data/decks/life/night_market_deck.js
+
+const nightMarketDeck = {
+  id: 'night_market_deck',
+  name: '(易)🍢 台灣夜市美食大冒險',
+  description: '走進熱鬧的台灣夜市！撈金魚、射氣球、吃雞排，體驗充滿香氣與歡笑的夜晚！',
+  bgm: 'warm',
+  cards: {
+    characters: [
+      { id: 'nm_c1', name: '攤位老闆', tag: '人物', icon: '👨‍🍳' },
+      { id: 'nm_c2', name: '爸爸', tag: '人物', icon: '👨' },
+      { id: 'nm_c3', name: '媽媽', tag: '人物', icon: '👩' },
+      { id: 'nm_c4', name: '同學', tag: '人物', icon: '👦' },
+      { id: 'nm_c5', name: '妹妹', tag: '人物', icon: '👧' },
+      { id: 'nm_c6', name: '阿公', tag: '人物', icon: '👴' },
+      { id: 'nm_c7', name: '阿嬤', tag: '人物', icon: '👵' },
+      { id: 'nm_c8', name: '小金魚', tag: '人物', icon: '🐟' },
+      { id: 'nm_c9', name: '流浪貓', tag: '人物', icon: '🐱' },
+      { id: 'nm_c10', name: '魔術師', tag: '人物', icon: '🎩' },
+      { id: 'nm_c11', name: '街頭藝人', tag: '人物', icon: '🎸' },
+      { id: 'nm_c12', name: '警察', tag: '人物', icon: '👮' },
+      { id: 'nm_c13', name: '觀光客', tag: '人物', icon: '📷' },
+      { id: 'nm_c14', name: '大白狗', tag: '人物', icon: '🐕' },
+      { id: 'nm_c15', name: '叫賣哥', tag: '人物', icon: '📢' },
+      { id: 'nm_c16', name: '小偷', tag: '人物', icon: '🥷' }
+    ],
+    times: [
+      { id: 'nm_t1', name: '傍晚天剛黑', tag: '時間', icon: '🌆' },
+      { id: 'nm_t2', name: '週五晚上', tag: '時間', icon: '🌙' },
+      { id: 'nm_t3', name: '肚子餓的時候', tag: '時間', icon: '🤤' },
+      { id: 'nm_t4', name: '人最多的時候', tag: '時間', icon: '👨‍👩‍👧‍👦' },
+      { id: 'nm_t5', name: '突然下雨時', tag: '時間', icon: '🌧️' },
+      { id: 'nm_t6', name: '準備回家前', tag: '時間', icon: '⏰' },
+      { id: 'nm_t7', name: '暑假的夜晚', tag: '時間', icon: '🍉' },
+      { id: 'nm_t8', name: '剛領零用錢時', tag: '時間', icon: '🪙' },
+      { id: 'nm_t9', name: '燈光亮起瞬間', tag: '時間', icon: '💡' },
+      { id: 'nm_t10', name: '午夜十二點', tag: '時間', icon: '🕛' },
+      { id: 'nm_t11', name: '攤位剛開張時', tag: '時間', icon: '🏮' },
+      { id: 'nm_t12', name: '放煙火那一秒', tag: '時間', icon: '🎆' }
+    ],
+    places: [
+      { id: 'nm_p1', name: '夜市入口', tag: '地點', icon: '🏮' },
+      { id: 'nm_p2', name: '雞排攤', tag: '地點', icon: '🍗' },
+      { id: 'nm_p3', name: '珍珠奶茶攤', tag: '地點', icon: '🧋' },
+      { id: 'nm_p4', name: '撈金魚池', tag: '地點', icon: '🐟' },
+      { id: 'nm_p5', name: '射氣球攤', tag: '地點', icon: '🎈' },
+      { id: 'nm_p6', name: '套圈圈攤', tag: '地點', icon: '⭕' },
+      { id: 'nm_p7', name: '臭豆腐攤', tag: '地點', icon: '🍲' },
+      { id: 'nm_p8', name: '彈珠台', tag: '地點', icon: '🔮' },
+      { id: 'nm_p9', name: '夾娃娃機店', tag: '地點', icon: '🧸' },
+      { id: 'nm_p10', name: '地瓜球攤', tag: '地點', icon: '🟡' },
+      { id: 'nm_p11', name: '牛排館', tag: '地點', icon: '🥩' },
+      { id: 'nm_p12', name: '挫冰店', tag: '地點', icon: '🍧' },
+      { id: 'nm_p13', name: '土地公廟前', tag: '地點', icon: '⛩️' },
+      { id: 'nm_p14', name: '停車場', tag: '地點', icon: '🚗' },
+      { id: 'nm_p15', name: '扭蛋機前', tag: '地點', icon: '🥚' },
+      { id: 'nm_p16', name: '大榕樹下', tag: '地點', icon: '🌳' }
+    ],
+    events: [
+      { id: 'nm_e1', name: '紙網破掉了', tag: '事件', icon: '💧' },
+      { id: 'nm_e2', name: '射破所有氣球', tag: '事件', icon: '🎯' },
+      { id: 'nm_e3', name: '套中最大獎', tag: '事件', icon: '🏆' },
+      { id: 'nm_e4', name: '珍珠吸不上來', tag: '事件', icon: '🧋' },
+      { id: 'nm_e5', name: '銅板掉進水溝', tag: '事件', icon: '🪙' },
+      { id: 'nm_e6', name: '吃到超辣辣椒', tag: '事件', icon: '🌶️' },
+      { id: 'nm_e7', name: '夾到大玩偶', tag: '事件', icon: '🧸' },
+      { id: 'nm_e8', name: '跟家人走散了', tag: '事件', icon: '😱' },
+      { id: 'nm_e9', name: '打彈珠中大獎', tag: '事件', icon: '🎰' },
+      { id: 'nm_e10', name: '遇到同班同學', tag: '事件', icon: '👋' },
+      { id: 'nm_e11', name: '老闆多送一份', tag: '事件', icon: '🎁' },
+      { id: 'nm_e12', name: '突然大停電', tag: '事件', icon: '🌑' },
+      { id: 'nm_e13', name: '排隊排超長', tag: '事件', icon: '🚶' },
+      { id: 'nm_e14', name: '飲料打翻了', tag: '事件', icon: '💦' },
+      { id: 'nm_e15', name: '撿到皮夾', tag: '事件', icon: '👛' },
+      { id: 'nm_e16', name: '小狗搶走香腸', tag: '事件', icon: '🌭' },
+      { id: 'nm_e17', name: '扭到隱藏版扭蛋', tag: '事件', icon: '✨' },
+      { id: 'nm_e18', name: '吃太飽走不動', tag: '事件', icon: '🫃' },
+      { id: 'nm_e19', name: '氣球飛上天空', tag: '事件', icon: '🎈' },
+      { id: 'nm_e20', name: '贏得超大獎品', tag: '事件', icon: '🎉' }
+    ],
+    challenges: [
+      { id: 'nm_s1', name: '模仿老闆大聲叫賣', tag: '狀況', icon: '📢' },
+      { id: 'nm_s2', name: '做出撈金魚的動作', tag: '狀況', icon: '🐟' },
+      { id: 'nm_s3', name: '喊出「老闆來一份！」', tag: '狀況', icon: '🗣️' },
+      { id: 'nm_s4', name: '模仿吃到超辣的表情', tag: '狀況', icon: '🌶️' },
+      { id: 'nm_s5', name: '做出瞄準射氣球姿勢', tag: '狀況', icon: '🎯' },
+      { id: 'nm_s6', name: '模仿吸珍珠「咻」聲', tag: '狀況', icon: '🧋' },
+      { id: 'nm_s7', name: '用很餓的語氣說話', tag: '狀況', icon: '🤤' },
+      { id: 'nm_s8', name: '台詞出現一樣台灣小吃', tag: '狀況', icon: '🍢' },
+      { id: 'nm_s9', name: '做出捧著大玩偶的樣子', tag: '狀況', icon: '🧸' },
+      { id: 'nm_s10', name: '模仿氣球破掉「砰」聲', tag: '狀況', icon: '💥' },
+      { id: 'nm_s11', name: '做出聞到香味的表情', tag: '狀況', icon: '👃' },
+      { id: 'nm_s12', name: '用超開心的語氣歡呼', tag: '狀況', icon: '🥳' },
+      { id: 'nm_s13', name: '做出掏口袋找零錢動作', tag: '狀況', icon: '🪙' },
+      { id: 'nm_s14', name: '模仿排隊踮腳尖張望', tag: '狀況', icon: '👀' },
+      { id: 'nm_s15', name: '加入一個意外的驚喜', tag: '狀況', icon: '✨' },
+      { id: 'nm_s16', name: '結尾說「下次還要來！」', tag: '狀況', icon: '🏮' }
+    ]
+  }
+};
+
+export default nightMarketDeck;

@@ -1,0 +1,102 @@
+// data/decks/life/breakfast_shop_deck.js
+
+const breakfastShopDeck = {
+  id: 'breakfast_shop_deck',
+  name: '(易)🥪 台灣早餐店大作戰',
+  description: '帥哥美女早安！這裡是你每天早上最熱鬧的活力補給站！',
+  bgm: 'school',
+  cards: {
+    characters: [
+      { id: 'bs_c1', name: '老闆娘', tag: '人物', icon: '👩‍🍳' },
+      { id: 'bs_c2', name: '老闆', tag: '人物', icon: '👨‍🍳' },
+      { id: 'bs_c3', name: '小學生', tag: '人物', icon: '🎒' },
+      { id: 'bs_c4', name: '爸爸', tag: '人物', icon: '👨' },
+      { id: 'bs_c5', name: '媽媽', tag: '人物', icon: '👩' },
+      { id: 'bs_c6', name: '老師', tag: '人物', icon: '👩‍🏫' },
+      { id: 'bs_c7', name: '同學', tag: '人物', icon: '👦' },
+      { id: 'bs_c8', name: '外送員', tag: '人物', icon: '🛵' },
+      { id: 'bs_c9', name: '工讀生', tag: '人物', icon: '🧑‍🎓' },
+      { id: 'bs_c10', name: '老爺爺', tag: '人物', icon: '👴' },
+      { id: 'bs_c11', name: '小黃狗', tag: '人物', icon: '🐕' },
+      { id: 'bs_c12', name: '警察', tag: '人物', icon: '👮' },
+      { id: 'bs_c13', name: '妹妹', tag: '人物', icon: '👧' },
+      { id: 'bs_c14', name: '阿嬤', tag: '人物', icon: '👵' },
+      { id: 'bs_c15', name: '郵差', tag: '人物', icon: '📮' },
+      { id: 'bs_c16', name: '運動員', tag: '人物', icon: '🏃' }
+    ],
+    times: [
+      { id: 'bs_t1', name: '早上七點半上學前', tag: '時間', icon: '🌅' },
+      { id: 'bs_t2', name: '快遲到前十分鐘', tag: '時間', icon: '⏰' },
+      { id: 'bs_t3', name: '假日睡到十點時', tag: '時間', icon: '☀️' },
+      { id: 'bs_t4', name: '剛開門營業的時候', tag: '時間', icon: '🏮' },
+      { id: 'bs_t5', name: '人潮最擠的尖峰時', tag: '時間', icon: '👨‍👩‍👧‍👦' },
+      { id: 'bs_t6', name: '下雨天的早晨', tag: '時間', icon: '🌧️' },
+      { id: 'bs_t7', name: '剛煎好起鍋那一秒', tag: '時間', icon: '🍳' },
+      { id: 'bs_t8', name: '校外教學出發早上', tag: '時間', icon: '🚌' },
+      { id: 'bs_t9', name: '寒流來冷颼颼早上', tag: '時間', icon: '🧣' },
+      { id: 'bs_t10', name: '準備打烊收攤前', tag: '時間', icon: '🧹' },
+      { id: 'bs_t11', name: '飲料封膜插吸管時', tag: '時間', icon: '🥤' },
+      { id: 'bs_t12', name: '結帳找零錢那一刻', tag: '時間', icon: '🪙' }
+    ],
+    places: [
+      { id: 'bs_p1', name: '熱騰騰的煎台前面', tag: '地點', icon: '🍳' },
+      { id: 'bs_p2', name: '點餐櫃檯前', tag: '地點', icon: '🧾' },
+      { id: 'bs_p3', name: '擺滿三明治的架子旁', tag: '地點', icon: '🥪' },
+      { id: 'bs_p4', name: '騎樓座位區', tag: '地點', icon: '🪑' },
+      { id: 'bs_p5', name: '醬油膏與番茄醬區', tag: '地點', icon: '🥫' },
+      { id: 'bs_p6', name: '飲料封膜機旁邊', tag: '地點', icon: '🥤' },
+      { id: 'bs_p7', name: '烤麵包機前面', tag: '地點', icon: '🍞' },
+      { id: 'bs_p8', name: '學校大門口對面', tag: '地點', icon: '🏫' },
+      { id: 'bs_p9', name: '豆漿大鍋子旁', tag: '地點', icon: '🥣' },
+      { id: 'bs_p10', name: '店門口排隊人龍', tag: '地點', icon: '🚶' },
+      { id: 'bs_p11', name: '油炸薯餅鍋前', tag: '地點', icon: '🍟' },
+      { id: 'bs_p12', name: '冷氣出風口底下', tag: '地點', icon: '❄️' },
+      { id: 'bs_p13', name: '菜單白板前面', tag: '地點', icon: '📋' },
+      { id: 'bs_p14', name: '垃圾分類回收桶旁', tag: '地點', icon: '♻️' },
+      { id: 'bs_p15', name: '店內角落小圓桌', tag: '地點', icon: '🍽️' },
+      { id: 'bs_p16', name: '巷口轉角處', tag: '地點', icon: '🛵' }
+    ],
+    events: [
+      { id: 'bs_e1', name: '老闆娘大喊「帥哥美女！」', tag: '事件', icon: '🗣️' },
+      { id: 'bs_e2', name: '蛋餅煎出完美金黃色', tag: '事件', icon: '🥞' },
+      { id: 'bs_e3', name: '吸管插不進飲料封膜', tag: '事件', icon: '🥤' },
+      { id: 'bs_e4', name: '跟別人拿錯外帶袋子', tag: '事件', icon: '🛍️' },
+      { id: 'bs_e5', name: '吐司烤過頭冒出黑煙', tag: '事件', icon: '🍞' },
+      { id: 'bs_e6', name: '鐵板麵加蛋香氣撲鼻', tag: '事件', icon: '🍝' },
+      { id: 'bs_e7', name: '老闆娘多送一塊蘿蔔糕', tag: '事件', icon: '🎁' },
+      { id: 'bs_e8', name: '飲料杯笑話超級冷場', tag: '事件', icon: '🥶' },
+      { id: 'bs_e9', name: '遇見同班同學一起吃', tag: '事件', icon: '👋' },
+      { id: 'bs_e10', name: '番茄醬擠太多噴出來', tag: '事件', icon: '🍅' },
+      { id: 'bs_e11', name: '搶到最後一個總匯三明治', tag: '事件', icon: '🥪' },
+      { id: 'bs_e12', name: '點餐單畫錯格子送錯餐', tag: '事件', icon: '✏️' },
+      { id: 'bs_e13', name: '荷包蛋單手完美打進鍋', tag: '事件', icon: '🍳' },
+      { id: 'bs_e14', name: '大冰奶喝完肚子咕嚕叫', tag: '事件', icon: '😱' },
+      { id: 'bs_e15', name: '聽見上課鐘響拔腿狂奔', tag: '事件', icon: '🏃' },
+      { id: 'bs_e16', name: '幫忙扶起倒下的椅子', tag: '事件', icon: '🤝' },
+      { id: 'bs_e17', name: '豆漿與紅茶混成鴛鴦奶茶', tag: '事件', icon: '🧋' },
+      { id: 'bs_e18', name: '老闆記住每個人的點餐', tag: '事件', icon: '🧠' },
+      { id: 'bs_e19', name: '熱豆漿暖呼呼超好喝', tag: '事件', icon: '♨️' },
+      { id: 'bs_e20', name: '吃飽喝足活力滿滿上學', tag: '事件', icon: '🌟' }
+    ],
+    challenges: [
+      { id: 'bs_s1', name: '喊出「帥哥美女早安！」', tag: '狀況', icon: '🗣️' },
+      { id: 'bs_s2', name: '模仿煎台「滋滋滋」聲音', tag: '狀況', icon: '🍳' },
+      { id: 'bs_s3', name: '做出「拿鍋鏟翻蛋餅」動作', tag: '狀況', icon: '🥞' },
+      { id: 'bs_s4', name: '喊出「內用還是外帶？」', tag: '狀況', icon: '🛍️' },
+      { id: 'bs_s5', name: '做出「用力插飲料吸管」動作', tag: '狀況', icon: '🥤' },
+      { id: 'bs_s6', name: '講一個飲料杯上的冷笑話', tag: '狀況', icon: '🥶' },
+      { id: 'bs_s7', name: '用記憶力超強老闆語氣背菜單', tag: '狀況', icon: '📋' },
+      { id: 'bs_s8', name: '台詞出現兩樣台灣早餐名稱', tag: '狀況', icon: '🥪' },
+      { id: 'bs_s9', name: '做出「看手錶怕遲到」動作', tag: '狀況', icon: '⏰' },
+      { id: 'bs_s10', name: '模仿烤麵包機「跳起來」動作', tag: '狀況', icon: '🍞' },
+      { id: 'bs_s11', name: '用很有朝氣的聲音道早安', tag: '狀況', icon: '☀️' },
+      { id: 'bs_s12', name: '做出「擠醬油膏」的手勢', tag: '狀況', icon: '🥫' },
+      { id: 'bs_s13', name: '加入一個禮貌說謝謝的橋段', tag: '狀況', icon: '🙏' },
+      { id: 'bs_s14', name: '模仿大口咬三明治「卡滋」聲', tag: '狀況', icon: '😋' },
+      { id: 'bs_s15', name: '做出「背起書包衝去學校」', tag: '狀況', icon: '🎒' },
+      { id: 'bs_s16', name: '結尾說「早餐吃飽精神好！」', tag: '狀況', icon: '💪' }
+    ]
+  }
+};
+
+export default breakfastShopDeck;

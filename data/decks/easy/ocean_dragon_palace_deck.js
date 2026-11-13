@@ -1,0 +1,102 @@
+// data/decks/fantasy/ocean_dragon_palace_deck.js
+
+const oceanDragonPalaceDeck = {
+  id: 'ocean_dragon_palace_deck',
+  name: '(易)🐠 海底龍宮大冒險',
+  description: '潛入蔚藍的台灣大海！跟著海龜、小丑魚與龍王一起守護美麗的珊瑚礁王國！',
+  bgm: 'magic',
+  cards: {
+    characters: [
+      { id: 'od_c1', name: '東海龍王', tag: '人物', icon: '🐉' },
+      { id: 'od_c2', name: '海龜', tag: '人物', icon: '🐢' },
+      { id: 'od_c3', name: '小丑魚', tag: '人物', icon: '🐠' },
+      { id: 'od_c4', name: '章魚博士', tag: '人物', icon: '🐙' },
+      { id: 'od_c5', name: '螃蟹將軍', tag: '人物', icon: '🦀' },
+      { id: 'od_c6', name: '海豚', tag: '人物', icon: '🐬' },
+      { id: 'od_c7', name: '鯨魚', tag: '人物', icon: '🐋' },
+      { id: 'od_c8', name: '水母精靈', tag: '人物', icon: '🪼' },
+      { id: 'od_c9', name: '河豚', tag: '人物', icon: '🐡' },
+      { id: 'od_c10', name: '鯊魚', tag: '人物', icon: '🦈' },
+      { id: 'od_c11', name: '美人魚', tag: '人物', icon: '🧜‍♀️' },
+      { id: 'od_c12', name: '海馬騎兵', tag: '人物', icon: '🐴' },
+      { id: 'od_c13', name: '潛水員', tag: '人物', icon: '🤿' },
+      { id: 'od_c14', name: '飛魚', tag: '人物', icon: '🐟' },
+      { id: 'od_c15', name: '海星', tag: '人物', icon: '⭐' },
+      { id: 'od_c16', name: '寄居蟹', tag: '人物', icon: '🐚' }
+    ],
+    times: [
+      { id: 'od_t1', name: '漲潮的時候', tag: '時間', icon: '🌊' },
+      { id: 'od_t2', name: '退潮露出一片沙灘時', tag: '時間', icon: '🏖️' },
+      { id: 'od_t3', name: '海底祭典開始時', tag: '時間', icon: '🎉' },
+      { id: 'od_t4', name: '陽光射進海底瞬間', tag: '時間', icon: '☀️' },
+      { id: 'od_t5', name: '海流突然變急時', tag: '時間', icon: '🌀' },
+      { id: 'od_t6', name: '半夜深海發光時', tag: '時間', icon: '✨' },
+      { id: 'od_t7', name: '夏天的早晨', tag: '時間', icon: '🌅' },
+      { id: 'od_t8', name: '暴風雨海浪翻滾時', tag: '時間', icon: '⛈️' },
+      { id: 'od_t9', name: '珍珠貝打開那一秒', tag: '時間', icon: '🦪' },
+      { id: 'od_t10', name: '小海龜孵化破殼時', tag: '時間', icon: '🥚' },
+      { id: 'od_t11', name: '滿月海面閃亮時', tag: '時間', icon: '🌕' },
+      { id: 'od_t12', name: '夕陽染紅大海時', tag: '時間', icon: '🌇' }
+    ],
+    places: [
+      { id: 'od_p1', name: '水晶龍宮大殿', tag: '地點', icon: '🏰' },
+      { id: 'od_p2', name: '彩色珊瑚礁花園', tag: '地點', icon: '🪸' },
+      { id: 'od_p3', name: '神秘沉船寶藏庫', tag: '地點', icon: '🚢' },
+      { id: 'od_p4', name: '深海海底火山', tag: '地點', icon: '🌋' },
+      { id: 'od_p5', name: '海帶大森林', tag: '地點', icon: '🌿' },
+      { id: 'od_p6', name: '珍珠貝殼床', tag: '地點', icon: '🦪' },
+      { id: 'od_p7', name: '海溝最深處', tag: '地點', icon: '🕳️' },
+      { id: 'od_p8', name: '海豚跳躍海面', tag: '地點', icon: '🐬' },
+      { id: 'od_p9', name: '潮間帶小水窪', tag: '地點', icon: '🦀' },
+      { id: 'od_p10', name: '小琉球珊瑚海', tag: '地點', icon: '🐢' },
+      { id: 'od_p11', name: '海底溫泉噴口', tag: '地點', icon: '♨️' },
+      { id: 'od_p12', name: '巨大鯨魚背上', tag: '地點', icon: '🐋' },
+      { id: 'od_p13', name: '水母發光舞池', tag: '地點', icon: '🪼' },
+      { id: 'od_p14', name: '海龜產卵沙灘', tag: '地點', icon: '🏖️' },
+      { id: 'od_p15', name: '漩渦入口處', tag: '地點', icon: '🌀' },
+      { id: 'od_p16', name: '海底學校教室', tag: '地點', icon: '🏫' }
+    ],
+    events: [
+      { id: 'od_e1', name: '龍宮的夜明珠不見了', tag: '事件', icon: '🔮' },
+      { id: 'od_e2', name: '幫海龜拔掉塑膠吸管', tag: '事件', icon: '🥤' },
+      { id: 'od_e3', name: '河豚嚇一跳鼓成氣球', tag: '事件', icon: '🐡' },
+      { id: 'od_e4', name: '章魚噴出黑墨汁逃跑', tag: '事件', icon: '🖤' },
+      { id: 'od_e5', name: '潛水員闖進海底世界', tag: '事件', icon: '🤿' },
+      { id: 'od_e6', name: '魚群排成大愛心陣形', tag: '事件', icon: '❤️' },
+      { id: 'od_e7', name: '在沉船裡找到藏寶箱', tag: '事件', icon: '💰' },
+      { id: 'od_e8', name: '寄居蟹找到新貝殼家', tag: '事件', icon: '🐚' },
+      { id: 'od_e9', name: '大家一起淨灘撿垃圾', tag: '事件', icon: '♻️' },
+      { id: 'od_e10', name: '騎在海豚背上衝浪', tag: '事件', icon: '🏄' },
+      { id: 'od_e11', name: '龍王舉辦海底音樂會', tag: '事件', icon: '🎶' },
+      { id: 'od_e12', name: '被海草纏住動彈不得', tag: '事件', icon: '🌿' },
+      { id: 'od_e13', name: '水母點亮整片黑夜', tag: '事件', icon: '💡' },
+      { id: 'od_e14', name: '飛魚躍出水面比賽', tag: '事件', icon: '🐟' },
+      { id: 'od_e15', name: '螃蟹橫著走撞在一起', tag: '事件', icon: '🦀' },
+      { id: 'od_e16', name: '鯨魚噴出超高水柱', tag: '事件', icon: '⛲' },
+      { id: 'od_e17', name: '小丑魚在海葵裡躲貓貓', tag: '事件', icon: '🙈' },
+      { id: 'od_e18', name: '海底火山冒出泡泡', tag: '事件', icon: '🫧' },
+      { id: 'od_e19', name: '護送小海龜回到大海', tag: '事件', icon: '🐢' },
+      { id: 'od_e20', name: '龍王頒發海洋勇士獎', tag: '事件', icon: '🏅' }
+    ],
+    challenges: [
+      { id: 'od_s1', name: '做出「在水中游泳划水」動作', tag: '狀況', icon: '🏊' },
+      { id: 'od_s2', name: '鼓起雙頰模仿河豚生氣', tag: '狀況', icon: '🐡' },
+      { id: 'od_s3', name: '模仿吐泡泡「咕嚕咕嚕」聲', tag: '狀況', icon: '🫧' },
+      { id: 'od_s4', name: '比出螃蟹大螯「喀嚓喀嚓」', tag: '狀況', icon: '🦀' },
+      { id: 'od_s5', name: '用威嚴又慈祥的龍王語氣說', tag: '狀況', icon: '🐉' },
+      { id: 'od_s6', name: '做出「戴蛙鏡潛水往下看」', tag: '狀況', icon: '🤿' },
+      { id: 'od_s7', name: '模仿海豚「咿咿咿」叫聲', tag: '狀況', icon: '🐬' },
+      { id: 'od_s8', name: '加入一個保護海洋環境行動', tag: '狀況', icon: '♻️' },
+      { id: 'od_s9', name: '做出「水母飄浮扭動」動作', tag: '狀況', icon: '🪼' },
+      { id: 'od_s10', name: '台詞出現一種海洋生物名稱', tag: '狀況', icon: '🐠' },
+      { id: 'od_s11', name: '用發現寶藏的驚喜語氣說話', tag: '狀況', icon: '💎' },
+      { id: 'od_s12', name: '做出「打開大貝殼」的手勢', tag: '狀況', icon: '🦪' },
+      { id: 'od_s13', name: '模仿海浪「嘩啦——嘩啦」聲', tag: '狀況', icon: '🌊' },
+      { id: 'od_s14', name: '用慢動作語氣學海龜說話', tag: '狀況', icon: '🐢' },
+      { id: 'od_s15', name: '加入一個海底朋友互相幫忙', tag: '狀況', icon: '🤝' },
+      { id: 'od_s16', name: '結尾說「一起守護藍色海洋！」', tag: '狀況', icon: '🌍' }
+    ]
+  }
+};
+
+export default oceanDragonPalaceDeck;
