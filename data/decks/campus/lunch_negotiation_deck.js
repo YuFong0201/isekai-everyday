@@ -3,7 +3,7 @@
 const lunchNegotiationDeck = {
   id: 'lunch_negotiation_deck',
   name: '(難)🍱 午餐時間的談判桌',
-  description: '中午打開便當或中央廚房桶子那一刻，全班最熱鬧的挑食與美食交換心理戰！',
+  description: '中午打開便當的那一刻，全班最熱鬧的挑食與美食交換心理戰！',
   bgm: 'school',
   cards: {
     characters: [
